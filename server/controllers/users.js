@@ -16,7 +16,7 @@ exports.postLogin = function(req, res, next) {
     req.logIn(user, function(err) {
       if(err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in'});
-      res.end('Success');
+      res.redirect('/dashboard');
     });
   })(req, res, next);
 };
@@ -130,7 +130,7 @@ exports.postSignUp = function(req, res, next) {
       req.logIn(user, function(err) {
         if(err) return next(err);
         console.log('Successfully created');
-        res.end('Success');
+        res.redirect('/dashboard');
       });
     });
   });

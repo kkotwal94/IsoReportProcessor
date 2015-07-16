@@ -1,14 +1,19 @@
 import React from 'react';
-import { RouteHandler } from 'react-router';
-
-
+import NavBar from './NavBar';
+import Body from './Body';
+import {RouteHandler} from 'react-router';
+import 'scss/main.scss';
 export default class App extends React.Component {
-  render() {
+render() {
     return (
       <div>
-        <h1>Hello World</h1>
-       
-      </div>
+        <NavBar/>
+        <main>
+        <Body />
+        </main>
+        <RouteHandler />
+       </div>
     );
   }
 }
+
