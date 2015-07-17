@@ -11,8 +11,7 @@ render() {
         <main>
         <Body />
         </main>
-        <RouteHandler />
-       </div>
+      </div>
     );
   }
 }

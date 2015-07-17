@@ -108,7 +108,7 @@ exports.removeEmployee = function(req, res) {
 exports.getLogout = function(req, res, next) {
   // Do email and password validation for the server
   req.logout();
-  next();
+  res.redirect('/');
 };
 
 /**
