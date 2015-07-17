@@ -1,16 +1,17 @@
 import React from 'react';
 import NavBar from './NavBar';
-import Dashboard from './Dashboard';
+import Body from './Body';
 import {RouteHandler} from 'react-router';
 import 'scss/main.scss';
-export default class App extends React.Component {
+export default class Dashboard extends React.Component {
 render() {
     return (
       <div>
-        <Dashboard />
-        
+        <NavBar/>
+        <main>
+          <Body />
+        </main>
       </div>
     );
   }
 }
-
