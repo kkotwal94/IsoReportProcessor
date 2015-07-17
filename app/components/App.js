@@ -1,14 +1,13 @@
 import React from 'react';
-import NavBar from './NavBar';
-import Dashboard from './Dashboard';
+import Navbar from './NavBar';
 import {RouteHandler} from 'react-router';
 import 'scss/main.scss';
 export default class App extends React.Component {
 render() {
     return (
       <div>
-        <Dashboard />
-        
+        <Navbar/>
+        <RouteHandler/>
       </div>
     );
   }

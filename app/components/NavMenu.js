@@ -13,23 +13,23 @@ export default class NavMenu extends React.Component {
   <nav className="cd-3d-nav-container">
     <ul className="cd-3d-nav">
       <li className="cd-selected">
-        <a>Dashboard</a>
+        <Link to="dashboard">Dashboard</Link>
       </li>
 
       <li>
-        <a>Reports</a>
+        <Link to="reports">Reports</Link>
       </li>
 
       <li>
-        <a>Employees</a>
+        <Link to="employees">Employees</Link>
       </li>
 
       <li>
-        <Link to="logout">Logout</Link>
+        <a href="/logout">Logout</a>
       </li>
 
       <li>
-        <a>Create New Report</a>
+        <Link to="addReport">Create New Report</Link>
       </li>
     </ul>
 

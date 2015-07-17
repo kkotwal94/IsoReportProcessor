@@ -1,5 +1,5 @@
 import React from 'react';
-import {RouteHandler, Link} from 'react-router';
+import {Link} from 'react-router';
 
 
 export default class Login extends React.Component {
