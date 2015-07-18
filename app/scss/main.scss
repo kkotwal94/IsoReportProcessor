@@ -2,6 +2,10 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+
+* { -webkit-font-smoothing:antialiased; -moz-font-smoothing:antialiased; -ms-font-smoothing:antialiased; -o-font-smoothing:antialiased; font-smoothing:antialiased; }
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -108,7 +112,26 @@ Main Components
 
 .cd-logo {
   float: left;
-  margin-top: 28px; }
+  margin-top: 18px; 
+  margin-right:15px;
+position: relative;
+height: 50px;
+width: 50px;
+background-image: url(../images/back.png); 
+background-size: 45px 45px;
+    background-repeat: no-repeat;
+    -webkit-transition: background 0.3s;
+          transition: background 0.3s;
+       border-radius: 50px;
+    border: 2px solid black;
+  }
+
+  .cd-logo:hover {
+    opacity: 0.50;
+
+  }
+
+  
 
 .cd-3d-nav-trigger {
   position: relative;
@@ -387,42 +410,7 @@ Main Components
 .color-5 {
   color: #77cd91; }
 
-main {
-  -webkit-transition: -webkit-transform 0.5s;
-  -moz-transition: -moz-transform 0.5s;
-  transition: transform 0.5s;
-  /* Force Hardware Acceleration in WebKit */
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden; }
-  main h1 {
-    text-align: center;
-    font-size: 2.4rem;
-    font-weight: 300;
-    color: #ffffff;
-    margin: 2em auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; }
-  main.nav-is-visible {
-    -webkit-transform: translateY(80px);
-    -moz-transform: translateY(80px);
-    -ms-transform: translateY(80px);
-    -o-transform: translateY(80px);
-    transform: translateY(80px); }
-  @media only screen and (min-width: 768px) {
-    main.nav-is-visible {
-      -webkit-transform: translateY(170px);
-      -moz-transform: translateY(170px);
-      -ms-transform: translateY(170px);
-      -o-transform: translateY(170px);
-      transform: translateY(170px); }
-    main h1 {
-      font-size: 3.6rem;
-      margin: 4em auto; } }
+
 
 /****** Form CSS ******/
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
@@ -693,4 +681,202 @@ button {
             transform: translateY(-700px) rotate(600deg);
   }
 }
+
+/**CSS for windows like buttons **/
+main {
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  transition: transform 0.5s;
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+  main h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: #ffffff;
+    margin: 2em auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
+  main.nav-is-visible {
+    -webkit-transform: translateY(80px);
+    -moz-transform: translateY(80px);
+    -ms-transform: translateY(80px);
+    -o-transform: translateY(80px);
+    transform: translateY(80px); }
+  @media only screen and (min-width: 768px) {
+    main.nav-is-visible {
+      -webkit-transform: translateY(170px);
+      -moz-transform: translateY(170px);
+      -ms-transform: translateY(170px);
+      -o-transform: translateY(170px);
+      transform: translateY(170px); }
+    main h1 {
+      font-size: 3.6rem;
+      margin: 4em auto; }
+
+
+
+
+
+
+
+main h2{
+  margin:0px;
+  font-family: "Open Sans", arial;
+  font-weight:300;
+}
+.containers{
+  
+  width: 1251px;
+  margin-top: 150px;
+  
+  -webkit-transform:scale(0.9);
+}
+a.wide, a.box{
+  text-decoration:none;
+  color:#fff;
+  -webkit-transition: -webkit-transform 0.1s;
+  position:relative;
+  overflow:hidden;
+}
+
+a.wide h2, a.box h2{
+  position:absolute;
+  bottom:5px;
+  font-size:20px;
+}
+
+a.wide h2.top, a.box h2.top{
+  position:static;
+
+  font-size:14px;
+}
+a.wide i, a.box i{
+font-size: 150px;
+text-align: center;
+display: block;
+margin-top: 10px; /* outside Codepen is actually 30px */
+}
+a.wide:hover, a.box:hover{
+  -webkit-transform: scale(1.05);
+}
+
+a.wide:active, a.box:active{
+  -webkit-transform: scale(1);
+}
+.wide{
+  width:470px;
+  height:220px;
+  overflow:hidden;
+  font-size:13px;
+  padding:10px;
+  margin-right:20px;
+  display:block;
+  float:left;
+  margin:5px;
+  margin-right:10px;
+}
+
+.box{
+  width:230px;
+  height:220px;
+  overflow:hidden;
+  font-size:13px;
+  padding:10px;
+  display:block;
+  float:left;
+  margin:5px;
+}
+.lime{background:#61b812;}
+.orange{background:#e76022;}
+.blue{background:#1E90FF;}
+.redgay{background:#e74c3c;}
+.yellow{background:#dbb701;}
+.bluefish{background:#02b9e3;}
+.magenta{background:#d22a4e;}
+.darkblue{background:#343c55;}
+.spacer{
+  width:1800px;
+  margin-right: 50px;
+  float:left;
+  display:inline;
+}
+.spacer3x{
+  width:300px;
+}
+
+@-webkit-keyframes galeri
+{
+1% {background-position: 0px 0px;}
+10%{background-position: 0px 140px;}
+20%{background-position: 0px 140px;}
+30%{background-position: 0px 280px;}
+40%{background-position: 0px 280px;}
+50%{background-position: 0px 420px;}
+60%{background-position: 0px 420px;}
+70%{background-position: 0px 560px;}
+80%{background-position: 0px 560px;}
+100% {background-position: 0px 560px;}
+}
+
+.gallery{
+  background: url(https://dl.dropbox.com/u/39272011/image_metro.png);
+  -webkit-animation: galeri 15s infinite;
+}
+.right{
+  float:right;
+  text-align:right;
+  margin-top: 30px;
+}
+.right p{
+  margin: 5px 0px;
+}
+ img.prof{
+  float: right;
+  margin: 10px;
+  margin-top: 40px;
+}
+.i_bot{
+  font-size: 30px;
+  text-align: left;
+  position: absolute;
+  bottom: 0px;
+}
+.cal_i{
+  margin-top: 20px;
+  margin-left: 15px;
+  width: 155px;
+}
+.cal_e h1{
+  position: absolute;
+  right: 0px;
+  width: 115px;
+  text-align: center;
+  margin: 0px;
+  font-size: 60px;
+}
+.cal_e p{
+  position: absolute;
+  right: 0px;
+  width: 115px;
+  text-align: center;
+  margin-top: 75px;
+  text-transform: uppercase;
+}
+.cal_e i{
+  text-align: left;
+  font-size: 25px !important;
+  position: absolute;
+  bottom: 0px;
+}
+
+
+       }
+
 
