@@ -7,7 +7,7 @@ class Header extends React.Component {
   render() {
     return (
       <Helmet
-        title="React Webpack Node"
+        title="A Duie Pyle Report Processor"
         meta={config.meta}
         link={config.link}
       />
