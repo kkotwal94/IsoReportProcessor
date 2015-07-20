@@ -69,6 +69,10 @@ module.exports = function(app, passport) {
     users.getUsers(req, res);
   });
 
+  app.get('/myProfile', function(req, res) {
+    users.getMyProfile(req, res);
+  });
+
   app.get('/allUsers/:id', function(req, res) {
     users.getSingleUser(req, res);
   });

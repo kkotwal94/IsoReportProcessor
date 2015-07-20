@@ -1,12 +1,31 @@
 import React from 'react';
 import {Link} from 'react-router';
+import UserStore from 'stores/UserStore';
 
 
 export default class Signup extends React.Component {
-	render() {
+		constructor(props) {
+    super(props);
+    this.state = UserStore.getState();
+  }
+
+  componentDidMount() {
+    UserStore.listen(this._onChange);
+  }
+
+  componentWillUnmount() {
+    UserStore.unlisten(this._onChange);
+  }
+
+  _onChange = () => {
+    this.setState({
+      user: UserStore.getState().user
+    });
+  }
+render() {
   return (
 	<div>
-	<div className="wrapper">
+	<div className="wrapper2">
 	<div className="container">
 		<h1>Welcome</h1>
 		<form action = "/signup" method = "post">

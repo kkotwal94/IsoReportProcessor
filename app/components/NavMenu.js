@@ -1,8 +1,29 @@
 import React from 'react';
 import {Link} from 'react-router';
+import UserStore from 'stores/UserStore';
+
 export default class NavMenu extends React.Component {
-	render() {
-  return (
+  constructor(props) {
+    super(props);
+    this.state = UserStore.getState();
+  }
+
+  componentDidMount() {
+    UserStore.listen(this._onChange);
+  }
+
+  componentWillUnmount() {
+    UserStore.unlisten(this._onChange);
+  }
+
+  _onChange = () => {
+    this.setState({
+      user: UserStore.getState().user
+    });
+  }
+  render() {
+    console.log(this.state.user.get('authenticated'));
+    return (
         <div>
           <header className="cd-header">
     <a className="cd-3d-nav-trigger">
@@ -39,6 +60,6 @@ export default class NavMenu extends React.Component {
   </nav>
         </div>
 		);
-	}
+  }
 
 }

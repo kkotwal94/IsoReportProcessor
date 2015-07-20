@@ -25,6 +25,16 @@ const utils = {
   },
 
   /*
+   * @return {Promise}
+   */
+  myProfile: () => {
+    return $.ajax({
+      url: '/myProfile',
+      type: 'GET'
+    });
+  },
+
+  /*
    * @param {Object} payload to be sent to server
    * @return {Promise}
    */

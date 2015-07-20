@@ -71,7 +71,7 @@ render() {
       <h2>Statistics</h2>
     </a>
     </Link>
-    <a href ="https://github.com/kkotwal94/IsoReportProcessor"className="box bluefish">
+    <a href ="https://github.com/kkotwal94/IsoReportProcessor" target = "_blank"className="box bluefish">
     <i className="fa fa-github"></i>
       <h2>Github</h2>
     </a>
@@ -80,8 +80,6 @@ render() {
       <h2>Logout</h2>
     </a>
     </div>
-
-
 </div>
 
 </div>
@@ -90,3 +88,4 @@ render() {
     );
   }
 }
+

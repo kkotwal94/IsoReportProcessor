@@ -16,8 +16,6 @@ import Stats from 'components/Stats';
 
 const routes = (
 <Route>
- <Route name ="signup" path="/signup" handler={Signup} />
- <Route name ="login" path="/" handler={Login} />
  <Route name ="dash" path="/dashboard" handler={App}>
     <Route name ="dashboard" path="/dashboard" handler={Dashboard}/>
     <Route name ="reports" path="/reports" handler={Report} />
@@ -29,6 +27,8 @@ const routes = (
     <Route name ="addReport" path="/addReport" handler={AddReports}/>
     <Route name ="readme" path="/readme" handler={Readme}/>
     <Route name ="statistics" path="/statistics" handler={Stats}/>
+    <Route name ="signup" path="/signup" handler={Signup} />
+ <Route name ="login" path="/" handler={Login} />
  </Route>
 </Route>
 	);

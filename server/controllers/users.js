@@ -16,7 +16,7 @@ exports.postLogin = function(req, res, next) {
     req.logIn(user, function(err) {
       if(err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in'});
-      res.redirect('/dashboard');
+      res.end('Success');
     });
   })(req, res, next);
 };
@@ -34,6 +34,13 @@ exports.getUsers = function(req, res) {
  */
 exports.getSingleUser = function(req, res) {
       var id = req.params.id;
+      User.findById(id, function (err, users) {
+            res.json(users);
+        });
+};
+
+exports.getMyProfile = function(req, res) {
+      var id = req.user._id;
       User.findById(id, function (err, users) {
             res.json(users);
         });
@@ -125,13 +132,14 @@ exports.postSignUp = function(req, res, next) {
   User.findOne({email: req.body.email}, function(err, existingUser) {
     if(existingUser) {
       req.flash('errors', { msg: 'Account with that email address already exists' });
+      
     }
     user.save(function(err) {
       if(err) return next(err);
       req.logIn(user, function(err) {
         if(err) return next(err);
         console.log('Successfully created');
-        res.redirect('/dashboard');
+        res.redirect('/');
       });
     });
   });
