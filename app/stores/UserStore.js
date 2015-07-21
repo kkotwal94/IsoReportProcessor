@@ -34,7 +34,7 @@ class UserStore {
     // Instance variables defined anywhere in the store will become the state. You can initialize these in the constructor and
     // then update them directly in the prototype methods
     this.user = Immutable.Map({});
-
+    this.userProfile = [];
     // (lifecycleMethod: string, handler: function): undefined
     // on: This method can be used to listen to Lifecycle events. Normally they would set up in the constructor
     this.on('init', this.bootstrap);
@@ -48,7 +48,10 @@ class UserStore {
       handleLoginAttempt: UserActions.MANUALLOGIN,
       handleLoginSuccess: UserActions.LOGINSUCCESS,
       handleLogoutAttempt: UserActions.LOGOUT,
-      handleLogoutSuccess: UserActions.LOGOUTSUCCESS
+      handleLogoutSuccess: UserActions.LOGOUTSUCCESS,
+      handleFetchUserProfile: UserActions.FETCH_USER_PROFILE,
+      handleFetchUserProfileComplete: UserActions.FETCH_USER_PROFILE_COMPLETE,
+      handleFetchUserProfileError: UserActions.FETCH_USER_PROFILE_ERROR
     });
   }
 
@@ -56,6 +59,21 @@ class UserStore {
     if (!Immutable.Map.isMap(this.user)) {
       this.user = Immutable.fromJS(this.user);
     }
+  }
+
+  handleFetchUserProfile() {
+    this.userProfile = [];
+    this.emitChange();
+  }
+
+  handleFetchUserProfileComplete(profile) {
+    this.userProfile = profile;
+    this.emitChange();
+  }
+
+  handleFetchUserProfileError(error) {
+    this.error = error;
+    this.emitChange();
   }
 
   handleLoginAttempt() {

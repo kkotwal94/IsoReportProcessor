@@ -31,7 +31,7 @@ render() {
 		<form action = "/signup" method = "post">
 			<input type="text" className = "form-control" placeholder="Username" name = "email"/>
 			<input type="password" className = "form-control" placeholder="Password" name = "password"/>
-			<button type="submit" id="login-button">Signup</button>
+			<button type="submit" id="login-button2">Signup</button>
 		</form>
 		<hr/>
 <p>Already have an account? <Link to="login">Log in</Link></p>

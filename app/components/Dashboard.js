@@ -1,9 +1,39 @@
 import React from 'react';
 import {Link} from 'react-router';
 import 'scss/main.scss';
+import UserActions from 'actions/UserActions';
+import UserStore from 'stores/UserStore';
 export default class Dashboard extends React.Component {
+
+constructor(props) {
+    super(props);
+    this.state = UserStore.getState();
+  }
+
+  componentDidMount() {
+    UserActions.fetchUserProfile();
+    UserStore.listen(this._onChange);
+  }
+
+  componentWillUnmount() {
+    UserStore.unlisten(this._onChange);
+  }
+
+  _onChange = () => {
+    this.setState({
+      user: UserStore.getState().user,
+      userProfile: UserStore.getState().userProfile
+    });
+  }
 render() {
-    return (
+  let welcome;
+  if (this.state.userProfile.email != null) {
+    welcome = (<h2>Welcome! {this.state.userProfile.email}</h2>);
+  } else {
+    welcome = (<h2>You might want to log in..</h2>);
+  }
+  console.log(this.state.userProfile.email);
+  return (
       <div>
         <main>
         <div className="body">
@@ -86,6 +116,6 @@ render() {
         </main>
       </div>
     );
-  }
+}
 }
 

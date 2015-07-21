@@ -37,7 +37,6 @@ export default class Login extends React.Component {
 
 	render() {
   let renderedResult;
-  console.log(this.state.user);
   if (this.state.user.get('authenticated')) {
     renderedResult = (
        <div>
@@ -68,7 +67,7 @@ export default class Login extends React.Component {
 	<div className="wrapper">
 	<div className="container">
 		<h1>Welcome, If ya just signed up then go ahead and sign in</h1>
-		<fieldset>
+		<fieldset className = "loginSet">
 			<input type="text" className = "form-control" placeholder="Username" ref = "email" name = "email" />
 			<input type="password" className = "form-control" placeholder="Password" ref = "password" name = "password" />
 			<button type="submit" id="login-button" to = "dashboard" onClick={this._onLoginSubmit}>Login</button>
@@ -82,7 +81,6 @@ export default class Login extends React.Component {
 </div>
 );
     }}
-  console.log(this.state.user.get('authenticated'));
   return (
     <div>
 	{renderedResult}

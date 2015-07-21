@@ -571,7 +571,7 @@ a#login-button {
   appearance: none;
   outline: 0;
   background-color: white;
-  border: 0;
+   border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 10px 15px;
   margin-top:10px;
   color: #e74c3c;
@@ -586,17 +586,35 @@ a#login-button:hover {
   background-color: #f5f7f9;
 }
 
+#login-button2 {
+  appearance: none;
+  outline: 0;
+   background-color: rgba(255, 255, 255, 0.2);
+   border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 10px 15px;
+  margin-top:10px;
+  color: #e74c3c;
+  border-radius: 3px;
+  width: 250px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+}
 
-button:hover {
+#login-button2:hover {
+  background-color: #f5f7f9;
+}
+fieldset button:hover {
   background-color: #f5f7f9;
   color: black;
 }
-button:focus {
-  background-color: white;
+fieldset button:focus {
+  
   width: 300px;
-  color: #53e3a6;
+  
 }
-button {
+fieldset button {
   appearance: none;
   outline: 0;
  background-color: rgba(255, 255, 255, 0.2);
@@ -745,7 +763,6 @@ main {
     font-size: 2.4rem;
     font-weight: 300;
     color: #ffffff;
-    margin: 2em auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale; }
   main.nav-is-visible {
@@ -763,7 +780,7 @@ main {
       transform: translateY(170px); }
     main h1 {
       font-size: 3.6rem;
-      margin: 4em auto; }
+       }
 
 
 
@@ -921,7 +938,82 @@ a.wide:active, a.box:active{
   bottom: 0px;
 }
 
-
        }
+.userInfo {
+  outline: 1px solid black;
+  width: 50%;
+  float: left;
+  text-align: center;
+  margin-bottom:30px;
+}
 
+.data {
+   text-align: center;
+   margin: 0 auto;
+   width: 350px;
+   background-color: #001A33;
+}
 
+.updateInfo {
+  outline: 1px solid black;
+  width:50%;
+   text-align: center;
+   padding-bottom:10px;
+}
+
+.superButton {
+   appearance: none;
+  outline: 0;
+ background-color: rgba(255, 255, 255, 0.2);
+  border: 0px;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 3px;
+  width: 250px;
+  cursor: pointer;
+  text-align: center !important;
+  font-size: 18px;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+}
+.fieldSet {
+  text-align: center;
+  background-color:#001A33;
+  width:350px;
+  margin: 0 auto;
+}
+.fieldSet input {
+  appearance: none;
+  outline: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 250px;
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  display: block;
+  text-align: left;
+  font-size: 18px;
+  color: white;
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  font-weight: 300;
+}
+
+.superButton:focus {
+ 
+  width: 250px;
+}
+
+.uProfile {
+  font-size: 2em;
+}
+
+.toMyEmployees {
+  outline: 1px solid black;
+  float:right;
+  text-align: center;
+  margin: 0 auto;
+  width: 50%;
+  margin-top: -582px;
+}

@@ -11,11 +11,11 @@ var UserSchema = mongoose.Schema({
   	   tokens       : Array,
   	   
   	   profile:     {
-	   firstName    : String, 
-	   lastName     : String,
-	   dob          : String,
-	   department   : String,
-	   position     : String
+	   firstName    : {type: String, default: "Empty"}, 
+	   lastName     : {type: String, default: "Empty"},
+	   dob          : {type: String, default: "Empty"},
+	   department   : {type: String, default: "Empty"},
+	   position     : {type: String, default: "Empty"}
 	   },
 	   
 	   forms_created:[{type: mongoose.Schema.Types.ObjectId, ref: 'Form'}],

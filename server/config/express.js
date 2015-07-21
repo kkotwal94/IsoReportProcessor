@@ -20,7 +20,7 @@ module.exports = function (app, passport) {
   app.set('view cache', false);
 
   app.use(bodyParser.json({limit: '100mb'})); //setting json body limit to 100mb 
-  app.use(bodyParser.urlencoded({limit: '100mb'})); //same with utf-8
+  app.use(bodyParser.urlencoded({extended: true})); //same with utf-8
   app.use(methodOverride());
   app.use(express.static(path.join(__dirname, '../..', 'public')));
 

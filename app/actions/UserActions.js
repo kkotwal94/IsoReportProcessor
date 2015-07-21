@@ -9,6 +9,23 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
  */
 class UserActions {
 
+  fetchUserProfile() {
+    this.dispatch();
+    UserWebAPIUtils.myProfile().done((data) => {
+      this.actions.fetchUserProfileComplete(data);
+    })
+    .fail((errorMessage) => {
+      this.actions.locationsFailed(errorMessage);
+    });
+  }
+
+fetchUserProfileComplete(profile) {
+  this.dispatch(profile);
+}
+
+fetchUserProfileError(error) {
+  this.dispatch(error);
+}
   manuallogin(data) {
     this.dispatch();
     UserWebAPIUtils.manuallogin(data)

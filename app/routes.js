@@ -28,7 +28,7 @@ const routes = (
     <Route name ="readme" path="/readme" handler={Readme}/>
     <Route name ="statistics" path="/statistics" handler={Stats}/>
     <Route name ="signup" path="/signup" handler={Signup} />
- <Route name ="login" path="/" handler={Login} />
+    <Route name ="login" path="/" handler={Login} />
  </Route>
 </Route>
 	);

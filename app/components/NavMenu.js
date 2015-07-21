@@ -18,11 +18,14 @@ export default class NavMenu extends React.Component {
 
   _onChange = () => {
     this.setState({
-      user: UserStore.getState().user
+      user: UserStore.getState().user,
+      userProfile: UserStore.getState().userProfile
     });
   }
   render() {
     console.log(this.state.user.get('authenticated'));
+    console.log(this.state.user);
+    let userProf = this.state.userProfile;
     return (
         <div>
           <header className="cd-header">
@@ -31,6 +34,9 @@ export default class NavMenu extends React.Component {
       <span></span>
     </a>
     <a className="cd-logo">
+    </a>
+    <a>
+    {userProf.email}
     </a>
   </header>
   <nav className="cd-3d-nav-container">
