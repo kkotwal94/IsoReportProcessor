@@ -93,6 +93,10 @@ module.exports = function(app, passport) {
     users.addEmployee(req, res);
   });
 
+  app.post('/handleEmployee', function(req, res) {
+    users.handleEmployee(req, res);
+  });
+
   app.post('/removeEmployee', function(req, res) {
     users.removeEmployee(req, res);
   });

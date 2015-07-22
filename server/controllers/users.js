@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var User = require('../models/user');
 var passport = require('passport');
-
 /**
  * POST /login
  */
@@ -83,9 +82,9 @@ exports.getEmployees = function(req, res) {
         var num_procced = 0;
         User.findById(id, function (err, user) {
             if (!err) {
-                var total = user.local.lackeys.length;
+                var total = user.lackeys.length;
                 for (var i = 0; i < total; i++) {
-                    User.findById(user.local.lackeys[i], function (err, usey) {
+                    User.findById(user.lackeys[i], function (err, usey) {
                         array.push(usey);
                         num_procced = num_procced + 1;
                         console.log(num_procced);
@@ -100,16 +99,29 @@ exports.getEmployees = function(req, res) {
             }
         });
 };
+exports.handleEmployee = function(req, res) {
+  var employee_id = req.body._id;
+  var id = req.user._id;
+  for (var i =0; i < req.user.lackeys.length; i++) {
+    if(req.user.lackeys[i] == req.body._id) {
+      req.user.splice(i,1);
+      req.user.save();
+      res.end();
+    }
+  }
+  req.user.lackeys.push(employee_id);
+  res.end();
+};
 
 /**
  * POST Add a employee who belongs to that user
  */
 exports.addEmployee = function(req, res) {
-  var id = req.body.id;
+  var id = req.body._id;
         User.findById(req.user._id, function (err, user) {
             User.findById(id, function (err, usey) {
                 if (err) throw err;
-                user.local.lackeys.push(usey);
+                user.lackeys.push(usey);
                 user.save();
             });
         });
@@ -127,8 +139,8 @@ exports.removeEmployee = function(req, res) {
                 
                 if (id == user.local.lackeys[i]) {
                     console.log("hit");
-                    console.log(user.local.lackeys[i]);
-                    user.local.lackeys.splice(i, 1);
+                    console.log(user.lackeys[i]);
+                    user.lackeys.splice(i, 1);
                     user.save();
                 }
             }

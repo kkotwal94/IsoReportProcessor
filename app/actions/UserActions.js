@@ -9,13 +9,50 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
  */
 class UserActions {
 
+  handleEmployeeUpdate() {
+    this.dispatch();
+    UserWebAPIUtils.handleEmployee().done((data) => {
+      this.actions.handleEmployeeUpdateComplete(data);
+    })
+    .fail((errorMessage) => {
+      this.actions.handleEmployeeUpdateError(errorMessage);
+    });
+  }
+
+  handleEmployeeUpdateComplete(data) {
+    this.actions.fetchAllUsers();
+    this.dispatch(data);
+  }
+
+  handleEmployeeUpdateError(errorMessage) {
+    this.dispatch(errorMessage);
+  }
+
+  fetchAllUsers() {
+    this.dispatch();
+    UserWebAPIUtils.getAllEmployees().done((data) => {
+      this.actions.fetchAllUsersComplete(data);
+    })
+    .fail((errorMessage) => {
+      this.actions.fetchAllUsersError(errorMessage);
+    });
+  }
+
+  fetchAllUsersComplete(users) {
+    this.dispatch(users);
+  }
+
+  fetchAllUsersError(errorMessage) {
+    this.dispatch(errorMessage);
+  }
+
   fetchUserProfile() {
     this.dispatch();
     UserWebAPIUtils.myProfile().done((data) => {
       this.actions.fetchUserProfileComplete(data);
     })
     .fail((errorMessage) => {
-      this.actions.locationsFailed(errorMessage);
+      this.actions.fetchUserProfileError(errorMessage);
     });
   }
 

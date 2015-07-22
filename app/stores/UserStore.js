@@ -35,6 +35,8 @@ class UserStore {
     // then update them directly in the prototype methods
     this.user = Immutable.Map({});
     this.userProfile = [];
+    this.allUsers = [];
+    this.lackeys = [];
     // (lifecycleMethod: string, handler: function): undefined
     // on: This method can be used to listen to Lifecycle events. Normally they would set up in the constructor
     this.on('init', this.bootstrap);
@@ -52,7 +54,12 @@ class UserStore {
       handleFetchUserProfile: UserActions.FETCH_USER_PROFILE,
       handleFetchUserProfileComplete: UserActions.FETCH_USER_PROFILE_COMPLETE,
       handleFetchUserProfileError: UserActions.FETCH_USER_PROFILE_ERROR,
-      handleUpdateSuccess: UserActions.UPDATE_PROFILE_SUCCESS
+      handleUpdateSuccess: UserActions.UPDATE_PROFILE_SUCCESS,
+      handleFetchAllUsers: UserActions.FETCH_ALL_USERS,
+      handleFetchAllUsersComplete: UserActions.FETCH_ALL_USERS_COMPLETE,
+      handleFetchAllUsersError: UserActions.FETCH_ALL_USERS_ERROR,
+      handleEmployeeUpdateComplete: UserActions.HANDLE_EMPLOYEE_UPDATE_COMPLETE,
+      handleEmployeeUpdateError: UserActions.HANDLE_EMPLOYEE_UPDATE_ERROR
     });
   }
 
@@ -62,6 +69,14 @@ class UserStore {
     }
   }
 
+  handleEmployeeUpdateComplete() {
+    this.lackeys = this.userProfile.lackeys;
+    this.emitChange();
+  }
+
+  handleEmployeeUpdateError(error) {
+    this.error = error;
+  }
   handleFetchUserProfile() {
     this.userProfile = [];
     this.emitChange();
@@ -75,6 +90,20 @@ class UserStore {
   handleFetchUserProfileError(error) {
     this.error = error;
     this.emitChange();
+  }
+
+  handleFetchAllUsers() {
+    this.allUsers = [];
+    this.emitChange();
+  }
+
+  handleFetchAllUsersComplete(users) {
+    this.allUsers = users;
+    this.emitChange();
+  }
+
+  handleFetchAllUsersError(error) {
+    this.error = error;
   }
 
   handleLoginAttempt() {

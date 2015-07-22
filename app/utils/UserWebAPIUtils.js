@@ -42,6 +42,20 @@ const utils = {
       data: JSON.stringify(data)
     });
   },
+  handleEmployee: (data) => {
+    return $.ajax({
+      url: '/handleEmployee',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+  getAllEmployees: () => {
+    return $.ajax({
+      url: '/allUsers',
+      type: 'GET'
+    });
+  },
   /*
    * @param {Object} payload to be sent to server
    * @return {Promise}
