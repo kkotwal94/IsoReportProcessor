@@ -940,7 +940,6 @@ a.wide:active, a.box:active{
 
        }
 .userInfo {
-  outline: 1px solid black;
   width: 50%;
   float: left;
   text-align: center;
@@ -955,7 +954,6 @@ a.wide:active, a.box:active{
 }
 
 .updateInfo {
-  outline: 1px solid black;
   width:50%;
    text-align: center;
    padding-bottom:10px;
@@ -1010,10 +1008,16 @@ a.wide:active, a.box:active{
 }
 
 .toMyEmployees {
-  outline: 1px solid black;
   float:right;
   text-align: center;
   margin: 0 auto;
   width: 50%;
   margin-top: -582px;
+}
+.toMyReports {
+  float:right;
+  text-align: center;
+  margin: 0 auto;
+  width: 50%;
+  margin-top: -352px;
 }

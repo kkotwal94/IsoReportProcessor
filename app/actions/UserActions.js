@@ -26,6 +26,21 @@ fetchUserProfileComplete(profile) {
 fetchUserProfileError(error) {
   this.dispatch(error);
 }
+
+updateMyProfile(data) {
+  this.dispatch();
+  UserWebAPIUtils.updateMyProfile(data)
+    .then((response, textStatus) => {
+      if (textStatus === 'success') {
+        this.actions.updateProfileSuccess(data);
+      }
+    }, () => {
+    });
+}
+
+ updateProfileSuccess(data) {
+   this.dispatch(data);
+ }
   manuallogin(data) {
     this.dispatch();
     UserWebAPIUtils.manuallogin(data)

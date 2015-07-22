@@ -27,6 +27,22 @@ constructor(props) {
     });
   }
 
+  _onProfileUpdate = () => {
+    const firstName = React.findDOMNode(this.refs.firstName).value;
+    const lastName = React.findDOMNode(this.refs.lastName).value;
+    const dob = React.findDOMNode(this.refs.dob).value;
+    const department = React.findDOMNode(this.refs.department).value;
+    const position = React.findDOMNode(this.refs.position).value;
+
+    UserActions.updateMyProfile({
+      firstName: firstName,
+      lastName: lastName,
+      dob: dob,
+      department: department,
+      position: position
+    });
+  }
+
 render() {
   let userProf = this.state.userProfile;
   return (
@@ -36,11 +52,11 @@ render() {
         <div className = "userInfo">
         <div className = "data">
         <ul className = "uProfile">
-          <li>{userProf.firstName}</li>
-          <li>{userProf.lastName}</li>
-          <li>{userProf.dob}</li>
-          <li>{userProf.department}</li>
-          <li>{userProf.position}</li>
+          <li>{'FirstName: ' + userProf.firstName}</li>
+          <li>{'LastName: ' + userProf.lastName}</li>
+          <li>{'Date Of Birth: ' + userProf.dob}</li>
+          <li>{'Department: ' + userProf.department}</li>
+          <li>{'Position: ' + userProf.position}</li>
         </ul>
         </div>
         </div>
@@ -53,7 +69,7 @@ render() {
         <input type="text" className = "form-control" placeholder="Age(MM/DD/YYYY)" ref = "dob" name = "dob" />
         <input type="text" className = "form-control" placeholder="Department" ref = "department" name = "department" />
         <input type="text" className = "form-control" placeholder="Position" ref = "position" name = "position" />
-        <button type="submit" className ="superButton">Update</button>
+        <button type="submit" className ="superButton" onClick={this._onProfileUpdate}>Update</button>
         </fieldset>
         </div>
         <div className ="toMyEmployees">
@@ -68,6 +84,14 @@ render() {
     </div>
     </div>
         </div>
+        <div className = "toMyReports">
+    <Link to="reports">
+    <a className="wide redgay">
+    <i className="fa fa-pencil-square-o"></i>
+      <h2>View or Edit My Reports</h2>
+    </a>
+    </Link>
+    </div>
         </div>
         </main>
       </div>

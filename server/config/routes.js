@@ -97,6 +97,9 @@ module.exports = function(app, passport) {
     users.removeEmployee(req, res);
   });
 
+  app.post('/updateProfile', function(req, res) {
+    users.updateMyProfile(req, res);
+  });
   app.get('/finalView/:form', function(req, res) {
     report.finalView(req, res);
   });

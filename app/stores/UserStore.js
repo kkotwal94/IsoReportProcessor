@@ -51,7 +51,8 @@ class UserStore {
       handleLogoutSuccess: UserActions.LOGOUTSUCCESS,
       handleFetchUserProfile: UserActions.FETCH_USER_PROFILE,
       handleFetchUserProfileComplete: UserActions.FETCH_USER_PROFILE_COMPLETE,
-      handleFetchUserProfileError: UserActions.FETCH_USER_PROFILE_ERROR
+      handleFetchUserProfileError: UserActions.FETCH_USER_PROFILE_ERROR,
+      handleUpdateSuccess: UserActions.UPDATE_PROFILE_SUCCESS
     });
   }
 
@@ -80,7 +81,25 @@ class UserStore {
     this.user = this.user.set('isWaiting', true);
     this.emitChange();
   }
-
+  handleUpdateSuccess(data) {
+    if (data.firstName === '') {
+      data.firstName = this.userProfile.profile.firstName;
+    }
+    if (data.lastName === '') {
+      data.lastName = this.userProfile.profile.lastName;
+    }
+    if (data.dob === '') {
+      data.dob = this.userProfile.profile.dob;
+    }
+    if (data.department === '') {
+      data.department = this.userProfile.profile.department;
+    }
+    if (data.position === '') {
+      data.position = this.userProfile.profile.position;
+    }
+    console.log(data);
+    this.userProfile.profile = data;
+  }
   handleLoginSuccess() {
     this.user = this.user.merge({ isWaiting: false, authenticated: true });
     this.emitChange();

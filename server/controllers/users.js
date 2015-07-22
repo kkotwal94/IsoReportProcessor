@@ -46,6 +46,34 @@ exports.getMyProfile = function(req, res) {
         });
 };
 
+exports.updateMyProfile = function(req, res) {
+      var id = req.user._id;
+      if (req.body.firstName == "") {
+        req.body.firstName = req.user.profile.firstName;
+      }
+      if (req.body.lastName == "") {
+        req.body.lastName = req.user.profile.lastName;
+      }
+      if (req.body.dob == "") {
+        req.body.dob = req.user.profile.dob;
+      }
+      if (req.body.department == "") {
+        req.body.department = req.user.profile.department;
+      }
+      if (req.body.position == "") {
+        req.body.position = req.user.profile.position;
+      }
+
+      User.findById(id, function(err, user) {
+        user.profile.firstName = req.body.firstName;
+        user.profile.lastName = req.body.lastName;
+        user.profile.dob = req.body.dob;
+        user.profile.department = req.body.department;
+        user.profile.position = req.body.position;
+        user.save();
+        res.end();
+      });
+};
 /**
  * GET all employees who belong to that user
  */

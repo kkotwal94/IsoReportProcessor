@@ -34,6 +34,14 @@ const utils = {
     });
   },
 
+  updateMyProfile: (data) => {
+    return $.ajax({
+      url: '/updateProfile',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
   /*
    * @param {Object} payload to be sent to server
    * @return {Promise}
