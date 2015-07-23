@@ -20,9 +20,9 @@ class UserActions {
     });
 }
   handleEmployeeUpdateComplete(data) {
+    this.actions.fetchUserProfile();
     this.dispatch(data);
   }
-
   fetchAllUsers() {
     this.dispatch();
     UserWebAPIUtils.getAllEmployees().done((data) => {
@@ -102,6 +102,54 @@ updateMyProfile(data) {
 
   logoutsuccess() {
     this.dispatch();
+  }
+
+  buttonAction() {
+    this.dispatch();
+    UserWebAPIUtils.getAllEmployees().done((allUsers) => {
+      UserWebAPIUtils.myProfile().done((myProfile) => {
+        let data = {'allUsers': allUsers, 'myProfile': myProfile};
+        this.actions.fetchButtonAction(data);
+      })
+       .fail((errorMessage) => {
+         this.actions.buttonActionError(errorMessage);
+       });
+    })
+    .fail((errorMessage) => {
+      this.actions.buttonActionError(errorMessage);
+    });
+  }
+
+  fetchButtonAction(data) {
+    this.dispatch(data);
+  }
+
+  buttonActionError(errorMessage) {
+    this.dispatch(errorMessage);
+  }
+
+  fetchMyLackeys() {
+    this.dispatch();
+    UserWebAPIUtils.getMyEmployees().done((myUsers) => {
+      UserWebAPIUtils.myProfile().done((myProfile) => {
+        let data = {'myUsers': myUsers, 'myProfile': myProfile};
+        this.actions.fetchMyLackeysSuccess(data);
+      })
+       .fail((errorMessage) => {
+         this.actions.fetchMyLackeysError(errorMessage);
+       });
+    })
+    .fail((errorMessage) => {
+      this.actions.fetchMyLackeysError(errorMessage);
+    });
+  }
+
+  fetchMyLackeysSuccess(data) {
+    this.dispatch(data);
+  }
+
+  fetchMyLackeysError(errorMessage) {
+    this.dispatch(errorMessage);
   }
 }
 

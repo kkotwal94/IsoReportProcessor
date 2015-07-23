@@ -56,6 +56,13 @@ const utils = {
       type: 'GET'
     });
   },
+
+  getMyEmployees: () => {
+    return $.ajax({
+      url: '/myEmployees',
+      type: 'GET'
+    });
+  },
   /*
    * @param {Object} payload to be sent to server
    * @return {Promise}

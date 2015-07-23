@@ -3,6 +3,7 @@ import 'scss/main.scss';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import {Link} from 'react-router';
+import EmployeesButton from './aEmployeesButton';
 export default class AllEmployees extends React.Component {
    constructor(props) {
     super(props);
@@ -11,7 +12,7 @@ export default class AllEmployees extends React.Component {
 
   componentDidMount() {
     UserActions.fetchUserProfile();
-    UserActions.fetchAllUsers();
+    UserActions.buttonAction();
     UserStore.listen(this._onChange);
   }
 
@@ -26,8 +27,8 @@ export default class AllEmployees extends React.Component {
       user: UserStore.getState().user,
       userProfile: UserStore.getState().userProfile.profile,
       userProfileFull: UserStore.getState().userProfile,
-      myEmployees: UserStore.getState().userProfile.lackeys,
-      myId : UserStore.getState().userProfile._id
+      myEmployees: UserStore.getState().lackeys,
+      myId: UserStore.getState().userProfile._id
     });
   }
   _emailSearch = (event) => {
@@ -81,6 +82,8 @@ render() {
   let allUsers = this.state.allUsers;
   let allEmployees = this.state.myEmployees;
   console.log(allEmployees);
+  console.log(allUsers);
+  console.log(this.state.userProfileFull);
   let searchByEmail = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._emailSearch}/>
 					<label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-4">
@@ -140,7 +143,7 @@ render() {
           <tbody>
           {allUsers.map((user) =>
             <tr key={'user' + user._id}>
-              <td>{user.email}</td> <td>{user.profile.firstName}</td> <td>{user.profile.lastName}</td> <td>{user.profile.dob}</td> <td>{user.profile.department}</td> <td>{user.profile.department}</td> <td><button onClick = {function(event) { let data = user._id; UserActions.handleEmployeeUpdate({data: data}); console.log(data); }} className ="btn btn-default">Assign me as employee</button></td>
+              <td>{user.email}</td> <td>{user.profile.firstName}</td> <td>{user.profile.lastName}</td> <td>{user.profile.dob}</td> <td>{user.profile.department}</td> <td>{user.profile.department}</td> <td><EmployeesButton buttonClass = {user.buttonClass} buttonText = {user.buttonText} id ={user._id}/></td>
             </tr>
           )}</tbody>
           </table>

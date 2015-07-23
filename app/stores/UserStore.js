@@ -37,6 +37,7 @@ class UserStore {
     this.userProfile = [];
     this.allUsers = [];
     this.lackeys = [];
+    this.myLackeys = [];
     // (lifecycleMethod: string, handler: function): undefined
     // on: This method can be used to listen to Lifecycle events. Normally they would set up in the constructor
     this.on('init', this.bootstrap);
@@ -58,7 +59,10 @@ class UserStore {
       handleFetchAllUsers: UserActions.FETCH_ALL_USERS,
       handleFetchAllUsersComplete: UserActions.FETCH_ALL_USERS_COMPLETE,
       handleFetchAllUsersError: UserActions.FETCH_ALL_USERS_ERROR,
-      handleEmployeeUpdateComplete: UserActions.HANDLE_EMPLOYEE_UPDATE_COMPLETE
+      handleEmployeeUpdateComplete: UserActions.HANDLE_EMPLOYEE_UPDATE_COMPLETE,
+      handleButtonAction: UserActions.BUTTON_ACTION,
+      handleButtonActionSuccess: UserActions.FETCH_BUTTON_ACTION,
+      handleButtonError: UserActions.BUTTON_ACTION_ERROR
     });
   }
 
@@ -67,12 +71,64 @@ class UserStore {
       this.user = Immutable.fromJS(this.user);
     }
   }
+  handleMyLackeys() {
+    this.myLackeys = [];
+    this.emitChange();
+  }
+
+  handleMyLackeysSuccess(data) {
+
+  }
+
+  handleMyLackeysError(errorMessage) {
+    this.error = errorMessage;
+  }
+  handleButtonAction() {
+    this.userProfile = [];
+    this.lackeys = [];
+    this.emitChange();
+    this.myLackeys = [];
+  }
+
+  handleButtonError(errorMessage) {
+    this.error = errorMessage;
+  }
+
+  handleButtonActionSuccess(data) {
+    let sample = [];
+    for (let i = 0; i < data.allUsers.length; i++) {
+      data.allUsers[i].isOwned = false;
+      data.allUsers[i].buttonText = 'Assign me as a employee';
+      data.allUsers[i].buttonClass = 'btn btn-primary';
+      for (let x = 0; x < data.myProfile.lackeys.length; x++) {
+        if (data.allUsers[i]._id == data.myProfile.lackeys[x]) {
+          sample.push(data.allUsers[i]);
+          data.allUsers[i].isOwned = true;
+          data.allUsers[i].buttonText = 'Remove me as a employee';
+          data.allUsers[i].buttonClass = 'btn btn-danger';
+        }
+      }
+    }
+    this.myLackeys = sample;
+    this.allUsers = data.allUsers;
+    this.userProfile = data.myProfile;
+    this.emitChange();
+  }
 
   handleEmployeeUpdateComplete(data) {
-    let profile = this.userProfile;
     let uid = data.data;
-    for (let i = 0; i < profile.length; i++) {
-
+    for (let i = 0; i < this.allUsers.length; i++) {
+      if (uid == this.allUsers[i]._id) {
+        if (this.allUsers[i].isOwned == false || this.allUsers[i].isOwned == null) {
+          this.allUsers[i].isOwned = true;
+          this.allUsers[i].buttonText = 'Remove me as a employee';
+          this.allUsers[i].buttonClass = 'btn btn-danger';
+        } else {
+          this.allUsers[i].isOwned = false;
+          this.allUsers[i].buttonText = 'Assign me as a employee';
+          this.allUsers[i].buttonClass = 'btn btn-primary';
+        }
+      }
     }
     this.emitChange();
   }
@@ -82,12 +138,13 @@ class UserStore {
   }
   handleFetchUserProfile() {
     this.userProfile = [];
+    this.lackeys = [];
     this.emitChange();
   }
 
   handleFetchUserProfileComplete(profile) {
     this.userProfile = profile;
-    this.lackeys = this.userProfile.lackeys;
+    this.lackeys = profile.lackeys;
     this.emitChange();
   }
 
@@ -102,6 +159,11 @@ class UserStore {
   }
 
   handleFetchAllUsersComplete(users) {
+    for (let i = 0; i < users.length; i++) {
+      users[i].isOwned = false;
+      users[i].buttonText = 'Assign me as a employee';
+      users[i].buttonClass = 'btn btn-primary';
+    }
     this.allUsers = users;
     this.emitChange();
   }
@@ -130,7 +192,6 @@ class UserStore {
     if (data.position === '') {
       data.position = this.userProfile.profile.position;
     }
-    console.log(data);
     this.userProfile.profile = data;
   }
   handleLoginSuccess() {
