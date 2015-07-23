@@ -100,16 +100,22 @@ exports.getEmployees = function(req, res) {
         });
 };
 exports.handleEmployee = function(req, res) {
-  var employee_id = req.body._id;
+  var employee_id = req.body.data;
   var id = req.user._id;
+  var count = req.user.lackeys.length - 1;
+  console.log(req.body);
   for (var i =0; i < req.user.lackeys.length; i++) {
-    if(req.user.lackeys[i] == req.body._id) {
-      req.user.splice(i,1);
+    if(req.user.lackeys[i] == employee_id) {
+      console.log("hit");
+      req.user.lackeys.splice(i,1);
       req.user.save();
       res.end();
+      return;
     }
   }
+  console.log("Hits");
   req.user.lackeys.push(employee_id);
+  req.user.save();
   res.end();
 };
 

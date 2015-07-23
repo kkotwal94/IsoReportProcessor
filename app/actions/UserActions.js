@@ -9,23 +9,18 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
  */
 class UserActions {
 
-  handleEmployeeUpdate() {
-    this.dispatch();
-    UserWebAPIUtils.handleEmployee().done((data) => {
-      this.actions.handleEmployeeUpdateComplete(data);
-    })
-    .fail((errorMessage) => {
-      this.actions.handleEmployeeUpdateError(errorMessage);
+  handleEmployeeUpdate(data) {
+  this.dispatch();
+  UserWebAPIUtils.handleEmployee(data)
+    .then((response, textStatus) => {
+      if (textStatus === 'success') {
+        this.actions.handleEmployeeUpdateComplete(data);
+      }
+    }, () => {
     });
-  }
-
+}
   handleEmployeeUpdateComplete(data) {
-    this.actions.fetchAllUsers();
     this.dispatch(data);
-  }
-
-  handleEmployeeUpdateError(errorMessage) {
-    this.dispatch(errorMessage);
   }
 
   fetchAllUsers() {
@@ -39,6 +34,7 @@ class UserActions {
   }
 
   fetchAllUsersComplete(users) {
+    this.actions.fetchUserProfile();
     this.dispatch(users);
   }
 

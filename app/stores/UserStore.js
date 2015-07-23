@@ -58,8 +58,7 @@ class UserStore {
       handleFetchAllUsers: UserActions.FETCH_ALL_USERS,
       handleFetchAllUsersComplete: UserActions.FETCH_ALL_USERS_COMPLETE,
       handleFetchAllUsersError: UserActions.FETCH_ALL_USERS_ERROR,
-      handleEmployeeUpdateComplete: UserActions.HANDLE_EMPLOYEE_UPDATE_COMPLETE,
-      handleEmployeeUpdateError: UserActions.HANDLE_EMPLOYEE_UPDATE_ERROR
+      handleEmployeeUpdateComplete: UserActions.HANDLE_EMPLOYEE_UPDATE_COMPLETE
     });
   }
 
@@ -69,8 +68,12 @@ class UserStore {
     }
   }
 
-  handleEmployeeUpdateComplete() {
-    this.lackeys = this.userProfile.lackeys;
+  handleEmployeeUpdateComplete(data) {
+    let profile = this.userProfile;
+    let uid = data.data;
+    for (let i = 0; i < profile.length; i++) {
+
+    }
     this.emitChange();
   }
 
@@ -84,6 +87,7 @@ class UserStore {
 
   handleFetchUserProfileComplete(profile) {
     this.userProfile = profile;
+    this.lackeys = this.userProfile.lackeys;
     this.emitChange();
   }
 

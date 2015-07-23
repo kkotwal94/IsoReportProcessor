@@ -26,7 +26,8 @@ export default class AllEmployees extends React.Component {
       user: UserStore.getState().user,
       userProfile: UserStore.getState().userProfile.profile,
       userProfileFull: UserStore.getState().userProfile,
-      myEmployees: UserStore.getState().lackeys
+      myEmployees: UserStore.getState().userProfile.lackeys,
+      myId : UserStore.getState().userProfile._id
     });
   }
   _emailSearch = (event) => {
@@ -78,6 +79,8 @@ export default class AllEmployees extends React.Component {
 
 render() {
   let allUsers = this.state.allUsers;
+  let allEmployees = this.state.myEmployees;
+  console.log(allEmployees);
   let searchByEmail = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._emailSearch}/>
 					<label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-4">
@@ -137,7 +140,7 @@ render() {
           <tbody>
           {allUsers.map((user) =>
             <tr key={'user' + user._id}>
-              <td>{user.email}</td> <td>{user.profile.firstName}</td> <td>{user.profile.lastName}</td> <td>{user.profile.dob}</td> <td>{user.profile.department}</td> <td>{user.profile.department}</td> <td><button onClick = {function(event) {UserActions.handleEmployeeUpdate(user._id); }} className ="btn btn-default">Assign me as employee</button></td>
+              <td>{user.email}</td> <td>{user.profile.firstName}</td> <td>{user.profile.lastName}</td> <td>{user.profile.dob}</td> <td>{user.profile.department}</td> <td>{user.profile.department}</td> <td><button onClick = {function(event) { let data = user._id; UserActions.handleEmployeeUpdate({data: data}); console.log(data); }} className ="btn btn-default">Assign me as employee</button></td>
             </tr>
           )}</tbody>
           </table>
@@ -153,8 +156,7 @@ render() {
     </Link>
     </div>
     </div>
-        </div>
-<div className ="toMyEmployees2">
+    <div className ="toMyEmployees3">
         <div className="containers1">
   <div className="spacer">
    <Link to="dashboard">
@@ -166,6 +168,8 @@ render() {
     </div>
     </div>
         </div>
+        </div>
+
 
         </main>
       </div>
