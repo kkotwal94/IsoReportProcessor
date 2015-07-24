@@ -7,7 +7,7 @@ constructor() {
     // then update them directly in the prototype methods
     // (lifecycleMethod: string, handler: function): undefined
     // on: This method can be used to listen to Lifecycle events. Normally they would set up in the constructor
-    this.reports = [];
+    this.reports = ["woah"];
     // (listenersMap: object): undefined
     // bindListeners accepts an object where the keys correspond to the method in your
     // StoreModel and the values can either be an array of action symbols or a single action symbol.
@@ -32,14 +32,17 @@ constructor() {
 
   handleMyReports() {
     this.reports = [];
+    this.emitChange();
   }
 
   handleMyReportsComplete(data) {
     this.reports = data;
+    this.emitChange();
   }
 
   handleMyReportsError(errorMessage) {
     this.error = errorMessage;
+    this.emitChange();
   }
 }
 

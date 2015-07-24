@@ -30,10 +30,7 @@ var id = req.user._id;
                 
                 User.findById(person.author, function (err, user) {
                     if (!err) {
-                        
-                        console.log("Author: " + person.author[0]);
-                        person.author[0] = user.firstName + " " + user.lastName;
-                        person.author[1] = req.user.firstName + " " + req.user.lastName;
+                        person.authors[0] = user.profile.firstName + " " + user.profile.lastName;
                         person.save();
                         totalproc = totalproc + 1;
       

@@ -9,6 +9,7 @@ var reportSchema = mongoose.Schema({
    body : String,
    actualDate : {type: Date},
    author : [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+   authors : [{type: String}],
    owner : {type:mongoose.Schema.Types.ObjectId, ref: 'User'},
    subreport : [{type: mongoose.Schema.Types.ObjectId, ref : 'Report'}],
    backupBody : String,

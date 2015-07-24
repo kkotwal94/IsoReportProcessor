@@ -8,6 +8,7 @@ export default class MyEmployees extends React.Component {
 	constructor(props) {
     super(props);
     this.state = UserStore.getState();
+    // this.state.myLackeys = [];
   }
 
   componentDidMount() {
