@@ -13,6 +13,8 @@ import Profile from 'components/Profile';
 import ReportsToComplete from 'components/ReportsToComplete';
 import Readme from 'components/Readme';
 import Stats from 'components/Stats';
+import NewReport from 'components/NewReport';
+import TemplateReport from 'components/TemplateReport';
 
 const routes = (
 <Route>
@@ -29,6 +31,8 @@ const routes = (
     <Route name ="statistics" path="/statistics" handler={Stats}/>
     <Route name ="signup" path="/signup" handler={Signup} />
     <Route name ="login" path="/" handler={Login} />
+    <Route name ="newreport" path="/newreport" handler={NewReport}/>
+    <Route name ="templatereport" path="/templatereport" handler={TemplateReport}/>
  </Route>
 </Route>
 	);

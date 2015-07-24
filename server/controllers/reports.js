@@ -32,8 +32,9 @@ var id = req.user._id;
                     if (!err) {
                         
                         console.log("Author: " + person.author[0]);
-                        person.author[0] = user.local.firstName + " " + user.local.lastName;
-                        
+                        person.author[0] = user.firstName + " " + user.lastName;
+                        person.author[1] = req.user.firstName + " " + req.user.lastName;
+                        person.save();
                         totalproc = totalproc + 1;
       
                     }
@@ -82,16 +83,45 @@ exports.incomplete = function(req, res) {
  * Add a Report
  */
 exports.add = function(req, res) {
+  var myDate = Date();
   var form = new Report(req.body);
   form.owner = req.user;
+  form.author.push(req.user);
+  form.date = myDate;
   form.save();
+  req.user.forms_created.push(form);
+  req.user.save();
   res.json(req.body);
 };
 
+exports.addSubform = function(req,res) {
+        
+        var id = req.body.masterform;
+        var subform = new Form();
+        var myDate = Date();
+        subform.title = req.body.title;
+        subform.date = req.body.date;
+        subform.date = myDate;
+        subform.owner = req.user;
+        subform.body = "";
+        subform.save();
+        Form.findById(id, function (err, report) {
+            report.subform.push(subform);
+            report.save();
+        });
+        User.findById(req.body.id, function (err, user) {
+            user.forms_created.push(subform);
+            subform.author = user;
+            subform.save();
+        });
+        
+        res.json(req.body);
+    };
+
 /**
- * POST a subreport
+ * get our main reports + subreports
  */
-exports.addSubReport = function(req, res) {
+exports.getSubReports = function(req, res) {
 var id = req.body._id;
         var array = [];
         Report.findById(id, function (err, form) {
@@ -124,6 +154,7 @@ var id = req.body._id;
       
         });
 };
+
 
 /**
  * Update a report

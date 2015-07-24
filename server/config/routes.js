@@ -41,7 +41,7 @@ module.exports = function(app, passport) {
   // topic routes
   app.get('/report', report.all);
 
-  app.post('/report', function(req, res) {
+  app.post('/addReport', function(req, res) {
     report.add(req, res);
   });
 
