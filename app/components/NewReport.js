@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
+
 export default class NewReport extends React.Component {
 constructor(props) {
   super(props);

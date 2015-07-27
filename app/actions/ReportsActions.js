@@ -17,6 +17,36 @@ class ReportsActions {
   addNewReportComplete(report) {
     this.dispatch(report);
   }
+  
+  editReport(data) {
+    this.dispatch();
+    ReportsWebAPIUtils.editSingleReport(data)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.editReportComplete(data);
+        }
+      }, () => {
+
+      });
+  }
+  removeReport(data) {
+    this.dispatch();
+    ReportsWebAPIUtils.removeSingleReport(data)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.removeReportComplete(data);
+        }
+      }, () => {
+
+      });
+  }
+
+  removeReportComplete(data) {
+    this.dispatch(data);
+  }
+  editReportComplete(data) {
+   this.dispatch(data);
+  }
 
   getMyReports() {
     this.dispatch();
@@ -35,6 +65,25 @@ class ReportsActions {
   getMyReportsError(errorMessage) {
     this.dispatch(errorMessage);
   }
-}
 
+
+  getSoloReport(id) {
+    this.dispatch();
+    ReportsWebAPIUtils.getSingleReport(id).done((data) => {
+        this.actions.getSoloReportComplete(data);
+      })
+      .fail((errorMessage) => {
+        this.actions.getSoloReportError(errorMessage);
+      });
+  }
+
+  getSoloReportComplete(data) {
+    this.dispatch(data);
+  }
+
+  getSoloReportError(errorMessage) {
+    this.dispatch(errorMessage);
+  }
+
+}
 export default alt.createActions(ReportsActions);

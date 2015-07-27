@@ -53,7 +53,7 @@ module.exports = function(app, passport) {
     report.update(req, res);
   });
 
-  app.delete('/report', function(req, res) {
+  app.post('/report', function(req, res) {
     report.remove(req, res);
   });
 
@@ -61,8 +61,12 @@ module.exports = function(app, passport) {
     report.allMyReports(req, res);
   });
 
-  app.get('/myreports/:singlereports', function(req, res) {
+  app.get('/report/:singlereports', function(req, res) {
     report.singleReport(req,res);
+  });
+
+  app.post('/singleReportEdit', function(req, res) {
+    report.edit(req, res);
   });
 
   app.get('/allUsers', function(req, res) {

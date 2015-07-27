@@ -28,6 +28,16 @@ render() {
     </Link>
     </div>
     </div>
+    <div className="containers">
+  <div className="spacer">
+   <Link to="assignReport">
+    <a className="wide redgay">
+    <i className="fa fa-level-down"></i>
+      <h2>Assign a report to a employee</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
     </div>
         </main>
       </div>

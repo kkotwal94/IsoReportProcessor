@@ -7,7 +7,9 @@ constructor() {
     // then update them directly in the prototype methods
     // (lifecycleMethod: string, handler: function): undefined
     // on: This method can be used to listen to Lifecycle events. Normally they would set up in the constructor
-    this.reports = ["woah"];
+    this.reports = [];
+    this.singleReport = [];
+    this.notComplete = [];
     // (listenersMap: object): undefined
     // bindListeners accepts an object where the keys correspond to the method in your
     // StoreModel and the values can either be an array of action symbols or a single action symbol.
@@ -17,26 +19,70 @@ constructor() {
         handleAddNewReportSuccess: ReportsActions.ADD_NEW_REPORT_COMPLETE,
         handleMyReports: ReportsActions.GET_MY_REPORTS,
         handleMyReportsComplete: ReportsActions.GET_MY_REPORTS_COMPLETE,
-        handleMyReportsError: ReportsActions.GET_MY_REPORTS_ERROR
+        handleMyReportsError: ReportsActions.GET_MY_REPORTS_ERROR,
+        handleSingleReport: ReportsActions.GET_SOLO_REPORT,
+        handleSingleReportComplete: ReportsActions.GET_SOLO_REPORT_COMPLETE,
+        handleSingleReportError: ReportsActions.GET_SOLO_REPORT_ERROR,
+        handleEditReport: ReportsActions.EDIT_REPORT,
+        handleEditReportSuccess: ReportsActions.EDIT_REPORT_COMPLETE,
+        handleRemoveReport: ReportsActions.REMOVE_REPORT,
+        handleRemoveReportSuccess: ReportsActions.REMOVE_REPORT_COMPLETE
     });
   }
 
   handleAddNewReport() {
+    
+  }
+
+  handleSingleReport() {
 
   }
 
+  handleEditReport() {
+
+  }
+  
+  handleRemoveReport(data) {
+   this.emitChange();
+  }
+
+  handleRemoveReportSuccess(data) {
+
+  }
+  handleEditReportSuccess(data) {
+    this.singleReport = data;
+    this.emitChange();
+  }
+
+  handleSingleReportComplete(data) {
+    this.singleReport = data;
+    this.emitChange();
+  }
+
+  handleSingleReportError(errorMessage) {
+    this.error = errorMessage;
+    this.emitChange();
+  }
+
   handleAddNewReportSuccess(report) {
-    this.reports.push(report);
     this.emitChange();
   }
 
   handleMyReports() {
     this.reports = [];
+    this.notComplete = [];
     this.emitChange();
   }
 
   handleMyReportsComplete(data) {
+    let j = [];
     this.reports = data;
+    for (let i = 0; i < data.length; i++) {
+      if (data[0].isCompleted == false) {
+        j.push(data[i]);
+      }
+    }
+    this.notComplete = j;
     this.emitChange();
   }
 

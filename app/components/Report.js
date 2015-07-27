@@ -2,6 +2,7 @@ import React from 'react';
 import 'scss/main.scss';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
+import ReportView from './ReportView';
 import {Link} from 'react-router';
 export default class Report extends React.Component {
 constructor(props) {
@@ -50,7 +51,6 @@ _onChanges = () => {
 
 render() {
   let allReports = this.state.allReports;
-  
   console.log(this.state.allReports);
   let duplicate = this.state.duplicate;
   let searchByTitle = (<span className="input input--hoshi">
@@ -74,7 +74,7 @@ render() {
   return (
             <div>
         <main>
-        <h1>All Employees</h1>
+        <h1>My Reports</h1>
         <div className = "AEmp">
         <div className = "searchTable">
         {searchByTitle}
@@ -90,7 +90,7 @@ render() {
           <tbody>
           {allReports.map((report) =>
             <tr key={'report' + report._id}>
-              <td>{report.title}</td> <td>{report.date}</td> <td>{report.author[0]}</td> <td><a href = {'/' + report._id}>View/Edit</a></td> <td><a>Delete</a></td>
+              <td>{report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><a>Delete</a></td>
             </tr>
           )}
           </tbody>

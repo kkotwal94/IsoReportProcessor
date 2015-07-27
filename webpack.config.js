@@ -70,14 +70,19 @@ module.exports = [
         { test: /\.scss$/,
           loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap&outputStyle=expanded" +
             "&includePaths[]=" + (path.resolve(__dirname, "./bower_components")) +
-            "&includePaths[]=" + (path.resolve(__dirname, "./node_modules")))
+            "&includePaths[]=" + (path.resolve(__dirname, "./node_modules")) +
+            '&includePaths[]=' + (path.resolve(__dirname, './node_modules/alloyeditor/dist/alloy-editor/assets')))
         }
       ])
     },
     resolve: {
+      extensions: ['', '.react.js', '.js', '.jsx', '.scss', '.css'],
       modulesDirectories: [
         "app", "node_modules"
-      ]
+      ],
+      alias: {
+      alloyeditor : '../../node_modules/alloyeditor/dist/alloy-editor/alloy-editor-no-react.js'
+      }
     },
     plugins: [
         // extract inline css from modules into separate files
@@ -106,6 +111,7 @@ module.exports = [
       loaders: commonLoaders
     },
     resolve: {
+      extensions: ['', '.react.js', '.js', '.jsx', '.scss'],
       modulesDirectories: [
         "app", "node_modules"
       ]
