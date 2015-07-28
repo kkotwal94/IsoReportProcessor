@@ -15,6 +15,7 @@ componentDidMount() {
   let state = this.state.link;
   state = state.split('/');
   state = state[state.length-1];
+  console.log(state);
   ReportsActions.getSoloReport(state);
   ReportsStore.listen(this._onChanges);
 	}
@@ -30,6 +31,17 @@ _onChanges = () => {
     });
 }
 
+_onDelete = () => {
+  if(confirm("Are you sure you want to delete this report?")) {
+  let id = this.state.link;
+  id = id.split('/');
+  id = id[id.length-1];
+  ReportsActions.removeReport({
+    id : id
+  });
+  window.location.href = "/reports";
+  }
+}
 render() {
 	let state = this.state.link;
 	state = state.split('/');
@@ -60,12 +72,10 @@ render() {
     <div className ="toMyEmployees3">
         <div className="containers1">
   <div className="spacer">
-   <Link to="reports">
-    <a className="wide redgay">
+   <a className="wide redgay" onClick = {this._onDelete}>
     <i className="fa fa-times"></i>
       <h2>Delete this Report</h2>
     </a>
-    </Link>
     </div>
     </div>
     <div className ="toMyEmployees3">

@@ -39,7 +39,7 @@ const utils = {
       url: '/removeReport',
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify(Data)
+      data: JSON.stringify(data)
     });
   }
 

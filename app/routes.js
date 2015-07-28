@@ -20,14 +20,13 @@ import EditReport from 'components/EditReport';
 import AssignReport from 'components/AssignReport';
 import AssignReported from 'components/AssignReported';
 import AddSubreport from 'components/AddSubreport';
+import NotFound from 'components/NotFound';
 import { history } from 'react-router';
 
 const routes = (
 <Route>
  <Route name ="dash" path="/dashboard" handler={App}>
     <Route name ="dashboard" path="/dashboard" handler={Dashboard}/>
-    
-    
     <Route name ="assignReport" path="/user" handler={AssignReport}/>
     <Route name ="assignReported" path="/user/:id" handler={AssignReported}/>
     <Route name ="employees" path="/employees" handler={Employees}/>
@@ -46,6 +45,7 @@ const routes = (
     <Route name ="login" path="/" handler={Login} />
     <Route name ="newreport" path="/newreport" handler={NewReport}/>
     <Route name ="templatereport" path="/templatereport" handler={TemplateReport}/>
+    <Route name ="404" path="/404NotFound" handler={NotFound}/>
  </Route>
 </Route>
 	);

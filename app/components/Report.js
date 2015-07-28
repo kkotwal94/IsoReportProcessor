@@ -84,13 +84,13 @@ render() {
         <table className ="table table-bordered table-hover data-toggle table-striped">
         <thead>
         <tr>
-        <th>Title</th><th>Date</th> <th>Author</th> <th>View/Edit</th> <th>Delete</th>
+        <th>Title</th><th>Date</th> <th>Author</th> <th>View/Edit</th> <th>Set Complete/Incomplete</th>
         </tr>
         </thead>
           <tbody>
           {allReports.map((report) =>
             <tr key={'report' + report._id}>
-              <td>{report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><a>Delete</a></td>
+              <td>{report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><a>Complete</a></td>
             </tr>
           )}
           </tbody>

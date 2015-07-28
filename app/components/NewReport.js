@@ -7,15 +7,25 @@ export default class NewReport extends React.Component {
 constructor(props) {
   super(props);
   this.state = ReportsStore.getState();
+  this.state.isWaiting;
+  this.state.reports = [{_id : '1234'}];
 	}
 
 componentDidMount() {
-
+ReportsActions.getMyReports();
+ReportsStore.listen(this._onChange);
 	}
 
 componentWillUnmount() {
-
+ReportsStore.unlisten(this._onChange);
 	}
+
+ _onChange = () => {
+    this.setState({
+      isWaiting: ReportsStore.getState().isWaiting,
+      reports: ReportsStore.getState().reports,
+    });
+  }
 
 _onCreateReport = () => {
   const title = React.findDOMNode(this.refs.title).value;
@@ -26,19 +36,82 @@ _onCreateReport = () => {
         date: date,
         body: body
     });
+  ReportsActions.getMyReports();
+}
+
+_change = () => {
+  this.setState({
+    isWaiting : "blah"
+  });
 }
 
 render() {
+  let reports = this.state.reports;
+  let route = reports[reports.length - 1];
+  if (route == undefined) {
+    route = 123;
+  }
+  else{
+    route = route._id;
+  }
+
+  console.log(route);
+  let renderedResult;
+  console.log(this.state.isWaiting);
+  if(this.state.isWaiting == true) {
+    renderedResult = (<h1 className = "fieldSet2">Currently creating Document.....</h1>);
+  }
+
+  else{
+    if(this.state.isWaiting == false) {
+    renderedResult = (<div className = "fieldSet2"><h1>Done creating document</h1>
+      <div className="containers1">
+  <div className="spacer">
+   <Link to="singlereports" params = {{id:route}}>
+    <a className="wide redgay">
+    <i className="fa fa-file-text-o"></i>
+      <h2>View Created Report</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+
+    <div className="containers1">
+  <div className="spacer">
+   <Link to="reports">
+    <a className="wide blue">
+    <i className="fa fa-file"></i>
+      <h2>View My Reports</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+
+    <div className="containers1">
+  <div className="spacer">
+   <a className="wide lime" onClick = {this._change}>
+    <i className="fa fa-file-o"></i>
+      <h2>Create another report</h2>
+    </a>
+  
+    </div>
+    </div>
+    </div>);
+    }
+     else {
+          renderedResult = (<fieldset className = "fieldSet2">
+          <input type = "text" placeholder = "Give the document a title" ref = "title"/>
+          <input type = "text" placeholder = "Enter date here.." ref = "date"/>
+          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter Body Here"></textarea>
+          <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Report</button>
+          </fieldset>);
+   }
+ }
     return (
       <div>
         <main>
           <h1>Currently trying to add a NEW report</h1>
-          <fieldset className = "fieldSet2">
-          <input type = "text" placeholder = "Give the document a title" ref = "title"/>
-          <input type = "text" placeholder = "Enter date here.." ref = "date"/>
-          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter Body Here"></textarea>
-          <Link to="reports"><button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Report</button></Link>
-          </fieldset>
+          {renderedResult}
           <div className ="toMyEmployees2">
         <div className="containers1">
   <div className="spacer">

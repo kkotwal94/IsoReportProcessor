@@ -63,7 +63,7 @@ module.exports = function (app, passport) {
     secret: db.sessionSecret,
     // Add HTTPOnly, Secure attributes on Session Cookie
     cookie: {
-      httpOnly: true,
+      httpOnly: false,
       
     },
     store: new MongoStore({ url: db.url, autoReconnect: true})

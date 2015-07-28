@@ -53,7 +53,12 @@ var id = req.user._id;
 exports.singleReport = function(req, res) {
   var id = req.params.singlereports;
   Report.findById(id, function(err, reports) {
+    if(err) {
+      res.redirect('/404NotFound');
+    }
+    else {
     res.json(reports);
+  }
   });
 };
 
@@ -61,9 +66,14 @@ exports.singleReport = function(req, res) {
 exports.completed = function(req, res) {
   var id = req.body._id;
   Report.findById(id, function(err, reports) {
+    if(err) {
+      res.redirect('/404NotFound');
+    }
+    else {
     reports.isCompleted = true;
     reports.save();
     res.json(reports);
+  }
   });
 };
 
@@ -94,8 +104,12 @@ exports.add = function(req, res) {
 
 exports.edit = function(req, res) {
   var myDate = Date();
-  id = req.body.id;
+  var id = req.body.id;
   Report.findById(id, function(err, form) {
+    if(err) {
+      res.redirect('/404NotFound');
+    }
+    else {
     if (req.body.body == "") {
       req.body.body = form.body;
     }
@@ -106,6 +120,7 @@ exports.edit = function(req, res) {
     form.body = req.body.body;
     form.title = req.body.title;
     form.save();
+  }
   });
   res.json(req.body);
 }
@@ -195,11 +210,16 @@ exports.update = function(req, res) {
   var isCompleted = req.body.isCompleted;
 
   Report.findById(id, function(err, reports) {
+    if(err) {
+      res.redirect('/404NotFound');
+    }
+    else {
     reports.body = isBody;
     reports.title = isTitle;
     reports.isCompleted = isCompleted;
     reports.save();
     res.json(req.body);
+  }
   });
 
   
@@ -214,10 +234,13 @@ exports.update = function(req, res) {
  * Remove a Report
  */
 exports.remove = function(req, res) {
-  var query = { id: req.body.id };
-  Report.findOneAndRemove(query, function(err, data) {
-    if(err) console.log('Error on delete');
+  var id = req.body.id;
+  console.log(req.body.id);
+  Report.findByIdAndRemove(id, function(err, data) {
+    if(err) {console.log('Error on delete'); res.redirect('/404NotFound');}
+    else {
     res.status(200).send('Removed Successfully');
+  }
   });
 };
 

@@ -10,6 +10,8 @@ constructor() {
     this.reports = [];
     this.singleReport = [];
     this.notComplete = [];
+    this.newReport = [];
+    this.isWaiting;
     // (listenersMap: object): undefined
     // bindListeners accepts an object where the keys correspond to the method in your
     // StoreModel and the values can either be an array of action symbols or a single action symbol.
@@ -31,15 +33,15 @@ constructor() {
   }
 
   handleAddNewReport() {
-    
+    this.isWaiting = true;
+    this.emitChange();
   }
 
   handleSingleReport() {
-
+    this.singleReport = [];
   }
 
   handleEditReport() {
-
   }
   
   handleRemoveReport(data) {
@@ -65,12 +67,14 @@ constructor() {
   }
 
   handleAddNewReportSuccess(report) {
+    this.isWaiting = false;
     this.emitChange();
   }
 
   handleMyReports() {
     this.reports = [];
     this.notComplete = [];
+    this.newReport = [];
     this.emitChange();
   }
 
@@ -83,6 +87,7 @@ constructor() {
       }
     }
     this.notComplete = j;
+    this.newReport = data[data.length - 1]._id;
     this.emitChange();
   }
 
