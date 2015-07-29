@@ -38,6 +38,7 @@ class UserStore {
     this.allUsers = [];
     this.lackeys = [];
     this.myLackeys = [];
+    this.selectedData = [];
     // (lifecycleMethod: string, handler: function): undefined
     // on: This method can be used to listen to Lifecycle events. Normally they would set up in the constructor
     this.on('init', this.bootstrap);
@@ -62,7 +63,8 @@ class UserStore {
       handleEmployeeUpdateComplete: UserActions.HANDLE_EMPLOYEE_UPDATE_COMPLETE,
       handleButtonAction: UserActions.BUTTON_ACTION,
       handleButtonActionSuccess: UserActions.FETCH_BUTTON_ACTION,
-      handleButtonError: UserActions.BUTTON_ACTION_ERROR
+      handleButtonError: UserActions.BUTTON_ACTION_ERROR,
+      handleSelected: UserActions.GET_SELECTED
     });
   }
 
@@ -73,6 +75,11 @@ class UserStore {
   }
   handleMyLackeys() {
     this.myLackeys = [];
+    this.emitChange();
+  }
+
+  handleSelected(data) {
+    this.selectedData = data;
     this.emitChange();
   }
 

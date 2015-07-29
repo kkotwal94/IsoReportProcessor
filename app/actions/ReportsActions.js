@@ -18,6 +18,22 @@ class ReportsActions {
     this.dispatch(report);
   }
   
+  addSubReport(data) {
+    this.dispatch();
+    ReportsWebAPIUtils.addSubReport(data)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.addSubReportComplete(data);
+        }
+      }, () => {
+
+      });
+  }
+
+  addSubReportComplete(data) {
+    this.dispatch(data);
+  }
+  
   editReport(data) {
     this.dispatch();
     ReportsWebAPIUtils.editSingleReport(data)
@@ -69,7 +85,7 @@ class ReportsActions {
 
   getSoloReport(id) {
     this.dispatch();
-    ReportsWebAPIUtils.getSingleReport(id).done((data) => {
+    ReportsWebAPIUtils.getSingleReportFinal(id).done((data) => {
         this.actions.getSoloReportComplete(data);
       })
       .fail((errorMessage) => {

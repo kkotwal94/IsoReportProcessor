@@ -127,7 +127,7 @@ exports.edit = function(req, res) {
 exports.addSubform = function(req,res) {
         
         var id = req.body.masterform;
-        var subform = new Form();
+        var subform = new Report();
         var myDate = Date();
         subform.title = req.body.title;
         subform.date = req.body.date;
@@ -135,12 +135,19 @@ exports.addSubform = function(req,res) {
         subform.owner = req.user;
         subform.body = "";
         subform.save();
-        Form.findById(id, function (err, report) {
-            report.subform.push(subform);
+        Report.findById(id, function (err, report) {
+          if(err) {
+            res.redirect('/404NotFound');
+          }
+          else {
+            report.subreport.push(subform);
+            subform.parentReport = report;
             report.save();
+          }
         });
         User.findById(req.body.id, function (err, user) {
             user.forms_created.push(subform);
+            subform.owner = req.user;
             subform.author = user;
             subform.save();
         });
@@ -251,7 +258,7 @@ exports.remove = function(req, res) {
 
 exports.finalView = function(req, res) {
  var id = req.params.form; //we get our id from our route/link
-        Form.findById(id).deepPopulate('subform.subform.subform.subform.subform.subform').execAsync() //i am looking for a form, using deeppopulate funct we fill out subforms to the 6th level, because I don't think there will be more than 6 levels, and if so we can just add in more..
+        Report.findById(id).deepPopulate('subreport.subreport.subreport.subreport.subreport.subreport').execAsync() //i am looking for a form, using deeppopulate funct we fill out subforms to the 6th level, because I don't think there will be more than 6 levels, and if so we can just add in more..
         .then(function (doc) { //for the doc that the async call gets
             
             res.json(doc); //we send that doc with the populated fields  

@@ -9,6 +9,10 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
  */
 class UserActions {
 
+  getSelected(data) {
+    this.dispatch(data);
+  }
+
   handleEmployeeUpdate(data) {
   this.dispatch();
   UserWebAPIUtils.handleEmployee(data)

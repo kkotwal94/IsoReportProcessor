@@ -12,6 +12,7 @@ var reportSchema = mongoose.Schema({
    authors : [{type: String}],
    owner : {type:mongoose.Schema.Types.ObjectId, ref: 'User'},
    subreport : [{type: mongoose.Schema.Types.ObjectId, ref : 'Report'}],
+   parentReport: {type: mongoose.Schema.Types.ObjectId, ref : 'Report'},
    backupBody : String,
    final : String,
    isCompleted : {type: Boolean, default: false}

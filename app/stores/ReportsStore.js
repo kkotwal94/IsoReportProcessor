@@ -28,10 +28,19 @@ constructor() {
         handleEditReport: ReportsActions.EDIT_REPORT,
         handleEditReportSuccess: ReportsActions.EDIT_REPORT_COMPLETE,
         handleRemoveReport: ReportsActions.REMOVE_REPORT,
-        handleRemoveReportSuccess: ReportsActions.REMOVE_REPORT_COMPLETE
+        handleRemoveReportSuccess: ReportsActions.REMOVE_REPORT_COMPLETE,
+        handleSubReport: ReportsActions.ADD_SUB_REPORT,
+        handleSubReportSuccess: ReportsActions.ADD_SUB_REPORT_COMPLETE
     });
   }
+   
+  handleSubReport() {
 
+  } 
+
+  handleSubReportSuccess(data){
+
+  }
   handleAddNewReport() {
     this.isWaiting = true;
     this.emitChange();

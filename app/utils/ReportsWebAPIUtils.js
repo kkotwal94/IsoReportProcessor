@@ -25,6 +25,22 @@ const utils = {
     });
   },
 
+  getSingleReportFinal: (id) => {
+    return $.ajax({
+      url: '/finalView/' + id,
+      type: 'GET' 
+    });
+  },
+
+  addSubReport: (data) => {
+    return $.ajax({
+      url: '/subreport',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+
   editSingleReport: (data) => {
     return $.ajax({
       url: '/singleReportEdit',
