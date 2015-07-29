@@ -6,15 +6,19 @@ Isomorphic Report processor
 * Added React-router routing for Dashboard items (All ToDO UI's atleast with dummy text to verify we have reached the route)
 * Set up API for post and get request (didn't test yet however via POSTMAN)
 * Added sick Nav
+* Added in flux/altjs component communication(via dispatchers/actions)
 
 #ToDO:
-* Add Create Report UI
-* Add Create Report off Template UI
-* Add User Profile UI and updating functionality
-* Add Reports/Forms View/UI
-* Add My Employees/All Employees UI
-* Add README/About UI
-* Add Statistics UI(Datavisualization maybe?)
+* Add a subform (90% complete)
+* Add a assigned form
+* Join Forms
+* Grid view of employees
+* Grid view of Reports
+* Create a report template
+* Autoassigned reports
+* Add in alloyeditor
+* Add in jsTOPDF
+
 
 #About:
 
