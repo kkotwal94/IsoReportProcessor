@@ -3,6 +3,21 @@ import ReportsWebAPIUtils from 'utils/ReportsWebAPIUtils';
 
 class ReportsActions {
 
+  addAssignedReport(data) {
+  this.dispatch();
+  ReportsWebAPIUtils.assignToEmployee(data)
+    .then((response, textStatus) => {
+      if (textStatus === 'success') {
+        this.actions.addAssignedReportComplete(data);
+      }
+    }, () => {
+    });
+  }
+  
+  addAssignedReportComplete(data) {
+    this.dispatch(data);
+  }
+
   addNewReport(data) {
   this.dispatch();
   ReportsWebAPIUtils.addNewReport(data)
@@ -12,7 +27,7 @@ class ReportsActions {
       }
     }, () => {
     });
-}
+  }
 
   addNewReportComplete(report) {
     this.dispatch(report);

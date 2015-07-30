@@ -40,7 +40,16 @@ const utils = {
       data: JSON.stringify(data)
     });
   },
-
+  
+  assignToEmployee: (data) => {
+    return $.ajax({
+      url: '/assignReport',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+  
   editSingleReport: (data) => {
     return $.ajax({
       url: '/singleReportEdit',

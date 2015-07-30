@@ -124,7 +124,7 @@ exports.edit = function(req, res) {
   });
   res.json(req.body);
 }
-exports.addSubform = function(req,res) {
+exports.addSubReport = function(req,res) {
         
         var id = req.body.masterform;
         var subform = new Report();
@@ -133,7 +133,7 @@ exports.addSubform = function(req,res) {
         subform.date = req.body.date;
         subform.date = myDate;
         subform.owner = req.user;
-        subform.body = "";
+        subform.body = req.body.body;
         subform.save();
         Report.findById(id, function (err, report) {
           if(err) {
@@ -148,6 +148,7 @@ exports.addSubform = function(req,res) {
         User.findById(req.body.id, function (err, user) {
             user.forms_created.push(subform);
             subform.owner = req.user;
+            subform.authors[0] = user.profile.firstName + " " + user.profile.lastName;
             subform.author = user;
             subform.save();
         });
@@ -156,16 +157,20 @@ exports.addSubform = function(req,res) {
     };
 
 exports.assignToEmployee = function(req, res){
-  var id = req.params.id;
-  var form = new Form();
+  var id = req.body.id;
+  var form = new Report();
   var myDate = Date();
   form.title = req.body.title;
   form.date = myDate;
   form.owner = req.user;
-  form.author = req.params.id;
   form.body = req.body.body;
   req.user.forms_created.push(form);
   req.user.save();
+  User.findById(req.body.id, function(err, user) {
+    form.author = user;
+    form.authors[0] = user.profile.firstName + " " + user.profile.lastName;
+    form.save();
+  });
   form.save();
   res.json(req.body);
 }

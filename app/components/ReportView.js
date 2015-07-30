@@ -34,12 +34,14 @@ _onChanges = () => {
 _onDelete = () => {
   if(confirm("Are you sure you want to delete this report?")) {
   let id = this.state.link;
+  let location = '/reports';
   id = id.split('/');
   id = id[id.length-1];
+  console.log(id);
   ReportsActions.removeReport({
     id : id
   });
-  window.location.href = "/reports";
+  setTimeout(function() {window.location.href = '/reports';}, 1);
   }
 }
 render() {

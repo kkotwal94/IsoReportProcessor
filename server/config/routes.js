@@ -49,6 +49,10 @@ module.exports = function(app, passport) {
     report.addSubReport(req, res);
   });
 
+  app.post('/assignReport', function(req, res) {
+    report.assignToEmployee(req, res);
+  });
+
   app.put('/report', function(req, res) {
     report.update(req, res);
   });

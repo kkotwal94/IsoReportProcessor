@@ -13,6 +13,7 @@ constructor(props) {
   this.state = UserStore.getState();
   this.state.singleReport = [];
   this.state.link = window.location.href;
+  this.state.isWaiting;
 	}
 
 componentDidMount() {
@@ -34,7 +35,7 @@ _onChanges = () => {
   this.setState({
       singleReport: ReportsStore.getState().singleReport,
       duplicate: ReportsStore.getState().singleReport,
-      myEmployees: UserStore.getState().myLackeys
+      isWaiting: ReportsStore.getState().isWaiting2
     });
 }
 
@@ -52,7 +53,13 @@ _onUserChanges = () => {
     });
 }
 
-_onCreateReport = (id) => {
+_change = () => {
+  this.setState({
+    isWaiting : "blah"
+  });
+}
+
+_onCreateReport = () => {
   let state = this.state.link; 
   console.log(this.state.selectedId);
   state = state.split('/');
@@ -61,12 +68,12 @@ _onCreateReport = (id) => {
   const date = React.findDOMNode(this.refs.date).value;
   const body = React.findDOMNode(this.refs.body).value;
   const masterform = state;
-  const user = user;
   ReportsActions.addSubReport({
         title: title,
         date: date,
         body: body,
-        id: id
+        masterform: masterform,
+        id: this.state.selectedId
     });
 }
 
@@ -74,7 +81,8 @@ render() {
   let singleReport = this.state.singleReport;
   let state = this.state.link;
   let myEmployees = this.state.myEmployees;
-  console.log(this.state.selectedId);
+ let wait = this.state.isWaiting;
+ console.log(wait);
   let initial = this.state.selectedId;
   if(initial == undefined) {
     initial = [{email: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
@@ -89,19 +97,65 @@ render() {
   else {
     myEmployees = this.state.myEmployees;
   }
+  console.log(initial);
   state = state.split('/');
   state = state[state.length-2];
-  return(
-    <div>
-    <main>
-    <h1>Adding a subreport</h1>
-    <fieldset className = "fieldSet2">
+  
+  let renderedResult;
+  if(this.state.isWaiting == true) {
+    renderedResult = (<h1 className = "fieldSet2">Currently creating Document.....</h1>);
+  }
+  else {
+    if(this.state.isWaiting == false) {
+    renderedResult = (<div className = "fieldSet2"><h1>Done creating document</h1>
+      <div className="containers1">
+  <div className="spacer">
+   <Link to="singlereports" params = {{id:state}}>
+    <a className="wide redgay">
+    <i className="fa fa-file-text-o"></i>
+      <h2>View Created Report</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+
+    <div className="containers1">
+  <div className="spacer">
+   <Link to="reports">
+    <a className="wide blue">
+    <i className="fa fa-file"></i>
+      <h2>View My Reports</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+
+    <div className="containers1">
+  <div className="spacer">
+   <a className="wide lime" onClick = {this._change}>
+    <i className="fa fa-file-o"></i>
+      <h2>Create another report</h2>
+    </a>
+  
+    </div>
+    </div>
+    </div>);
+    }
+    else {
+      renderedResult = ( <fieldset className = "fieldSet2">
           <input type = "text" placeholder = "Sub Report Title" ref = "title"/>
           <input type = "text" placeholder = "Sub Report Data" ref = "date"/>
           <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter subreport here"></textarea>
           <Dropdown list = {myEmployees} selected={initial} />
-          <Link to="singlereports" params = {{id: state}}><button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Edit Report</button></Link>
-          </fieldset>
+          <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Subreport</button>
+          </fieldset>);
+    }
+  }
+  return(
+    <div>
+    <main>
+    <h1>Adding a subreport</h1>
+     {renderedResult}
           <div className ="toMyEmployees2">
         <div className="containers1">
   <div className="spacer">

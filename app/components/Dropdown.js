@@ -17,28 +17,17 @@ constructor(props) {
 	}
 
 componentDidMount() {
-  let state = this.state.link;
-  state = state.split('/');
-  state = state[state.length-1];
-  ReportsActions.getSoloReport(state);
-  ReportsStore.listen(this._onChanges);
 	}
 
 componentWillUnmount() {
-  ReportsStore.unlisten(this._onChanges);
 	}
 
 _onChanges = () => {
-  this.setState({
-      singleReport: ReportsStore.getState().singleReport,
-      duplicate: ReportsStore.getState().singleReport,
-      
-    });
 }
 
 select = (item) => {
-  UserActions.getSelected(this.props.selected);
   this.props.selected = item;
+  UserActions.getSelected(this.props.selected);
 }
 
 show = () => {
@@ -55,13 +44,11 @@ hide = () => {
 
 render(){
           if(this.props.selected == undefined) {
-            this.props.selected.email = "Ui";
-            this.props.selected.profile.firstName = "jajaj";
-            this.props.selected.profile.lastName = "blahablah";
+            this.props.selected = {email: 'none', profile: {firstName: 'yup', lastName: 'yup'}};
           }
           return <div className={"dropdown-container" + (this.state.listVisible ? " show" : "")}>
             <div className={"dropdown-display" + (this.state.listVisible ? " clicked": "")} onClick={this.show}>
-              <span style={{ color: 'white' }}>{this.props.selected.email + " : " + this.props.selected.profile.firstName + " " + this.props.selected.profile.lastName}</span>
+              <span style={{ color: 'white' }}>{this.props.selected.email}</span>
               <i style={{ color: 'red' }} className="fa fa-angle-down"></i>
             </div>
             <div className="dropdown-list">

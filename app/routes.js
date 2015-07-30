@@ -21,6 +21,7 @@ import AssignReport from 'components/AssignReport';
 import AssignReported from 'components/AssignReported';
 import AddSubreport from 'components/AddSubreport';
 import NotFound from 'components/NotFound';
+import ReportHandler from 'components/ReportHandler'
 import { history } from 'react-router';
 
 const routes = (
@@ -30,10 +31,12 @@ const routes = (
     <Route name ="assignReport" path="/user" handler={AssignReport}/>
     <Route name ="assignReported" path="/user/:id" handler={AssignReported}/>
     <Route name ="employees" path="/employees" handler={Employees}/>
-    <Route name ="reports" path="/reports" handler={Report}/>
+    <Route name ="reports" path="/reports" handler={ReportHandler}>
+      <Route name ="report" path="/reports" handler={Report}/>
       <Route name ="singlereports" path="/reports/:id" handler={ReportView}/>
       <Route name ="addsubreport" path="/reports/:id/addsubreport" handler={AddSubreport}/>
       <Route name ="editreports" path="/reports/:id/edit" handler={EditReport}/>
+    </Route>
       <Route name ="MyEmployees" path="/MEmployees" handler={MyEmployees}/>
       <Route name ="AllEmployees" path="/AEmployees" handler={AllEmployees}/>
       <Route name ="Profile" path="/profile" handler={Profile}/>

@@ -12,6 +12,8 @@ constructor() {
     this.notComplete = [];
     this.newReport = [];
     this.isWaiting;
+    this.isWaiting2;
+    this.isWaiting3;
     // (listenersMap: object): undefined
     // bindListeners accepts an object where the keys correspond to the method in your
     // StoreModel and the values can either be an array of action symbols or a single action symbol.
@@ -30,16 +32,30 @@ constructor() {
         handleRemoveReport: ReportsActions.REMOVE_REPORT,
         handleRemoveReportSuccess: ReportsActions.REMOVE_REPORT_COMPLETE,
         handleSubReport: ReportsActions.ADD_SUB_REPORT,
-        handleSubReportSuccess: ReportsActions.ADD_SUB_REPORT_COMPLETE
+        handleSubReportSuccess: ReportsActions.ADD_SUB_REPORT_COMPLETE,
+        handleAssignedReport: ReportsActions.ADD_ASSIGNED_REPORT,
+        handleAssignedReportSuccess: ReportsActions.ADD_ASSIGNED_REPORT_COMPLETE
     });
+  }
+
+  handleAssignedReport() {
+    this.isWaiting3 = false;
+    this.emitChange();
+  }
+
+  handleAssignedReportSuccess(data) {
+    this.isWaiting3 = true;
+    this.emitChange();
   }
    
   handleSubReport() {
-
-  } 
+    this.isWaiting2 = true;
+    this.emitChange();
+} 
 
   handleSubReportSuccess(data){
-
+    this.isWaiting2 = false;
+    this.emitChange();
   }
   handleAddNewReport() {
     this.isWaiting = true;
