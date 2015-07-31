@@ -96,7 +96,24 @@ class ReportsActions {
   getMyReportsError(errorMessage) {
     this.dispatch(errorMessage);
   }
+  
+  getGlobalReports() {
+    this.dispatch();
+    ReportsWebApiUtils.getGlobalReports().done((data) => {
+      this.actions.getGlobalReportsComplete(data);
+    })
+    .fail((errorMessage) => {
+      this.actions.getGlobalReportsError(errorMessage);
+    });
+  }
 
+  getGlobalReportsComplete(data) {
+    this.dispatch(data);
+  }
+
+  getGlobalReportsError(errorMessage) {
+    this.dispatch(errorMessage);
+  }
 
   getSoloReport(id) {
     this.dispatch();

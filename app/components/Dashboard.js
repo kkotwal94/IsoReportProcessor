@@ -37,7 +37,7 @@ render() {
       <h2>Create a Report</h2>
     </a>
     </Link>
-    <Link to="reports">
+    <Link to="report">
     <a className="wide redgay">
     <i className="fa fa-pencil-square-o"></i>
       <h2>View or Edit My Reports</h2>

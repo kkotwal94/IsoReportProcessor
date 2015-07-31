@@ -7,8 +7,9 @@ export default class ReportView extends React.Component {
 constructor(props) {
   super(props);
   this.state = ReportsStore.getState();
-  this.state.singleReport = [];
+  this.state.singleReport = [{subreport :["Hello"]}];
   this.state.link = window.location.href;
+  this.state.fullView = [];
 	}
 
 componentDidMount() {
@@ -16,6 +17,7 @@ componentDidMount() {
   state = state.split('/');
   state = state[state.length-1];
   console.log(state);
+ //this._fullView(this.state.singleReport);
   ReportsActions.getSoloReport(state);
   ReportsStore.listen(this._onChanges);
 	}
@@ -31,6 +33,18 @@ _onChanges = () => {
     });
 }
 
+_fullView = (data) => {
+  if(data.subreport.length != 0) {
+      for(let i = 0; i < data.subreport.length; i++) {
+        this.state.finalView.push(data.subreport[i]);
+        if(data.subreport[i].subreport.length != 0) {
+             this._fullView(data.subreport[i]);
+        }
+      }
+    }
+  }
+
+
 _onDelete = () => {
   if(confirm("Are you sure you want to delete this report?")) {
   let id = this.state.link;
@@ -41,7 +55,7 @@ _onDelete = () => {
   ReportsActions.removeReport({
     id : id
   });
-  setTimeout(function() {window.location.href = '/reports';}, 1);
+  setTimeout(function() {window.location.href = '/reportsall';}, 1);
   }
 }
 render() {

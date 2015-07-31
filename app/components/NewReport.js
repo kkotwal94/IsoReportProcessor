@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
 
+
 export default class NewReport extends React.Component {
 constructor(props) {
   super(props);
@@ -48,14 +49,15 @@ _change = () => {
 render() {
   let reports = this.state.reports;
   let route = reports[reports.length - 1];
+
   if (route == undefined) {
     route = 123;
   }
   else{
     route = route._id;
   }
-
   console.log(route);
+  console.log(reports);
   let renderedResult;
   console.log(this.state.isWaiting);
   if(this.state.isWaiting == true) {
@@ -78,7 +80,7 @@ render() {
 
     <div className="containers1">
   <div className="spacer">
-   <Link to="reports">
+   <Link to="report">
     <a className="wide blue">
     <i className="fa fa-file"></i>
       <h2>View My Reports</h2>

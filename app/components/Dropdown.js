@@ -10,7 +10,6 @@ constructor(props) {
   super(props);
   this.state = ReportsStore.getState();
   this.state = UserStore.getState();
-  this.state.link = window.location.href;
   this.state.singleReport = [];
   this.state.listVisible = false;
   this.state.display ="";

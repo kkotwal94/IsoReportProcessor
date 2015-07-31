@@ -10,14 +10,20 @@ const utils = {
       data: JSON.stringify(data)
     });
   },
-
+  getGlobalReports: () => {
+    return $.ajax({
+      url: '/allReports',
+      type: 'GET'
+    });
+  },
+  
   getAllReports: () => {
     return $.ajax({
       url: '/myreports',
       type: 'GET'
     });
   },
-
+  
   getSingleReport: (id) => {
     return $.ajax({
       url: '/report/' + id,

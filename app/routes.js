@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, DefaultRoute } from 'react-router';
 import App from 'components/App';
 import Login from 'components/Login';
 import Signup from 'components/Signup';
@@ -22,20 +22,21 @@ import AssignReported from 'components/AssignReported';
 import AddSubreport from 'components/AddSubreport';
 import NotFound from 'components/NotFound';
 import ReportHandler from 'components/ReportHandler'
+import Index from 'components/Index';
 import { history } from 'react-router';
 
 const routes = (
 <Route>
- <Route name ="dash" path="/dashboard" handler={App}>
-    <Route name ="dashboard" path="/dashboard" handler={Dashboard}/>
+ <Route name ="dashboard" path="/dashboard" handler={App}>
+    <Route name ="dash" path="/dashboard" handler={Dashboard}/>
     <Route name ="assignReport" path="/user" handler={AssignReport}/>
     <Route name ="assignReported" path="/user/:id" handler={AssignReported}/>
     <Route name ="employees" path="/employees" handler={Employees}/>
     <Route name ="reports" path="/reports" handler={ReportHandler}>
-      <Route name ="report" path="/reports" handler={Report}/>
-      <Route name ="singlereports" path="/reports/:id" handler={ReportView}/>
-      <Route name ="addsubreport" path="/reports/:id/addsubreport" handler={AddSubreport}/>
-      <Route name ="editreports" path="/reports/:id/edit" handler={EditReport}/>
+      <Route name ="report" path="/reportsall" handler={Report}/>
+      <Route name ="singlereports" path=":id" handler={ReportView}/>
+      <Route name ="addsubreport" path=":id/addsubreport" handler={AddSubreport}/>
+      <Route name ="editreports" path=":id/edit" handler={EditReport}/>
     </Route>
       <Route name ="MyEmployees" path="/MEmployees" handler={MyEmployees}/>
       <Route name ="AllEmployees" path="/AEmployees" handler={AllEmployees}/>
@@ -45,10 +46,10 @@ const routes = (
     <Route name ="readme" path="/readme" handler={Readme}/>
     <Route name ="statistics" path="/statistics" handler={Stats}/>
     <Route name ="signup" path="/signup" handler={Signup} />
-    <Route name ="login" path="/" handler={Login} />
     <Route name ="newreport" path="/newreport" handler={NewReport}/>
     <Route name ="templatereport" path="/templatereport" handler={TemplateReport}/>
     <Route name ="404" path="/404NotFound" handler={NotFound}/>
+    <Route name ="login" path="/" handler={Login}/>
  </Route>
 </Route>
 	);

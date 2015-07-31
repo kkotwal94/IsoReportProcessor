@@ -115,7 +115,7 @@ module.exports = function(app, passport) {
   app.get('/finalView/:form', function(req, res) {
     report.finalView(req, res);
   });
-
+  
   app.get('/allReports', function(req, res) {
     report.all(req, res);
   });

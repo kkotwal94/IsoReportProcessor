@@ -6,6 +6,7 @@ import ReportsStore from 'stores/ReportsStore';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import Dropdown from 'components/Dropdown';
+<Route name="addsubreport" path=":id/addsubreport" handler={AddSubReport} />
 export default class AddSubReport extends React.Component {
 constructor(props) {
   super(props);
@@ -15,7 +16,7 @@ constructor(props) {
   this.state.link = window.location.href;
   this.state.isWaiting;
 	}
-
+mixins: [Router.State]
 componentDidMount() {
   let state = this.state.link;
   state = state.split('/');
@@ -67,7 +68,7 @@ _onCreateReport = () => {
   const title = React.findDOMNode(this.refs.title).value;
   const date = React.findDOMNode(this.refs.date).value;
   const body = React.findDOMNode(this.refs.body).value;
-  const masterform = state;
+  const masterform = state;  
   ReportsActions.addSubReport({
         title: title,
         date: date,
@@ -121,7 +122,7 @@ render() {
 
     <div className="containers1">
   <div className="spacer">
-   <Link to="reports">
+   <Link to="report">
     <a className="wide blue">
     <i className="fa fa-file"></i>
       <h2>View My Reports</h2>

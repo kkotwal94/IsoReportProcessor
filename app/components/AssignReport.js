@@ -17,6 +17,7 @@ constructor(props) {
 
 componentDidMount() {
   UserActions.buttonAction();
+  ReportsActions.getMyReports();
   ReportsStore.listen(this._onChanges);
   UserStore.listen(this._onUserChanges);
 	}
@@ -30,6 +31,7 @@ _onChanges = () => {
   this.setState({
       singleReport: ReportsStore.getState().singleReport,
       duplicate: ReportsStore.getState().singleReport,
+      reports: ReportsStore.getState().reports,
       isWaiting: ReportsStore.getState().isWaiting3
     });
 }
@@ -58,20 +60,105 @@ _onCreateReport = () => {
   const title = React.findDOMNode(this.refs.title).value;
   const date = React.findDOMNode(this.refs.date).value;
   const body = React.findDOMNode(this.refs.body).value;
-  ReportsActions.addSubReport({
+  ReportsActions.addAssignedReport({
         title: title,
         date: date,
         body: body,
         id: this.state.selectedId
     });
+  ReportsActions.getMyReports();
 }
 
 
 render() {
+   let singleReport = this.state.singleReport;
+  let state = this.state.link;
+  let myEmployees = this.state.myEmployees;
+ let wait = this.state.isWaiting;
+ console.log(wait);
+  let initial = this.state.selectedId;
+  if(initial == undefined) {
+    initial = [{email: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
+  }
+  else {
+    initial = this.state.selectedId;
+  }
+
+  if (myEmployees == undefined) {
+    myEmployees = [{email: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
+  }
+  else {
+    myEmployees = this.state.myEmployees;
+  }
+  console.log(initial); 
+  let renderedResult;
+  if(this.state.isWaiting == true) {
+    renderedResult = (<h1 className = "fieldSet2">Currently creating Document.....</h1>);
+  }
+  else {
+    if(this.state.isWaiting == false) {
+    renderedResult = (<div className = "fieldSet2"><h1>Done creating and assigning document</h1>
+    <div className="containers1">
+  <div className="spacer">
+   <Link to="report">
+    <a className="wide blue">
+    <i className="fa fa-file"></i>
+      <h2>View My Reports</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+
+    <div className="containers1">
+  <div className="spacer">
+   <a className="wide lime" onClick = {this._change}>
+    <i className="fa fa-file-o"></i>
+      <h2>Create another report</h2>
+    </a>
+  
+    </div>
+    </div>
+    </div>);
+    }
+    else {
+      renderedResult = ( <fieldset className = "fieldSet2">
+          <input type = "text" placeholder = "Report Title" ref = "title"/>
+          <input type = "text" placeholder = "Report Date" ref = "date"/>
+          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter subreport here"></textarea>
+          <Dropdown list = {myEmployees} selected={initial} />
+          <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Subreport</button>
+          </fieldset>);
+    }
+  }
   return(
     <div>
     <main>
-    <h1>Hello im trying to Assign a report</h1>
+    <h1>Assigning a Report</h1>
+     {renderedResult}
+          <div className ="toMyEmployees2">
+        <div className="containers1">
+  <div className="spacer">
+   <Link to="AllEmployees">
+    <a className="wide blue">
+    <i className="fa fa-users"></i>
+      <h2>View All Employees</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+    <div className ="toMyEmployees3">
+        <div className="containers1">
+  <div className="spacer">
+   <Link to="dashboard">
+    <a className="wide redgay">
+    <i className="fa fa-tachometer"></i>
+      <h2>Dashboard</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+        </div>
+        </div>
     </main>
     </div>
     )

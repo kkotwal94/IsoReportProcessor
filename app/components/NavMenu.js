@@ -46,7 +46,7 @@ export default class NavMenu extends React.Component {
       </li>
 
       <li>
-        <Link to="reports">Reports</Link>
+        <Link to="report">Reports</Link>
       </li>
 
       <li>

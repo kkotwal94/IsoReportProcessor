@@ -3466,3 +3466,54 @@ div.dropdown-container > div.dropdown-list > div > div.selected > i {
   display: inline-block;
 }
 
+.grid-container {
+        width : 60%;
+    }
+
+.row:before, 
+    .row:after {
+        content:"";
+        display: table ;
+         clear:both;
+    }
+   [class*='col-'] {
+        float: left;
+        min-height: 1px; 
+        width: 10%; 
+        padding:12px;
+    }
+
+
+ .col-1{
+        width: 16.66%; 
+        height:16%;
+    }
+    .col-2{
+        width: 33.33%; 
+        height:16%;
+    }
+    .col-3{
+        width: 50%;
+        height:16%; 
+    }
+    .col-4{
+        width: 66.664%;
+    }
+    .col-5{
+        width: 83.33%;
+    }
+    .col-6{
+        width: 100%;
+    }
+
+    .outline, .outline *{
+        outline: 1px solid #F6A1A1; 
+    }
+
+    [class*='col-'] > p {
+     background-color: #FFC2C2; 
+     padding: 0;
+     margin: 0;
+     text-align: center; 
+     color: white; 
+    }

@@ -11,9 +11,11 @@ constructor() {
     this.singleReport = [];
     this.notComplete = [];
     this.newReport = [];
+    this.globalreports = [];
     this.isWaiting;
     this.isWaiting2;
     this.isWaiting3;
+    this.isWaitingGet;
     // (listenersMap: object): undefined
     // bindListeners accepts an object where the keys correspond to the method in your
     // StoreModel and the values can either be an array of action symbols or a single action symbol.
@@ -34,17 +36,36 @@ constructor() {
         handleSubReport: ReportsActions.ADD_SUB_REPORT,
         handleSubReportSuccess: ReportsActions.ADD_SUB_REPORT_COMPLETE,
         handleAssignedReport: ReportsActions.ADD_ASSIGNED_REPORT,
-        handleAssignedReportSuccess: ReportsActions.ADD_ASSIGNED_REPORT_COMPLETE
+        handleAssignedReportSuccess: ReportsActions.ADD_ASSIGNED_REPORT_COMPLETE,
+        handleGlobalReports: ReportsActions.GET_GLOBAL_REPORTS,
+        handleGlobalReportsSuccess: ReportsActions.GET_GLOBAL_REPORTS_COMPLETE,
+        handleGlobalReportsError: ReportsActions.GET_GLOBAL_REPORTS_ERROR
     });
   }
 
+  handleGlobalReports() {
+    this.globalreports = [];
+    this.emitChange();
+  }
+
+  handleGlobalReportsSuccess(data) {
+    let filler;
+    this.globalreports = [];
+    this.emitChange();
+  }
+
+  handleGlobalReportsError(error) {
+    this.error = error;
+    this.emitChange();
+  }
+
   handleAssignedReport() {
-    this.isWaiting3 = false;
+    this.isWaiting3 = true;
     this.emitChange();
   }
 
   handleAssignedReportSuccess(data) {
-    this.isWaiting3 = true;
+    this.isWaiting3 = false;
     this.emitChange();
   }
    
@@ -100,6 +121,7 @@ constructor() {
     this.reports = [];
     this.notComplete = [];
     this.newReport = [];
+    this.isWaitingGet = true;
     this.emitChange();
   }
 
@@ -113,6 +135,7 @@ constructor() {
     }
     this.notComplete = j;
     this.newReport = data[data.length - 1]._id;
+    this.isWaitingGet = false;
     this.emitChange();
   }
 
