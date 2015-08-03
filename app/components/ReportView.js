@@ -3,6 +3,14 @@ import {Link,State, Route} from 'react-router';
 import Router from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
+let finalData = [];
+var treecycle = data => {
+  console.log(data);
+};
+
+function treeCycle(data) {
+  console.log(data);
+}
 export default class ReportView extends React.Component {
 constructor(props) {
   super(props);
@@ -19,12 +27,17 @@ componentDidMount() {
   console.log(state);
  //this._fullView(this.state.singleReport);
   ReportsActions.getSoloReport(state);
+  this._cycle;
   ReportsStore.listen(this._onChanges);
 	}
 
 componentWillUnmount() {
   ReportsStore.unlisten(this._onChanges);
 	}
+
+_cycle = () => {
+  treecycle(this.state.singleReport);
+}
 
 _onChanges = () => {
   this.setState({
@@ -62,19 +75,12 @@ render() {
 	let state = this.state.link;
 	state = state.split('/');
 	state = state[state.length - 1];
-    let report = this.state.singleReport;
-	console.log(report);
+  let reports = this.state.singleReport;
+	console.log(reports);
     return (
       <div>
         <main>
-        <div className = "AEmp">
-        <div className = "searchTable">
-          <h1>{report.title}</h1>
-          <h1>{"Author: " + report.authors}</h1>
-        </div>
-        {report.body}
-        </div>
-        <div className ="toMyEmployees2">
+           <div className ="toMyEmployees2">
         <div className="containers1">
   <div className="spacer">
    <Link to="editreports" params = {{id: state}}>
@@ -121,6 +127,17 @@ render() {
         </div>
 
          </div>
+        <ul>
+        {reports.map((report) =>
+        <div className = "AEmp">
+        <div className = "searchTable">
+          <h1>{report.title}</h1>
+          <h1>{"Author: " + report.authors}</h1>
+        </div>
+        {report.body}
+        </div>
+        )}
+        </ul>
         </main>
       </div>
     );

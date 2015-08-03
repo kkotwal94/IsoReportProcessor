@@ -9,6 +9,7 @@ constructor(props) {
   super(props);
   this.state = ReportsStore.getState();
   this.state.allReports = [];
+  this.state.globalReports = [];
 	}
 
 componentDidMount() {
@@ -26,36 +27,35 @@ _titleSearch = (event) => {
   updatedList = updatedList.filter(function(item) {
   return item.title.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
 });
-  this.setState({allReports: updatedList});
+  this.setState({globalReports: updatedList});
 }
   _dateSearch = (event) => {
     let updatedList = this.state.duplicate;
     updatedList = updatedList.filter(function(item) {
   return item.date.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
 });
-    this.setState({allReports: updatedList});
+    this.setState({globalReports: updatedList});
   }
   _authorSearch = (event) => {
     let updatedList = this.state.duplicate;
     updatedList = updatedList.filter(function(item) {
-  return item.author[0].toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+  return item.authors[0].toLowerCase().search(event.target.value.toLowerCase()) !== -1;
 });
-    this.setState({allReports: updatedList});
+    this.setState({globalReports: updatedList});
   }
 
 _onChanges = () => {
   this.setState({
       allReports: ReportsStore.getState().reports,
       globalReports: ReportsStore.getState().globalreports,
-      duplicate: ReportsStore.getState().reports
+      duplicate: ReportsStore.getState().globalreports
     });
 }
 
 render() {
   let allReports = this.state.allReports;
-  console.log(this.state.allReports);
   let duplicate = this.state.duplicate;
-  console.log(this.state.globalReports);
+  let global = this.state.globalReports;
   let searchByTitle = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._titleSearch}/>
 					<label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-4">
@@ -91,7 +91,7 @@ render() {
         </tr>
         </thead>
           <tbody>
-          {allReports.map((report) =>
+          {global.map((report) =>
             <tr key={'report' + report._id}>
               <td>{report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><a>Complete</a></td>
             </tr>

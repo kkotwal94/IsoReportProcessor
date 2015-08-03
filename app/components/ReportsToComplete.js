@@ -11,10 +11,11 @@ constructor(props) {
   this.state = ReportsStore.getState();
   this.state.allReports = [];
   this.state.notComplete = [];
+  this.state.globalReports = [];
 	}
 
 componentDidMount() {
-  ReportsActions.getMyReports();
+  ReportsActions.getGlobalReports();
   ReportsStore.listen(this._onChanges);
 	}
 
@@ -39,7 +40,7 @@ _titleSearch = (event) => {
   _authorSearch = (event) => {
     let updatedList = this.state.duplicate;
     updatedList = updatedList.filter(function(item) {
-  return item.author[0].toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+  return item.authors[0].toLowerCase().search(event.target.value.toLowerCase()) !== -1;
 });
     this.setState({allReports: updatedList});
   }
@@ -47,13 +48,12 @@ _titleSearch = (event) => {
 _onChanges = () => {
   this.setState({
       allReports: ReportsStore.getState().notComplete,
-      duplicate: ReportsStore.getState().notComplete
+      duplicate: ReportsStore.getState().notComplete,
     });
 }
 
 render() {
   let allReports = this.state.allReports;
-  console.log(this.state.allReports);
   let duplicate = this.state.duplicate;
   let searchByTitle = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._titleSearch}/>

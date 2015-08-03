@@ -3,12 +3,13 @@ import {Link,State, Route} from 'react-router';
 import Router from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
-
+require("alloyeditor");
 export default class EditReport extends React.Component {
 constructor(props) {
   super(props);
   this.state = ReportsStore.getState();
   this.state.singleReport = [];
+  this.state.editReport = [];
   this.state.link = window.location.href;
 	}
 
@@ -27,7 +28,8 @@ componentWillUnmount() {
 _onChanges = () => {
   this.setState({
       singleReport: ReportsStore.getState().singleReport,
-      duplicate: ReportsStore.getState().singleReport
+      duplicate: ReportsStore.getState().singleReport,
+      editReport: ReportsStore.getState().editReport
     });
 }
 
@@ -49,6 +51,7 @@ _onCreateReport = () => {
 
 render() {
   let singleReport = this.state.singleReport;
+  let editReport = this.state.editReport;
   let state = this.state.link;
   state = state.split('/');
   state = state[state.length-2];
@@ -57,8 +60,8 @@ render() {
     <main>
     <h1>Hello im trying to edit</h1>
     <fieldset className = "fieldSet2">
-          <input type = "text" placeholder = {singleReport.title} ref = "title"/>
-          <input type = "text" placeholder = {singleReport.date} ref = "date"/>
+          <input type = "text" placeholder = {editReport.title} ref = "title"/>
+          <input type = "text" placeholder = {editReport.date} ref = "date"/>
           <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = {singleReport.body}></textarea>
           <Link to="singlereports" params = {{id: state}}><button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Edit Report</button></Link>
           </fieldset>

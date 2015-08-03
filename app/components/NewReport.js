@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
 
-
+var treecycle = x => {return x * x;};
 export default class NewReport extends React.Component {
 constructor(props) {
   super(props);
@@ -24,7 +24,7 @@ ReportsStore.unlisten(this._onChange);
  _onChange = () => {
     this.setState({
       isWaiting: ReportsStore.getState().isWaiting,
-      reports: ReportsStore.getState().reports,
+      reports: ReportsStore.getState().globalreports,
     });
   }
 
@@ -37,7 +37,7 @@ _onCreateReport = () => {
         date: date,
         body: body
     });
-  ReportsActions.getMyReports();
+  ReportsActions.getGlobalReports();
 }
 
 _change = () => {
@@ -47,8 +47,9 @@ _change = () => {
 }
 
 render() {
+  console.log(treecycle(2));
   let reports = this.state.reports;
-  let route = reports[reports.length - 1];
+  let route = reports[0];
 
   if (route == undefined) {
     route = 123;

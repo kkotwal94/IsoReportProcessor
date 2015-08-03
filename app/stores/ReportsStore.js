@@ -1,6 +1,17 @@
 import ReportsActions from 'actions/ReportsActions';
 import alt from 'altInstance';
 
+var treecycle = (data, arr) => {
+  if(data.subreport.length != 0)
+    for(var x = 0; x < data.subreport.length; x++)
+    {
+        arr.push(data.subreport[x]);
+        if(data.subreport[x].subreport.length != 0) {
+           treecycle(data.subreport[x], arr);
+        }
+    }
+};
+
 class ReportsStore {
 constructor() {
     // Instance variables defined anywhere in the store will become the state. You can initialize these in the constructor and
@@ -9,6 +20,7 @@ constructor() {
     // on: This method can be used to listen to Lifecycle events. Normally they would set up in the constructor
     this.reports = [];
     this.singleReport = [];
+    this.editReport = [];
     this.notComplete = [];
     this.newReport = [];
     this.globalreports = [];
@@ -45,12 +57,40 @@ constructor() {
 
   handleGlobalReports() {
     this.globalreports = [];
+    this.notComplete = [];
+    this.newReport = [];
+    this.isWaitingGet = true;
     this.emitChange();
   }
 
   handleGlobalReportsSuccess(data) {
-    let filler;
-    this.globalreports = data;
+    let filler = [];
+    let incomplete = [];
+    let id = data[data.length-1];
+    for(let i = 0; i < data.length; i++) {
+      if(data[i].author == id || data[i].owner == id){
+        filler.push(data[i]);
+        if(data[i].isCompleted == false) {
+          incomplete.push(data[i]);
+        }
+      }
+    }
+
+    filler.sort(function(a, b) {
+    a = new Date(a.date);
+    b = new Date(b.date);
+    return a>b ? -1 : a<b ? 1 : 0;
+});
+    this.globalreports = filler;
+
+    incomplete.sort(function(a, b) {
+    a = new Date(a.date);
+    b = new Date(b.date);
+    return a>b ? -1 : a<b ? 1 : 0;
+});
+    this.notComplete = incomplete;
+    this.isWaitingGet = false;
+    this.newReport = data[data.length - 1]._id;
     this.emitChange();
   }
 
@@ -85,6 +125,7 @@ constructor() {
 
   handleSingleReport() {
     this.singleReport = [];
+    this.editReport = [];
   }
 
   handleEditReport() {
@@ -98,12 +139,16 @@ constructor() {
 
   }
   handleEditReportSuccess(data) {
-    this.singleReport = data;
+    this.editReport = data;
     this.emitChange();
   }
 
   handleSingleReportComplete(data) {
-    this.singleReport = data;
+    let arr = [];
+    this.editReport = data;
+    arr.push(data);
+    treecycle(data, arr);
+    this.singleReport = arr;
     this.emitChange();
   }
 
@@ -129,7 +174,7 @@ constructor() {
     let j = [];
     this.reports = data;
     for (let i = 0; i < data.length; i++) {
-      if (data[0].isCompleted == false) {
+      if (data[i].isCompleted == false) {
         j.push(data[i]);
       }
     }

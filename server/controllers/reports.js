@@ -11,6 +11,7 @@ var Promise = require('bluebird');
 exports.all = function(req, res) {
   Report.find({}).exec(function(err, reports) {
     if(!err) {
+      reports.push(req.user._id);
       res.json(reports);
     }else {
       console.log('Error in first query');
