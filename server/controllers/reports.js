@@ -18,12 +18,31 @@ exports.all = function(req, res) {
   });
 };
 
+/*exports.allMyReports2 = function(req, res) {
+  var id = req.user._id;
+  var totalproc = 0;
+  var dupe = [];
+  Report.find({}), function(err, form) {
+    if(err) {
+      throw err;
+    }
+    else {
+      for(var x = 0; x < form.length; x++) {
+
+      } 
+    }
+  });
+}*/
 //all of that users reports
 exports.allMyReports = function(req, res) {
 var id = req.user._id;
         var totalproc = 0;
         var dupe = [];
         Report.find({"author" : id}, function (err, form) {
+          if(err) {
+            console.log('Error in finding reports');
+          }
+          else {
             dupe = form;
             
             dupe.forEach(function (person) {
@@ -43,8 +62,9 @@ var id = req.user._id;
                 );
             });
     
-    
+          }
         });
+      
 };
 
 /**

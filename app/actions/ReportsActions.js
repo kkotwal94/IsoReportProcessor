@@ -99,7 +99,7 @@ class ReportsActions {
   
   getGlobalReports() {
     this.dispatch();
-    ReportsWebApiUtils.getGlobalReports().done((data) => {
+    ReportsWebAPIUtils.getGlobalReports().done((data) => {
       this.actions.getGlobalReportsComplete(data);
     })
     .fail((errorMessage) => {

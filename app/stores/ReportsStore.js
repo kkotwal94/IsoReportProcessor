@@ -50,7 +50,7 @@ constructor() {
 
   handleGlobalReportsSuccess(data) {
     let filler;
-    this.globalreports = [];
+    this.globalreports = data;
     this.emitChange();
   }
 

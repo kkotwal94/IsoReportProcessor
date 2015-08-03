@@ -177,62 +177,6 @@ if (!String.prototype.trim) {
         }
 })( window );
 </script>
-<script>
-$(document).ready(function () {
-    AlloyEditor.editable('ckedit', {
-    uiNode: 'modal-4',
-                toolbars: {
 
-  add: {
-        buttons: ['image', 'camera', 'hline', 'table'],
-        tabIndex: 2
-    },
-        styles: {
-            selections: [
-                {
-                    name: 'text',
-                    buttons: [{
-                        name: 'styles',
-                        cfg: {
-                            styles: [
-                                {
-                                    name: 'Head 1',
-                                    style: { element: 'h1' }
-                                },
-                                {
-                                    name: 'Head 2',
-                                    style: { element: 'h2' }
-                                },
-                                {
-                                    name: 'Big',
-                                    style: { element: 'big' }
-                                },
-                                {
-                                    name: 'Small',
-                                    style: { element: 'small' }
-                                },
-        {
-            name: 'Formatted',
-            style: {element: 'pre'}
-        },
-                                {
-                                    name: 'Code',
-                                    style: { element: 'code' }
-                                },
-                               { name: 'Inline Quotation', style:{element: 'q'} }
-                            ]
-                        }
-                    },'quote','bold', 'italic', 'underline', 'link', 'twitter','subscript','superscript', 'ul', 'ol'],
-                    test: AlloyEditor.SelectionTest.text
-                }
-            ]
-        }
-    }
-
-
-
-
-});
-</script>
 </body>
 </html>

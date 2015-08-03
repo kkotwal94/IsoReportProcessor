@@ -13,6 +13,7 @@ constructor(props) {
 
 componentDidMount() {
   ReportsActions.getMyReports();
+  ReportsActions.getGlobalReports();
   ReportsStore.listen(this._onChanges);
 	}
 
@@ -45,6 +46,7 @@ _titleSearch = (event) => {
 _onChanges = () => {
   this.setState({
       allReports: ReportsStore.getState().reports,
+      globalReports: ReportsStore.getState().globalreports,
       duplicate: ReportsStore.getState().reports
     });
 }
@@ -53,6 +55,7 @@ render() {
   let allReports = this.state.allReports;
   console.log(this.state.allReports);
   let duplicate = this.state.duplicate;
+  console.log(this.state.globalReports);
   let searchByTitle = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._titleSearch}/>
 					<label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-4">

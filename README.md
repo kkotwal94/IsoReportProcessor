@@ -10,7 +10,6 @@ Isomorphic Report processor
 
 #ToDO:
 * Add a subform (90% complete)
-* Add a assigned form
 * Join Forms
 * Grid view of employees
 * Grid view of Reports
@@ -19,6 +18,11 @@ Isomorphic Report processor
 * Add in alloyeditor
 * Add in jsTOPDF
 
+#Bugs:
+* First document addition for user takes too long or can't be found
+* Spamming routes in chrone(~50 times) freezes up data fetching on chrome
+* Alias on webpack can't find Alloy-editor
+* Navbar doesn't know which route we are on therefore animation doesn't change marker :/
 
 #About:
 
