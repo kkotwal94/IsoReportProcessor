@@ -3,6 +3,8 @@ import 'scss/main.scss';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
 import ReportView from './ReportView';
+import CompleteButton from './CompleteButton';
+import Dropdown from './Dropdown';
 import {Link} from 'react-router';
 export default class Report extends React.Component {
 constructor(props) {
@@ -13,7 +15,6 @@ constructor(props) {
 	}
 
 componentDidMount() {
-  ReportsActions.getMyReports();
   ReportsActions.getGlobalReports();
   ReportsStore.listen(this._onChanges);
 	}
@@ -56,6 +57,9 @@ render() {
   let allReports = this.state.allReports;
   let duplicate = this.state.duplicate;
   let global = this.state.globalReports;
+  if(global == undefined) {
+     global = [{title: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
+  }
   let searchByTitle = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._titleSearch}/>
 					<label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-4">
@@ -83,6 +87,7 @@ render() {
         {searchByTitle}
         {searchByDate}
         {searchByAuthor}
+        <Dropdown list = {global} selected="Well" />
 		</div>
         <table className ="table table-bordered table-hover data-toggle table-striped">
         <thead>
@@ -93,7 +98,7 @@ render() {
           <tbody>
           {global.map((report) =>
             <tr key={'report' + report._id}>
-              <td>{report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><a>Complete</a></td>
+              <td>{report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><CompleteButton buttonText = {report.buttonText} buttonClass = {report.buttonClass} id = {report._id}/></td>
             </tr>
           )}
           </tbody>

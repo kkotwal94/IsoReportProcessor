@@ -76,6 +76,7 @@ render() {
 	state = state.split('/');
 	state = state[state.length - 1];
   let reports = this.state.singleReport;
+  let fr = "report"
 	console.log(reports);
     return (
       <div>
@@ -127,16 +128,28 @@ render() {
         </div>
 
          </div>
+         <ul>
+        {
+        reports.map((report => {
+         if(report._id == undefined || null) {
+            report._id = "123";
+         }
+         })
+        )}
+        </ul>
         <ul>
-        {reports.map((report) =>
+        {
+        reports.map((report => 
         <div className = "AEmp">
         <div className = "searchTable">
           <h1>{report.title}</h1>
           <h1>{"Author: " + report.authors}</h1>
+          <Link to = "editreports" params ={{id: report._id}}><div className = "EditButton redgay">Edit</div></Link>
         </div>
         {report.body}
         </div>
-        )}
+        
+        ))}
         </ul>
         </main>
       </div>

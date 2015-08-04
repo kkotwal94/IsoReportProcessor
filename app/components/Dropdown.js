@@ -63,7 +63,7 @@ renderListItems() {
           for (let i = 0; i < this.props.list.length; i++) {
             let item = this.props.list[i];
             items.push(<div onClick={this.select.bind(null, item)}>
-              <span style={{ color: 'black' }}>{item.email + " : " + item.profile.firstName + " " + item.profile.lastName}</span>
+              <span style={{ color: 'black' }}>{item.title}</span>
               <i style={{ color: 'black' }} className="fa fa-check"></i>
             </div>);
           }

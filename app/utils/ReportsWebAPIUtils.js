@@ -71,6 +71,16 @@ const utils = {
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data)
+
+    });
+  },
+
+  setReportComplete: (data) => {
+    return $.ajax({
+      url: '/complete',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
     });
   }
 

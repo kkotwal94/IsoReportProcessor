@@ -85,15 +85,23 @@ exports.singleReport = function(req, res) {
 
 //complete a report or mark as
 exports.completed = function(req, res) {
-  var id = req.body._id;
+  var id = req.body.data;
   Report.findById(id, function(err, reports) {
     if(err) {
       res.redirect('/404NotFound');
     }
     else {
-    reports.isCompleted = true;
+      console.log(reports);
+    if(reports.isCompleted == true) {
+    reports.isCompleted = false;
     reports.save();
     res.json(reports);
+  }
+    else {
+      reports.isCompleted = true;
+      reports.save();
+      res.json(reports);
+    }
   }
   });
 };

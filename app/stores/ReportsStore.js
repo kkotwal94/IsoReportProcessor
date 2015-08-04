@@ -51,7 +51,9 @@ constructor() {
         handleAssignedReportSuccess: ReportsActions.ADD_ASSIGNED_REPORT_COMPLETE,
         handleGlobalReports: ReportsActions.GET_GLOBAL_REPORTS,
         handleGlobalReportsSuccess: ReportsActions.GET_GLOBAL_REPORTS_COMPLETE,
-        handleGlobalReportsError: ReportsActions.GET_GLOBAL_REPORTS_ERROR
+        handleGlobalReportsError: ReportsActions.GET_GLOBAL_REPORTS_ERROR,
+        handleReportComplete: ReportsActions.SET_COMPLETE,
+        handleReportCompleteSuccess: ReportsActions.SET_COMPLETE_SUCCESS
     });
   }
 
@@ -63,16 +65,46 @@ constructor() {
     this.emitChange();
   }
 
+  handleReportComplete() {
+    this.emitChange();
+  }
+
+  handleReportCompleteSuccess(data) {
+    let filler = [];
+    let id = data.data;
+    for(let i = 0; i < this.globalreports.length; i++) {
+      if(this.globalreports[i]._id == id) {
+        if(this.globalreports[i].isCompleted == false) {
+          this.globalreports[i].isCompleted = true;
+          this.globalreports[i].buttonText = "Set me as incomplete";
+          this.globalreports[i].buttonClass = "btn btn-success";
+        }
+         else {
+          this.globalreports[i].isCompleted = false;
+          this.globalreports[i].buttonText = "Set me as complete";
+          this.globalreports[i].buttonClass ="btn btn-danger";
+         }
+        }
+      }
+    this.emitChange();
+  }
+
   handleGlobalReportsSuccess(data) {
     let filler = [];
     let incomplete = [];
     let id = data[data.length-1];
     for(let i = 0; i < data.length; i++) {
       if(data[i].author == id || data[i].owner == id){
-        filler.push(data[i]);
         if(data[i].isCompleted == false) {
+          data[i].buttonText = 'Set me as Complete';
+          data[i].buttonClass = 'btn btn-danger';
           incomplete.push(data[i]);
         }
+        else {
+          data[i].buttonText = 'Set me as incomplete';
+          data[i].buttonClass = 'btn btn-success';
+        }
+        filler.push(data[i]);
       }
     }
 

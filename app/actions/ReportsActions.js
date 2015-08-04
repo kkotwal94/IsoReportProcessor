@@ -3,6 +3,21 @@ import ReportsWebAPIUtils from 'utils/ReportsWebAPIUtils';
 
 class ReportsActions {
 
+  setComplete(data) {
+    this.dispatch();
+    ReportsWebAPIUtils.setReportComplete(data)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.setCompleteSuccess(data);
+        }
+      }, () => {
+    });
+  }
+
+  setCompleteSuccess(data) {
+    this.dispatch(data);
+  }
+
   addAssignedReport(data) {
   this.dispatch();
   ReportsWebAPIUtils.assignToEmployee(data)
