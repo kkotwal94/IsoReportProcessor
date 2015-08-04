@@ -3,7 +3,7 @@ import {Link,State, Route} from 'react-router';
 import Router from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
-require("alloyeditor");
+
 export default class EditReport extends React.Component {
 constructor(props) {
   super(props);
