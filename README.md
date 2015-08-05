@@ -2,14 +2,12 @@
 Isomorphic Report processor
 
 # Updated 
-* Added Front end ui for Dashboard
-* Added React-router routing for Dashboard items (All ToDO UI's atleast with dummy text to verify we have reached the route)
-* Set up API for post and get request (didn't test yet however via POSTMAN)
-* Added sick Nav
-* Added in flux/altjs component communication(via dispatchers/actions)
+* Added UI for merging documents in /reportsall
+* Set up API for post and get request for merging documents(didn't test yet however via POSTMAN)
+* Added actions/stores for merging reports
+* Added in more convenient routing panels
 
 #ToDO:
-* Add a subform (90% complete)
 * Join Forms
 * Grid view of employees
 * Grid view of Reports
@@ -19,10 +17,10 @@ Isomorphic Report processor
 * Add in jsTOPDF
 
 #Bugs:
-* First document addition for user takes too long or can't be found
-* Spamming routes in chrone(~50 times) freezes up data fetching on chrome
+* Spamming routes in chrome(~50 times) freezes up data fetching on chrome
 * Alias on webpack can't find Alloy-editor
 * Navbar doesn't know which route we are on therefore animation doesn't change marker :/
+* Refresh on nested route can't load 'window.href' (should use react router to pull route)
 
 #About:
 
