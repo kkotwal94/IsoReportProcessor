@@ -53,10 +53,15 @@ _onChanges = () => {
     });
 }
 
+_onJoin = () => {
+  
+}
+
 render() {
   let allReports = this.state.allReports;
   let duplicate = this.state.duplicate;
   let global = this.state.globalReports;
+  let icon = "fa fa-plus";
   if(global == undefined) {
      global = [{title: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
   }
@@ -78,6 +83,12 @@ render() {
 						<span className="input__label-content input__label-content--hoshi">Search by Author!</span>
 					</label>
 					</span>);
+  let titleInput = (<span className="input input--hoshi">
+          <input className="input__field input__field--hoshi" type="text" id="input-12"/>
+          <label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-44">
+            <span className="input__label-content input__label-content--hoshi">Insert Title here!</span>
+          </label>
+          </span>);
   return (
             <div>
         <main>
@@ -87,7 +98,6 @@ render() {
         {searchByTitle}
         {searchByDate}
         {searchByAuthor}
-        <Dropdown list = {global} selected="Well" />
 		</div>
         <table className ="table table-bordered table-hover data-toggle table-striped">
         <thead>
@@ -98,7 +108,7 @@ render() {
           <tbody>
           {global.map((report) =>
             <tr key={'report' + report._id}>
-              <td>{report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><CompleteButton buttonText = {report.buttonText} buttonClass = {report.buttonClass} id = {report._id}/></td>
+              <td><i className = {icon}></i>{"   " + report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><CompleteButton buttonText = {report.buttonText} buttonClass = {report.buttonClass} id = {report._id}/></td>
             </tr>
           )}
           </tbody>
@@ -137,6 +147,24 @@ render() {
     </Link>
     </div>
     </div>
+        </div>
+        <div className ="toMyEmployees4">
+        <div className ="joinTool">
+        <h1>JoinList Title</h1>
+        {titleInput}
+        <div className ="joining">
+        <button type="submit" className ="btn btn-lg btn-primary">Set Joined Report Title</button>
+        </div>
+        <div className = "joinings">
+         <Dropdown list = {global} selected="Well" />
+         </div>
+         <div className = "joinings2">
+         <button className = "btn btn-lg btn-danger">Remove item</button>
+         </div>
+         <div className = "joinings2">
+         <button className ="btn btn-lg btn-danger">Create joined document</button>
+         </div>
+        </div>
         </div>
         </div>
          </div>

@@ -3172,6 +3172,7 @@ a.wide:active, a.box:active{
    margin: 0 auto;
    width: 350px;
    background-color: #001A33;
+   outline: 4px solid black;
 }
 
 .updateInfo {
@@ -3198,7 +3199,9 @@ a.wide:active, a.box:active{
 .fieldSet {
   text-align: center;
   background-color:#001A33;
+  /* background-color:#343c55; */
   width:350px;
+  outline: 4px solid black;
   margin: 0 auto;
 }
 .fieldSet input {
@@ -3241,6 +3244,14 @@ a.wide:active, a.box:active{
   margin: 0 auto;
   width: 50%;
   margin-top: -352px;
+}
+
+.toMyReport {
+  float:right;
+  text-align: center;
+  margin: 0 auto;
+  width: 50%;
+  margin-top: -122px;
 }
 
 .readME {
@@ -3524,4 +3535,33 @@ div.dropdown-container > div.dropdown-list > div > div.selected > i {
     padding: 10px;
     width:10%;
     float: right;
+    }
+    
+    .joining {
+    float: right;
+    margin-top:50px;
+    display: inline-block;
+    width:45%;
+    }
+
+    .joinings {
+    float: right;
+    margin-top:50px;
+    display: inline-block;
+    
+    }
+
+    .joinings2 {
+    float: left;
+    margin-top:50px;
+    display: inline-block;
+    margin-left:15px;
+    }
+
+    .joinTool {
+    background-color: #343c55;
+    outline: 1px solid black;
+    width: 480px;
+    height: 340px;
+    margin-top:5px;
     }

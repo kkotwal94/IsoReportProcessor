@@ -82,7 +82,16 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
-  }
+  },
+
+  addJoinList: (data) => {
+    return $.ajax({
+      url: '/joinList',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+  });
+  } 
 
 };
 export default utils;

@@ -21,6 +21,11 @@ var UserSchema = mongoose.Schema({
 	   forms_created:[{type: mongoose.Schema.Types.ObjectId, ref: 'Form'}],
 	   forms_incomplete :[{type: mongoose.Schema.Types.ObjectId, ref: 'Form'}],
 	   forms_completed : [{type: mongoose.Schema.Types.ObjectId, ref: 'Form'}],
+     forms_container : {
+      title: {type: String, default: "Empty"},
+      date: {type: Date},
+      joinList: [{type: mongoose.Schema.Types.ObjectId, ref: 'Form'}]
+    },
 	   lackeys      :[{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 	   });
 

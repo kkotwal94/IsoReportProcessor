@@ -3,7 +3,7 @@ import {Link,State, Route} from 'react-router';
 import Router from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
-
+//require('../../node_modules/alloyeditor/alloy-editor-core.js');
 export default class EditReport extends React.Component {
 constructor(props) {
   super(props);
@@ -19,8 +19,7 @@ componentDidMount() {
   state = state[state.length-2];
   ReportsActions.getSoloReport(state);
   ReportsStore.listen(this._onChanges);
-	}
-
+}
 componentWillUnmount() {
   ReportsStore.unlisten(this._onChanges);
 	}
@@ -62,7 +61,7 @@ render() {
     <fieldset className = "fieldSet2">
           <input type = "text" placeholder = {editReport.title} ref = "title"/>
           <input type = "text" placeholder = {editReport.date} ref = "date"/>
-          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = {singleReport.body}></textarea>
+          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = {singleReport.body}>{singleReport.body}</textarea>
           <Link to="singlereports" params = {{id: state}}><button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Edit Report</button></Link>
           </fieldset>
           <div className ="toMyEmployees2">

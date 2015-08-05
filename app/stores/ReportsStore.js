@@ -53,10 +53,18 @@ constructor() {
         handleGlobalReportsSuccess: ReportsActions.GET_GLOBAL_REPORTS_COMPLETE,
         handleGlobalReportsError: ReportsActions.GET_GLOBAL_REPORTS_ERROR,
         handleReportComplete: ReportsActions.SET_COMPLETE,
-        handleReportCompleteSuccess: ReportsActions.SET_COMPLETE_SUCCESS
+        handleReportCompleteSuccess: ReportsActions.SET_COMPLETE_SUCCESS,
+        handleJoinList: ReportsActions.JOIN_LIST,
+        handleJoinListSuccess: ReportsActions.JOIN_LIST_COMPLETE
     });
   }
+  handleJoinList() {
+    this.emitChange();
+  }
 
+  handleJoinListSuccess(data) {
+    this.emitChange();
+  }
   handleGlobalReports() {
     this.globalreports = [];
     this.notComplete = [];

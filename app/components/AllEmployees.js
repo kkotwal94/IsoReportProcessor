@@ -163,6 +163,18 @@ render() {
     <div className ="toMyEmployees3">
         <div className="containers1">
   <div className="spacer">
+   <Link to="assignReport">
+    <a className="wide redgay">
+    <i className="fa fa-level-down"></i>
+      <h2>Assign a Report to Employee</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+        </div>
+        <div className ="toMyEmployees5">
+        <div className="containers1">
+  <div className="spacer">
    <Link to="dashboard">
     <a className="wide redgay">
     <i className="fa fa-tachometer"></i>

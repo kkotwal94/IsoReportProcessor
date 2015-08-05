@@ -171,6 +171,19 @@ render() {
     <div className ="toMyEmployees3">
         <div className="containers1">
   <div className="spacer">
+   <Link to="report">
+    <a className="wide redgay">
+    <i className="fa fa-pencil-square-o"></i>
+      <h2>View Or Edit Reports</h2>
+    </a>
+    </Link>
+    </div>
+    </div>
+        </div>
+
+         <div className ="toMyEmployees5">
+        <div className="containers1">
+  <div className="spacer">
    <Link to="dashboard">
     <a className="wide redgay">
     <i className="fa fa-tachometer"></i>
@@ -180,6 +193,7 @@ render() {
     </div>
     </div>
         </div>
+
         </div>
     </main>
     </div>

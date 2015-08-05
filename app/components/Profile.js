@@ -92,6 +92,14 @@ render() {
     </a>
     </Link>
     </div>
+    <div className = "toMyReport">
+    <Link to="dashboard">
+    <a className="wide redgay">
+    <i className="fa fa-tachometer"></i>
+      <h2>Dashboard</h2>
+    </a>
+    </Link>
+    </div>
         </div>
         </main>
       </div>

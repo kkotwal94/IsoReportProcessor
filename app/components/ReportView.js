@@ -4,13 +4,6 @@ import Router from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
 let finalData = [];
-var treecycle = data => {
-  console.log(data);
-};
-
-function treeCycle(data) {
-  console.log(data);
-}
 export default class ReportView extends React.Component {
 constructor(props) {
   super(props);
@@ -27,18 +20,12 @@ componentDidMount() {
   console.log(state);
  //this._fullView(this.state.singleReport);
   ReportsActions.getSoloReport(state);
-  this._cycle;
   ReportsStore.listen(this._onChanges);
 	}
 
 componentWillUnmount() {
   ReportsStore.unlisten(this._onChanges);
 	}
-
-_cycle = () => {
-  treecycle(this.state.singleReport);
-}
-
 _onChanges = () => {
   this.setState({
       singleReport: ReportsStore.getState().singleReport,
@@ -146,7 +133,9 @@ render() {
           <h1>{"Author: " + report.authors}</h1>
           <Link to = "editreports" params ={{id: report._id}}><div className = "EditButton redgay">Edit</div></Link>
         </div>
+        <div id = "editable">
         {report.body}
+        </div>
         </div>
         
         ))}

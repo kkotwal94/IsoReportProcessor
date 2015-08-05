@@ -119,7 +119,10 @@ module.exports = function(app, passport) {
   app.get('/allReports', function(req, res) {
     report.all(req, res);
   });
-
+  
+  app.post('/joinList', function(req, res) {
+    report.joinList(req, res);
+  });
 
   // Retrieves all topics on any endpoint for demonstration purposes
   // If you were indeed doing this in production, you should instead only

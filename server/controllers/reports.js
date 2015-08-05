@@ -300,3 +300,27 @@ exports.finalView = function(req, res) {
             res.send('Something is wrong..' + err.message) //err.message holds true error, might be vague
         });
   };
+
+  exports.joinList = function(req, res) {
+    var id = req.user._id;
+    var report_id = req.body.data;
+    var dupe = 0;
+    User.findById(id, function(err, user) {
+       for (var i = 0; i < user.forms_containers.joinList.length; i++) {
+           if(user.forms_containers.joinList[i] == report_id){
+              user.forms_containers.joinList.splice(i,1);
+              dupe = dupe+1;
+           }
+           else {
+            user.forms_containers.joinList.push(i);
+            dupe = dupe+1;
+           }
+
+           if(dupe == user.forms_containers.joinList.length) {
+            res.end();
+           }
+       }
+
+    });
+
+  };

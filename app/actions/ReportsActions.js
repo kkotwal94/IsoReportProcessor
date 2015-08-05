@@ -2,6 +2,21 @@ import alt from 'altInstance';
 import ReportsWebAPIUtils from 'utils/ReportsWebAPIUtils';
 
 class ReportsActions {
+  
+  joinList(data) {
+    this.dispatch();
+    ReportWebAPIUtils.addJoinList(data)
+    .then((response, textStatus) => {
+      if (textStatus === 'success') {
+        this.actions.joinListComplete(data);
+      }
+    }, () => {
+  });
+  }
+
+  joinListComplete(data) {
+    this.dispatch(data);
+  }
 
   setComplete(data) {
     this.dispatch();

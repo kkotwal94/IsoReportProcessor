@@ -71,7 +71,7 @@ module.exports = [
           loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap&outputStyle=expanded" +
             "&includePaths[]=" + (path.resolve(__dirname, "./bower_components")) +
             "&includePaths[]=" + (path.resolve(__dirname, "./node_modules")) +
-            '&includePaths[]=' + (path.resolve(__dirname, './node_modules/alloy-editor/dist/alloy-editor/assets')))
+            '&includePaths[]=' + (path.resolve(__dirname, './node_modules/alloy-editor/assets')))
         }
       ])
     },
@@ -81,7 +81,7 @@ module.exports = [
         "app", "node_modules"
       ],
       alias: {
-      alloyeditor : './node_modules/alloy-editor/dist/alloy-editor/alloy-editor-all.js'
+      alloyeditor : '../../node_modules/alloyeditor/alloy-editor-core.js'
       }
     },
     plugins: [
