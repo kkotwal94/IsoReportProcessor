@@ -1,11 +1,12 @@
 import alt from 'altInstance';
 import ReportsWebAPIUtils from 'utils/ReportsWebAPIUtils';
+import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 
 class ReportsActions {
   
   joinList(data) {
     this.dispatch();
-    ReportWebAPIUtils.addJoinList(data)
+    ReportsWebAPIUtils.addJoinList(data)
     .then((response, textStatus) => {
       if (textStatus === 'success') {
         this.actions.joinListComplete(data);
@@ -15,6 +16,7 @@ class ReportsActions {
   }
 
   joinListComplete(data) {
+    this.actions.getUserProfile();
     this.dispatch(data);
   }
 
@@ -129,8 +131,14 @@ class ReportsActions {
   
   getGlobalReports() {
     this.dispatch();
-    ReportsWebAPIUtils.getGlobalReports().done((data) => {
-      this.actions.getGlobalReportsComplete(data);
+    ReportsWebAPIUtils.getGlobalReports().done((data1) => {
+      UserWebAPIUtils.getList().done((data2) => {
+        let data = {'data1' : data1, 'data2': data2};
+        this.actions.getGlobalReportsComplete(data);
+      })
+      .fail((errorMessage) => {
+      this.actions.getGlobalReportsError(errorMessage);
+      });
     })
     .fail((errorMessage) => {
       this.actions.getGlobalReportsError(errorMessage);
@@ -142,6 +150,24 @@ class ReportsActions {
   }
 
   getGlobalReportsError(errorMessage) {
+    this.dispatch(errorMessage);
+  }
+
+  getUserProfile() {
+    this.dispatch();
+    UserWebAPIUtils.getList().done((data) => {
+      this.actions.getUserProfileComplete(data);
+    })
+    .fail((errorMessage) => {
+      this.actions.getUserProfileError(errorMessage);
+    });
+  }
+
+  getUserProfileComplete(data) {
+    this.dispatch(data);
+  }
+
+  getUserProfileError(errorMessage){
     this.dispatch(errorMessage);
   }
 

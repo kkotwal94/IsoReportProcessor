@@ -24,6 +24,7 @@ constructor() {
     this.notComplete = [];
     this.newReport = [];
     this.globalreports = [];
+    this.userProfile = [];
     this.isWaiting;
     this.isWaiting2;
     this.isWaiting3;
@@ -55,9 +56,27 @@ constructor() {
         handleReportComplete: ReportsActions.SET_COMPLETE,
         handleReportCompleteSuccess: ReportsActions.SET_COMPLETE_SUCCESS,
         handleJoinList: ReportsActions.JOIN_LIST,
-        handleJoinListSuccess: ReportsActions.JOIN_LIST_COMPLETE
+        handleJoinListSuccess: ReportsActions.JOIN_LIST_COMPLETE,
+        handleGetProfile: ReportsActions.GET_USER_PROFILE,
+        handleGetProfileSuccess: ReportsActions.GET_USER_PROFILE_COMPLETE,
+        handleGetProfileError: ReportsActions.GET_USER_PROFILE_ERROR
     });
   }
+
+  handleGetProfile() {
+    this.userProfile = [];
+    this.emitChange();
+  }
+
+  handleGetProfileError(errorMessage) {
+    this.error = errorMessage;
+  }
+
+  handleGetProfileSuccess(data) {
+    this.userProfile = data;
+    this.emitChange();
+  }
+
   handleJoinList() {
     this.emitChange();
   }
@@ -69,6 +88,7 @@ constructor() {
     this.globalreports = [];
     this.notComplete = [];
     this.newReport = [];
+    this.userProfile = [];
     this.isWaitingGet = true;
     this.emitChange();
   }
@@ -100,19 +120,20 @@ constructor() {
   handleGlobalReportsSuccess(data) {
     let filler = [];
     let incomplete = [];
-    let id = data[data.length-1];
-    for(let i = 0; i < data.length; i++) {
-      if(data[i].author == id || data[i].owner == id){
-        if(data[i].isCompleted == false) {
-          data[i].buttonText = 'Set me as Complete';
-          data[i].buttonClass = 'btn btn-danger';
-          incomplete.push(data[i]);
+    let datar = data.data1;
+    let id = datar[datar.length-1];
+    for(let i = 0; i < datar.length; i++) {
+      if(datar[i].author == id || datar[i].owner == id){
+        if(datar[i].isCompleted == false) {
+          datar[i].buttonText = 'Set me as Complete';
+          datar[i].buttonClass = 'btn btn-danger';
+          incomplete.push(datar[i]);
         }
         else {
-          data[i].buttonText = 'Set me as incomplete';
-          data[i].buttonClass = 'btn btn-success';
+          datar[i].buttonText = 'Set me as incomplete';
+          datar[i].buttonClass = 'btn btn-success';
         }
-        filler.push(data[i]);
+        filler.push(datar[i]);
       }
     }
 
@@ -130,7 +151,8 @@ constructor() {
 });
     this.notComplete = incomplete;
     this.isWaitingGet = false;
-    this.newReport = data[data.length - 1]._id;
+    this.newReport = datar[datar.length - 1]._id;
+    this.userProfile = data.data2;
     this.emitChange();
   }
 

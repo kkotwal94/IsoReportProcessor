@@ -12,6 +12,7 @@ constructor(props) {
   this.state = ReportsStore.getState();
   this.state.allReports = [];
   this.state.globalReports = [];
+  this.state.userProfile = [];
 	}
 
 componentDidMount() {
@@ -49,21 +50,28 @@ _onChanges = () => {
   this.setState({
       allReports: ReportsStore.getState().reports,
       globalReports: ReportsStore.getState().globalreports,
-      duplicate: ReportsStore.getState().globalreports
+      duplicate: ReportsStore.getState().globalreports,
+      userProfile: ReportsStore.getState().userProfile.joinList,
+      joinList: ReportsStore.getState().userProfile.joinList,
     });
 }
 
-_onJoin = () => {
-  
-}
+
 
 render() {
   let allReports = this.state.allReports;
   let duplicate = this.state.duplicate;
   let global = this.state.globalReports;
+  let userProfile = this.state.userProfile;
+  let joinList = this.state.joinList;
   let icon = "fa fa-plus";
+  console.log(userProfile);
   if(global == undefined) {
      global = [{title: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
+  }
+
+  if(joinList == undefined) {
+     joinList = [{title: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
   }
   let searchByTitle = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._titleSearch}/>
@@ -108,7 +116,7 @@ render() {
           <tbody>
           {global.map((report) =>
             <tr key={'report' + report._id}>
-              <td><i className = {icon}></i>{"   " + report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><CompleteButton buttonText = {report.buttonText} buttonClass = {report.buttonClass} id = {report._id}/></td>
+              <td><i className = {icon} onClick = {function(event) { let data = report._id; ReportsActions.joinList({data: data}); }}></i>{"   " + report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><CompleteButton buttonText = {report.buttonText} buttonClass = {report.buttonClass} id = {report._id}/></td>
             </tr>
           )}
           </tbody>
@@ -156,7 +164,7 @@ render() {
         <button type="submit" className ="btn btn-lg btn-primary">Set Joined Report Title</button>
         </div>
         <div className = "joinings">
-         <Dropdown list = {global} selected="Well" />
+         <Dropdown list = {joinList} selected="Well" />
          </div>
          <div className = "joinings2">
          <button className = "btn btn-lg btn-danger">Remove item</button>

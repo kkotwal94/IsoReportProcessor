@@ -19,6 +19,12 @@ exports.all = function(req, res) {
   });
 };
 
+exports.popped = function(req, res) {
+  User.findById(req.user._id).populate('forms_container.joinList').exec(function(err, user) {
+    res.json(user.forms_container);
+  });
+}
+
 /*exports.allMyReports2 = function(req, res) {
   var id = req.user._id;
   var totalproc = 0;
@@ -306,21 +312,79 @@ exports.finalView = function(req, res) {
     var report_id = req.body.data;
     var dupe = 0;
     User.findById(id, function(err, user) {
-       for (var i = 0; i < user.forms_containers.joinList.length; i++) {
-           if(user.forms_containers.joinList[i] == report_id){
-              user.forms_containers.joinList.splice(i,1);
-              dupe = dupe+1;
+     var depth = user.forms_container.joinList.length + 1;
+      console.log(user.forms_container.joinList);
+       for (var i = 0; i < depth; i++) {
+           if(user.forms_container.joinList[i] == report_id){
+            console.log("hit");
+            console.log(user.forms_container.joinList);
+              user.forms_container.joinList.splice(i,1);
+              user.save();
+              res.json(req.body);
            }
            else {
-            user.forms_containers.joinList.push(i);
-            dupe = dupe+1;
+            dupe = dupe + 1;
+            console.log("Else staement hit");
+            console.log(dupe);
+            console.log("userform lenght: " + depth);
+            if(dupe == depth) {
+              console.log("Complete staement hit");
+            user.forms_container.joinList.push(report_id);
+            user.save();
+            res.json(req.body);
+          }
            }
 
-           if(dupe == user.forms_containers.joinList.length) {
-            res.end();
-           }
        }
-
+            console.log(user.forms_container.joinList);
     });
 
   };
+
+/**
+ var depth = user.forms_container.joinList.length + 1;
+      console.log(user.forms_container.joinList);
+       for (var i = 0; i < depth; i++) {
+           if(user.forms_container.joinList[i] == report_id){
+            console.log("hit");
+            console.log(user.forms_container.joinList);
+              user.forms_container.joinList.splice(i,1);
+              user.save();
+              res.end();
+           }
+           else {
+            dupe = dupe + 1;
+            console.log("Else staement hit");
+            console.log(dupe);
+            console.log("userform lenght: " + depth);
+            if(dupe == depth - 1) {
+              console.log("Complete staement hit");
+            user.forms_container.joinList.push(report_id);
+            user.save();
+            res.end();
+          }
+           }
+
+       }
+            console.log(user.forms_container.joinList);
+
+       user.forms_created.joinList = [];
+       console.log(user.forms_created.joinList);
+      user.save();
+      res.end();
+       **/
+
+       function contains(arr, id) {
+    for (var i = 0; i < arr.length; i++) {
+       
+        
+        if (arr[i] == id) {
+            
+            arr.splice(i, 1);
+            
+            return true;
+        }
+    }
+    
+    return false;
+}

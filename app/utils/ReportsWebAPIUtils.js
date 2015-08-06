@@ -13,28 +13,32 @@ const utils = {
   getGlobalReports: () => {
     return $.ajax({
       url: '/allReports',
-      type: 'GET'
+      type: 'GET',
+      cache:false
     });
   },
   
   getAllReports: () => {
     return $.ajax({
       url: '/myreports',
-      type: 'GET'
+      type: 'GET',
+      cache:false
     });
   },
   
   getSingleReport: (id) => {
     return $.ajax({
       url: '/report/' + id,
-      type: 'GET'
+      type: 'GET',
+      cache:false
     });
   },
 
   getSingleReportFinal: (id) => {
     return $.ajax({
       url: '/finalView/' + id,
-      type: 'GET' 
+      type: 'GET' ,
+      cache:false
     });
   },
 

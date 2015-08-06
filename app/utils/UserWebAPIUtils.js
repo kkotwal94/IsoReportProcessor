@@ -30,7 +30,8 @@ const utils = {
   myProfile: () => {
     return $.ajax({
       url: '/myProfile',
-      type: 'GET'
+      type: 'GET',
+      cache:false
     });
   },
 
@@ -53,14 +54,24 @@ const utils = {
   getAllEmployees: () => {
     return $.ajax({
       url: '/allUsers',
-      type: 'GET'
+      type: 'GET',
+      cache:false
     });
   },
 
   getMyEmployees: () => {
     return $.ajax({
       url: '/myEmployees',
-      type: 'GET'
+      type: 'GET',
+      cache:false
+    });
+  },
+
+  getList: () => {
+    return $.ajax({
+      url: '/list',
+      type: 'GET',
+      cache: false
     });
   },
   /*

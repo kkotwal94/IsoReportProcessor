@@ -38,6 +38,7 @@ _onCreateReport = () => {
         body: body
     });
   ReportsActions.getGlobalReports();
+  return false;
 }
 
 _change = () => {
