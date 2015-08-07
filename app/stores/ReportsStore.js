@@ -25,6 +25,8 @@ constructor() {
     this.newReport = [];
     this.globalreports = [];
     this.userProfile = [];
+    this.joinList = [];
+    this.selected = [];
     this.isWaiting;
     this.isWaiting2;
     this.isWaiting3;
@@ -59,12 +61,18 @@ constructor() {
         handleJoinListSuccess: ReportsActions.JOIN_LIST_COMPLETE,
         handleGetProfile: ReportsActions.GET_USER_PROFILE,
         handleGetProfileSuccess: ReportsActions.GET_USER_PROFILE_COMPLETE,
-        handleGetProfileError: ReportsActions.GET_USER_PROFILE_ERROR
+        handleGetProfileError: ReportsActions.GET_USER_PROFILE_ERROR,
+        handleSelected: ReportsActions.GET_SELECTED
     });
   }
 
+  handleSelected(data) {
+    this.selected = data;
+    this.emitChange();
+  }
   handleGetProfile() {
     this.userProfile = [];
+    this.joinList = [];
     this.emitChange();
   }
 
@@ -73,7 +81,6 @@ constructor() {
   }
 
   handleGetProfileSuccess(data) {
-    this.userProfile = data;
     this.emitChange();
   }
 
@@ -82,6 +89,24 @@ constructor() {
   }
 
   handleJoinListSuccess(data) {
+    let id = data.data;
+    for(let i = 0; i < this.globalreports.length; i++) {
+
+      if(this.globalreports[i]._id == id) {
+        if(this.globalreports[i].isListed == "fa fa-minus") {
+          this.globalreports[i].isListed = "fa fa-plus";
+          for(let k = 0; k < this.userProfile.joinList.length; k++) {
+            if(this.userProfile.joinList[k]._id == this.globalreports[i]._id) {
+              this.userProfile.joinList.splice(k,1);
+            }
+          }
+        }
+        else {
+          this.globalreports[i].isListed = "fa fa-minus";
+          this.userProfile.joinList.push(this.globalreports[i]);
+        }
+      }
+    }
     this.emitChange();
   }
   handleGlobalReports() {
@@ -89,6 +114,7 @@ constructor() {
     this.notComplete = [];
     this.newReport = [];
     this.userProfile = [];
+    this.joinList = [];
     this.isWaitingGet = true;
     this.emitChange();
   }
@@ -121,38 +147,53 @@ constructor() {
     let filler = [];
     let incomplete = [];
     let datar = data.data1;
+    let profiler = data.data2;
     let id = datar[datar.length-1];
     for(let i = 0; i < datar.length; i++) {
       if(datar[i].author == id || datar[i].owner == id){
         if(datar[i].isCompleted == false) {
           datar[i].buttonText = 'Set me as Complete';
           datar[i].buttonClass = 'btn btn-danger';
+          datar[i].isListed = "fa fa-plus";
           incomplete.push(datar[i]);
         }
         else {
           datar[i].buttonText = 'Set me as incomplete';
           datar[i].buttonClass = 'btn btn-success';
+          datar[i].isListed = "fa fa-plus";
         }
-        filler.push(datar[i]);
+        for(let v = 0; v < profiler.joinList.length; v++) {
+        if(datar[i]._id == profiler.joinList[v]._id) {
+            datar[i].isListed = "fa fa-minus";
+        }
+      }
+      filler.push(datar[i]);
       }
     }
+     
+     
+
 
     filler.sort(function(a, b) {
     a = new Date(a.date);
     b = new Date(b.date);
     return a>b ? -1 : a<b ? 1 : 0;
 });
-    this.globalreports = filler;
+
+   
+    
 
     incomplete.sort(function(a, b) {
     a = new Date(a.date);
     b = new Date(b.date);
     return a>b ? -1 : a<b ? 1 : 0;
 });
+    this.globalreports = filler;
     this.notComplete = incomplete;
     this.isWaitingGet = false;
     this.newReport = datar[datar.length - 1]._id;
     this.userProfile = data.data2;
+    this.joinList = data.data2.joinList;
     this.emitChange();
   }
 

@@ -27,6 +27,7 @@ _onChanges = () => {
 select = (item) => {
   this.props.selected = item;
   UserActions.getSelected(this.props.selected);
+  ReportsActions.getSelected(this.props.selected);
 }
 
 show = () => {
@@ -68,6 +69,7 @@ renderListItems() {
             }
             else {
               str = item.title;
+              console.log(str);
             }
             items.push(<div onClick={this.select.bind(null, item)}>
               <span style={{ color: 'black' }}>{str}</span>

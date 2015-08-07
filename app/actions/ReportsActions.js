@@ -4,6 +4,10 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 
 class ReportsActions {
   
+  getSelected(data) {
+    this.dispatch(data);
+  }
+
   joinList(data) {
     this.dispatch();
     ReportsWebAPIUtils.addJoinList(data)
@@ -16,7 +20,6 @@ class ReportsActions {
   }
 
   joinListComplete(data) {
-    this.actions.getUserProfile();
     this.dispatch(data);
   }
 

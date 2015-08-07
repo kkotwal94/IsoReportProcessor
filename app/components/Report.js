@@ -5,6 +5,7 @@ import ReportsStore from 'stores/ReportsStore';
 import ReportView from './ReportView';
 import CompleteButton from './CompleteButton';
 import Dropdown from './Dropdown';
+import Icon from './Icon';
 import {Link} from 'react-router';
 export default class Report extends React.Component {
 constructor(props) {
@@ -51,8 +52,9 @@ _onChanges = () => {
       allReports: ReportsStore.getState().reports,
       globalReports: ReportsStore.getState().globalreports,
       duplicate: ReportsStore.getState().globalreports,
-      userProfile: ReportsStore.getState().userProfile.joinList,
+      userProfile: ReportsStore.getState().userProfile,
       joinList: ReportsStore.getState().userProfile.joinList,
+      selected: ReportsStore.getState().selected
     });
 }
 
@@ -65,7 +67,6 @@ render() {
   let userProfile = this.state.userProfile;
   let joinList = this.state.joinList;
   let icon = "fa fa-plus";
-  console.log(userProfile);
   if(global == undefined) {
      global = [{title: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
   }
@@ -73,6 +74,11 @@ render() {
   if(joinList == undefined) {
      joinList = [{title: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
   }
+  else {
+    joinList = this.state.joinList;
+  }
+  let init = this.state.selected.title;
+  console.log(init);
   let searchByTitle = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._titleSearch}/>
 					<label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-4">
@@ -110,13 +116,13 @@ render() {
         <table className ="table table-bordered table-hover data-toggle table-striped">
         <thead>
         <tr>
-        <th>Title</th><th>Date</th> <th>Author</th> <th>View/Edit</th> <th>Set Complete/Incomplete</th>
+        <th>Options</th><th>Title</th><th>Date</th> <th>Author</th> <th>View/Edit</th> <th>Set Complete/Incomplete</th>
         </tr>
         </thead>
           <tbody>
           {global.map((report) =>
             <tr key={'report' + report._id}>
-              <td><i className = {icon} onClick = {function(event) { let data = report._id; ReportsActions.joinList({data: data}); }}></i>{"   " + report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><CompleteButton buttonText = {report.buttonText} buttonClass = {report.buttonClass} id = {report._id}/></td>
+              <td><Icon isList = {report.isListed} id = {report._id}/></td><td>{" " + report.title}</td> <td>{report.date}</td> <td>{report.authors}</td> <td><Link to ='singlereports' params ={{id: report._id}}>View/Edit</Link></td> <td><CompleteButton buttonText = {report.buttonText} buttonClass = {report.buttonClass} id = {report._id}/></td>
             </tr>
           )}
           </tbody>
@@ -158,13 +164,13 @@ render() {
         </div>
         <div className ="toMyEmployees4">
         <div className ="joinTool">
-        <h1>JoinList Title</h1>
+        <h1>{joinList.title}</h1>
         {titleInput}
         <div className ="joining">
         <button type="submit" className ="btn btn-lg btn-primary">Set Joined Report Title</button>
         </div>
         <div className = "joinings">
-         <Dropdown list = {joinList} selected="Well" />
+         <Dropdown list = {joinList} selected={init} />
          </div>
          <div className = "joinings2">
          <button className = "btn btn-lg btn-danger">Remove item</button>
