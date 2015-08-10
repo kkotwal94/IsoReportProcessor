@@ -13,6 +13,7 @@ constructor(props) {
   this.state.singleReport = [];
   this.state.listVisible = false;
   this.state.display ="";
+  
 	}
 
 componentDidMount() {
@@ -43,12 +44,13 @@ hide = () => {
 
 
 render(){
+  let selected = this.props.selected;
           if(this.props.selected == undefined) {
-            this.props.selected = {email: 'none', profile: {firstName: 'yup', lastName: 'yup'}};
+            this.props.selected = {email: 'Select Item', profile: {firstName: '', lastName: ''}};
           }
           return <div className={"dropdown-container" + (this.state.listVisible ? " show" : "")}>
             <div className={"dropdown-display" + (this.state.listVisible ? " clicked": "")} onClick={this.show}>
-              <span style={{ color: 'white' }}>{this.props.selected.email}</span>
+              <span style={{ color: 'white' }}>{selected}</span>
               <i style={{ color: 'red' }} className="fa fa-angle-down"></i>
             </div>
             <div className="dropdown-list">
@@ -69,7 +71,6 @@ renderListItems() {
             }
             else {
               str = item.title;
-              console.log(str);
             }
             items.push(<div onClick={this.select.bind(null, item)}>
               <span style={{ color: 'black' }}>{str}</span>

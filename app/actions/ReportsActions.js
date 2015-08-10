@@ -4,6 +4,36 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 
 class ReportsActions {
   
+  removeJoinDoc(data){
+    this.dispatch();
+    ReportsWebAPIUtils.removeJoinDoc(data)
+    .then((response, textStatus) => {
+      if(textStatus === 'success') {
+      this.actions.removeJoinDocComplete(data);
+    }
+  }, () => {
+  });
+  }
+
+  removeJoinDocComplete(data){
+    this.dispatch(data);
+  }
+
+  setTitle(data){
+    this.dispatch();
+    ReportsWebAPIUtils.setTitle(data)
+    .then((response, textStatus) => {
+      if(textStatus === 'success') {
+        this.actions.setTitleComplete(data);
+      }
+    }, () => {
+  });
+  }
+
+  setTitleComplete(data) {
+    this.dispatch(data);
+  }
+
   getSelected(data) {
     this.dispatch(data);
   }

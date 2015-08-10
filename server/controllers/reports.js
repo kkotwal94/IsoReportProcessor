@@ -288,6 +288,7 @@ exports.remove = function(req, res) {
     else {
     res.status(200).send('Removed Successfully');
   }
+  res.end();
   });
 };
 
@@ -341,6 +342,37 @@ exports.finalView = function(req, res) {
 
   };
 
+  exports.setTitle = function(req, res) {
+    var id = req.user._id;
+    var title = req.body.title;
+    User.findById(id, function(err, user) {
+      if(title == "") {
+        title = user.forms_container.title;
+      }
+      user.forms_container.title = title;
+      user.save();
+      res.end();
+    });
+  };
+
+ exports.removeJoinDoc = function(req, res){
+   var id = req.user._id;
+   var reportid = req.body.id;
+   User.findById(id, function(err, user) {
+   var length = user.forms_container.joinList.length;
+   var count = 0;
+   console.log(reportid._id);
+   console.log(user.forms_container.joinList);
+     for (var i = 0; i < length; i++) {
+        if(user.forms_container.joinList[i] == reportid._id){
+          console.log("hit");
+           user.forms_container.joinList.splice(i, 1);
+           user.save();
+           res.end();
+        }
+     }
+   });
+ };
 /**
  var depth = user.forms_container.joinList.length + 1;
       console.log(user.forms_container.joinList);

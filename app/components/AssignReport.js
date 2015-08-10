@@ -125,7 +125,7 @@ render() {
           <input type = "text" placeholder = "Report Title" ref = "title"/>
           <input type = "text" placeholder = "Report Date" ref = "date"/>
           <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter subreport here"></textarea>
-          <Dropdown list = {myEmployees} selected={initial} />
+          <Dropdown list = {myEmployees} selected={initial.email} />
           <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Subreport</button>
           </fieldset>);
     }

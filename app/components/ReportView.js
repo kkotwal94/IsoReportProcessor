@@ -5,18 +5,19 @@ import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
 let finalData = [];
 export default class ReportView extends React.Component {
-constructor(props) {
-  super(props);
+
+
+constructor(props, context) {
+  super(props, context);
   this.state = ReportsStore.getState();
   this.state.singleReport = [{subreport :["Hello"]}];
-  this.state.link = window.location.href;
   this.state.fullView = [];
 	}
-
+ static contextTypes = {
+        router: React.PropTypes.func.isRequired
+    }
 componentDidMount() {
-  let state = this.state.link;
-  state = state.split('/');
-  state = state[state.length-1];
+  let state = this.context.router.getCurrentParams().id;
   console.log(state);
  //this._fullView(this.state.singleReport);
   ReportsActions.getSoloReport(state);
@@ -47,10 +48,8 @@ _fullView = (data) => {
 
 _onDelete = () => {
   if(confirm("Are you sure you want to delete this report?")) {
-  let id = this.state.link;
+  let id = this.context.router.getCurrentParams().id;
   let location = '/reports';
-  id = id.split('/');
-  id = id[id.length-1];
   console.log(id);
   ReportsActions.removeReport({
     id : id
@@ -59,9 +58,8 @@ _onDelete = () => {
   }
 }
 render() {
-	let state = this.state.link;
-	state = state.split('/');
-	state = state[state.length - 1];
+  console.log(this.context.router.getCurrentParams().id);
+	let state = this.context.router.getCurrentParams().id;
   let reports = this.state.singleReport;
   let fr = "report"
 	console.log(reports);

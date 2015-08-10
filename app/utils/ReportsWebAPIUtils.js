@@ -95,7 +95,25 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
   });
-  } 
+  },
+
+  setTitle: (data) => {
+  return $.ajax({
+    url: '/setTitle',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(data)
+  });
+ },
+
+ removeJoinDoc: (data) => {
+  return $.ajax({
+    url: '/removeJoinDoc',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(data)
+  });
+}
 
 };
 export default utils;

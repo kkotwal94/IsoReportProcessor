@@ -10,6 +10,9 @@ var Report = mongoose.model('Report');
 // Import the webpack emitted bundle
 var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
+var Router = require('react-router');
+//var routes = require('../../app/routes');
+//var React = require('react');
 
 module.exports = function(app, passport) {
   // user routes
@@ -127,18 +130,23 @@ module.exports = function(app, passport) {
   app.get('/list', function(req, res) {
     report.popped(req, res);
   });
+
+  app.post('/setTitle', function(req, res) {
+    report.setTitle(req, res);
+  });
+
+  app.post('/removeJoinDoc', function(req, res) {
+    report.removeJoinDoc(req, res);
+  });
   // Retrieves all topics on any endpoint for demonstration purposes
   // If you were indeed doing this in production, you should instead only
   // query the Topics on a page that has topics
-   
-  
-
   // This is where the magic happens. We take the locals data we have already
   // fetched and seed our stores with data.
   // App is a function that requires store data and url to initialize and return the React-rendered html string
   // Exclude any image files or map files
   app.get('*', function (req, res, next) {
-    if (/(\.png$|\.map$|\.jpg$)/.test(req.url)) return;
+    
     var html = App(JSON.stringify(res.locals.data || {}), req.url);
     html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
@@ -148,6 +156,16 @@ module.exports = function(app, passport) {
     res.end(html);
   });
 
+/*
+  app.get('*', function (req, res) { // This wildcard method handles all requests
+
+    Router.run(routes, req.path, function (Handler, state) {
+        var element = React.createElement(Handler);
+        var html = React.renderToString(element);
+        res.render('main', { content: html });
+    });
+});
+*/
 //route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
    //if user is authenticated in the session, carry on

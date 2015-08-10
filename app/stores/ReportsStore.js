@@ -31,6 +31,7 @@ constructor() {
     this.isWaiting2;
     this.isWaiting3;
     this.isWaitingGet;
+    this.test = [];
     // (listenersMap: object): undefined
     // bindListeners accepts an object where the keys correspond to the method in your
     // StoreModel and the values can either be an array of action symbols or a single action symbol.
@@ -62,10 +63,44 @@ constructor() {
         handleGetProfile: ReportsActions.GET_USER_PROFILE,
         handleGetProfileSuccess: ReportsActions.GET_USER_PROFILE_COMPLETE,
         handleGetProfileError: ReportsActions.GET_USER_PROFILE_ERROR,
-        handleSelected: ReportsActions.GET_SELECTED
+        handleSelected: ReportsActions.GET_SELECTED,
+        handleSetTitle: ReportsActions.SET_TITLE,
+        handleSetTitleSuccess: ReportsActions.SET_TITLE_COMPLETE,
+        handleRemoveJoinDoc: ReportsActions.REMOVE_JOIN_DOC,
+        handleRemoveJoinDocComplete: ReportsActions.REMOVE_JOIN_DOC_COMPLETE
     });
   }
 
+  handleRemoveJoinDoc() {
+    this.test =[];
+    this.emitChange();
+  }
+
+  handleRemoveJoinDocComplete(data) {
+  let id = data.id._id;
+  this.test = id;
+  for(let i = 0; i < this.globalreports.length; i++) {
+    if(this.globalreports[i]._id == id) {
+      this.globalreports[i].isListed = "fa fa-plus";
+for(let k = 0; k < this.userProfile.joinList.length; k++) {
+            if(this.userProfile.joinList[k]._id == this.globalreports[i]._id) {
+              this.userProfile.joinList.splice(k,1);
+            }
+          }
+
+  }
+  }
+  this.emitChange();
+}
+
+  handleSetTitle() {
+    this.emitChange();
+  }
+
+  handleSetTitleSuccess(data) {
+    this.userProfile.title = data;
+    this.emitChange();
+  }
   handleSelected(data) {
     this.selected = data;
     this.emitChange();

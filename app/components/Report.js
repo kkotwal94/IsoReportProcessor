@@ -53,9 +53,25 @@ _onChanges = () => {
       globalReports: ReportsStore.getState().globalreports,
       duplicate: ReportsStore.getState().globalreports,
       userProfile: ReportsStore.getState().userProfile,
+      title: ReportsStore.getState().userProfile.title,
       joinList: ReportsStore.getState().userProfile.joinList,
+      test: ReportsStore.getState().test,
       selected: ReportsStore.getState().selected
     });
+}
+
+_onSetTitle = () => {
+  const title = React.findDOMNode(this.refs.title).value;
+  ReportsActions.setTitle({title: title});
+}
+
+_onRemove = () => {
+  if(confirm("Are you sure you want to delete this from the join/merge table?")) {
+  ReportsActions.removeJoinDoc({id:this.state.selected});
+  this.setState({
+  selected : {title: "Select a item"}
+  });
+}
 }
 
 
@@ -66,6 +82,8 @@ render() {
   let global = this.state.globalReports;
   let userProfile = this.state.userProfile;
   let joinList = this.state.joinList;
+  let title = this.state.title;
+  console.log(this.state.test);
   let icon = "fa fa-plus";
   if(global == undefined) {
      global = [{title: 'none', profile: {firstName: 'yup', lastName: 'yup'}}];
@@ -77,8 +95,13 @@ render() {
   else {
     joinList = this.state.joinList;
   }
+  if (title == undefined) {
+    title = "Default";
+  }
+  let dat = this.state.selected;
   let init = this.state.selected.title;
   console.log(init);
+  console.log(dat);
   let searchByTitle = (<span className="input input--hoshi">
 					<input className="input__field input__field--hoshi" type="text" id="input-6" onChange = {this._titleSearch}/>
 					<label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-4">
@@ -98,7 +121,7 @@ render() {
 					</label>
 					</span>);
   let titleInput = (<span className="input input--hoshi">
-          <input className="input__field input__field--hoshi" type="text" id="input-12"/>
+          <input className="input__field input__field--hoshi" type="text" id="input-12" ref="title"/>
           <label className="input__label input__label--hoshi input__label--hoshi-color-3" htmlFor="input-44">
             <span className="input__label-content input__label-content--hoshi">Insert Title here!</span>
           </label>
@@ -164,16 +187,16 @@ render() {
         </div>
         <div className ="toMyEmployees4">
         <div className ="joinTool">
-        <h1>{joinList.title}</h1>
+        <h1>{title}</h1>
         {titleInput}
         <div className ="joining">
-        <button type="submit" className ="btn btn-lg btn-primary">Set Joined Report Title</button>
+        <button type="submit" className ="btn btn-lg btn-primary" onClick={this._onSetTitle}>Set Joined Report Title</button>
         </div>
         <div className = "joinings">
          <Dropdown list = {joinList} selected={init} />
          </div>
          <div className = "joinings2">
-         <button className = "btn btn-lg btn-danger">Remove item</button>
+         <button className = "btn btn-lg btn-danger" onClick={this._onRemove}>Remove item</button>
          </div>
          <div className = "joinings2">
          <button className ="btn btn-lg btn-danger">Create joined document</button>
