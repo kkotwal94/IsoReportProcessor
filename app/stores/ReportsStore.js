@@ -67,8 +67,17 @@ constructor() {
         handleSetTitle: ReportsActions.SET_TITLE,
         handleSetTitleSuccess: ReportsActions.SET_TITLE_COMPLETE,
         handleRemoveJoinDoc: ReportsActions.REMOVE_JOIN_DOC,
-        handleRemoveJoinDocComplete: ReportsActions.REMOVE_JOIN_DOC_COMPLETE
+        handleRemoveJoinDocComplete: ReportsActions.REMOVE_JOIN_DOC_COMPLETE,
+        handleJoin: ReportsActions.JOIN,
+        handleJoinComplete: ReportsActions.JOIN_COMPLETE
     });
+  }
+  handleJoin() {
+    this.emitChange();
+  }
+
+  handleJoinComplete(){
+    this.emitChange();
   }
 
   handleRemoveJoinDoc() {
@@ -90,6 +99,7 @@ for(let k = 0; k < this.userProfile.joinList.length; k++) {
 
   }
   }
+  this.selected = {title: "Select a item"};
   this.emitChange();
 }
 

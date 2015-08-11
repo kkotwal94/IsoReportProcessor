@@ -74,6 +74,12 @@ _onRemove = () => {
 }
 }
 
+_onJoin = () => {
+  if(confirm("Are you sure you want to create this merged document?")) {
+    ReportsActions.join();
+  }
+}
+
 
 
 render() {
@@ -199,7 +205,7 @@ render() {
          <button className = "btn btn-lg btn-danger" onClick={this._onRemove}>Remove item</button>
          </div>
          <div className = "joinings2">
-         <button className ="btn btn-lg btn-danger">Create joined document</button>
+         <button className ="btn btn-lg btn-danger" onClick = {this._onJoin}>Create joined document</button>
          </div>
         </div>
         </div>

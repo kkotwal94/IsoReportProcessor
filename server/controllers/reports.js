@@ -5,6 +5,9 @@ var User = mongoose.model('User');
 var Promise = require('bluebird');
     Promise.promisifyAll(mongoose);
 
+var dupe = [];
+//mongoose.set('debug', true)
+
 /**
  * List
  */
@@ -24,6 +27,54 @@ exports.popped = function(req, res) {
     res.json(user.forms_container);
   });
 }
+
+
+exports.join = function(req, res){
+  User.findById(req.user._id, function(err, user) {
+     var dupe = []; //placeholder array
+     var arr = user.forms_container.joinList;
+     var title = user.forms_container.title;
+     var myDate = Date();
+     var newDoc = new Report();
+     var tracker = 0;
+     newDoc.author = req.user;
+     var authorName = req.user.profile.firstName + " " + req.user.profile.lastName;
+     console.log(authorName);
+     newDoc.authors.set(0, authorName);
+     newDoc.date = myDate;
+     newDoc.owner = req.user;
+     //console.log(newDoc);
+     //newDoc.save();
+     arr.forEach(function (rep) {
+      //console.log(rep);
+      Report.findById(rep).deepPopulate('subreport.subreport.subreport.subreport.subreport.subreport').execAsync()
+      .then(function(doc) {
+        //console.log(doc);
+        dupe.push(doc);
+        treeCycle(doc, dupe);
+        console.log(dupe);
+      }).catch(function(err) {
+        throw err;
+      });
+      tracker = tracker + 1;
+      
+      if(tracker == arr.length) {
+        var counter = 0;
+        var masterbody;
+        for(var x = 0; x < dupe.length; x++) {
+           masterbody = masterbody + dupe[x].body;
+           counter = counter + 1;
+        }
+        if(counter==dupe.length) {
+          newDoc.body = masterbody;
+          //newDoc.save();
+          res.json(newDoc);
+        }
+      }
+     });
+      
+  });
+};
 
 /*exports.allMyReports2 = function(req, res) {
   var id = req.user._id;
@@ -420,3 +471,46 @@ exports.finalView = function(req, res) {
     
     return false;
 }
+
+
+
+/** Works but is slower in updating names
+exports.all = function(req, res) {
+  var totalproc = 0;
+  Report.find({}).exec(function(err, reports) {
+    if(!err) {
+      reports.forEach(function (person) {
+        User.findById(person.author, function(err, user) {
+          if (!err) {
+                        person.authors[0] = user.profile.firstName + " " + user.profile.lastName;
+                        person.save();
+                        totalproc = totalproc + 1;
+      
+                    }
+          if(totalproc == reports.length) {
+             reports.push(req.user._id);
+             res.json(reports);
+          } 
+        });
+      });
+    }else {
+      console.log('Error in first query');
+    }
+  });
+};
+**/
+
+function treeCycle(doc, arr) {
+  if(doc.subreport.length != 0) {
+    for (var x = 0; x < doc.subreport.length; x++){
+      arr.push(doc.subreport[x]);
+      //console.log(arr);
+      if(doc.subreport[x].subreport.length != 0) {
+        treeCycle(doc.subreport[x], arr);
+      }
+    }
+  }
+  else {
+    return arr;
+  }
+};

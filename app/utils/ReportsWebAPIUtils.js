@@ -97,6 +97,14 @@ const utils = {
   });
   },
 
+  join: () => {
+    return $.ajax({
+      url: '/join',
+      type: 'POST',
+      contentType: 'application/json',
+    });
+  },
+
   setTitle: (data) => {
   return $.ajax({
     url: '/setTitle',

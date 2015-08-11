@@ -3,6 +3,21 @@ import ReportsWebAPIUtils from 'utils/ReportsWebAPIUtils';
 import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 
 class ReportsActions {
+
+  join() {
+    this.dispatch();
+    ReportsWebAPIUtils.join()
+    .then((response, textStatus) => {
+      if(textStatus === 'success') {
+      this.actions.joinComplete();
+      }
+    }, () => {
+   });
+  }
+
+  joinComplete() {
+    this.dispatch();
+  }
   
   removeJoinDoc(data){
     this.dispatch();

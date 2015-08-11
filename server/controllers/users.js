@@ -1,6 +1,9 @@
+var mongoose = require('mongoose');
 var _ = require('lodash');
 var User = require('../models/user');
+var Report = require('../models/report');
 var passport = require('passport');
+var Report = mongoose.model('Report');
 /**
  * POST /login
  */
@@ -45,13 +48,18 @@ exports.getMyProfile = function(req, res) {
         });
 };
 
-exports.updateMyProfile = function(req, res) {
+     exports.updateMyProfile = function(req, res) {
       var id = req.user._id;
+      var didChange = true;
+      var didChange2 = true;
+      var tracker = 0;
       if (req.body.firstName == "") {
         req.body.firstName = req.user.profile.firstName;
+        didChange = false;
       }
       if (req.body.lastName == "") {
         req.body.lastName = req.user.profile.lastName;
+        didChange2 = false;
       }
       if (req.body.dob == "") {
         req.body.dob = req.user.profile.dob;
@@ -64,15 +72,49 @@ exports.updateMyProfile = function(req, res) {
       }
 
       User.findById(id, function(err, user) {
+        console.log("ID: " + id);
         user.profile.firstName = req.body.firstName;
         user.profile.lastName = req.body.lastName;
         user.profile.dob = req.body.dob;
         user.profile.department = req.body.department;
         user.profile.position = req.body.position;
         user.save();
-        res.end();
       });
+        
+        if(didChange == true || didChange2 == true) {
+          Report.find({}, function(err, report) {
+            report.forEach(function (rep) {
+              
+               if(String(rep.author[0]) == String(id)) {
+                console.log("IF HIT");
+                var newAuthorName = req.body.firstName + " " + req.body.lastName;
+                rep.authors.set(0, newAuthorName);
+                rep.save(function(err) {
+                  if (!err) {
+                    console.log("Success");
+                  }
+                  else {
+                    console.log(err);
+                  }
+                });
+                console.log(rep);
+               }
+               tracker = tracker+1;
+               if(tracker == report.length){
+                console.log(tracker);
+                console.log("finish");
+                res.json(req.body);
+               }
+            });
+              });
+               
+        }
+        else {
+        console.log("Hit");
+        res.end();
+      }
 };
+
 /**
  * GET all employees who belong to that user
  */
@@ -190,3 +232,71 @@ exports.postSignUp = function(req, res, next) {
     });
   });
 };
+
+/**
+exports.updateMyProfile = function(req, res) {
+      var id = req.user._id;
+      var didChange = true;
+      var didChange2 = true;
+      var tracker = 0;
+      if (req.body.firstName == "") {
+        req.body.firstName = req.user.profile.firstName;
+        didChange = false;
+      }
+      if (req.body.lastName == "") {
+        req.body.lastName = req.user.profile.lastName;
+        didChange2 = false;
+      }
+      if (req.body.dob == "") {
+        req.body.dob = req.user.profile.dob;
+      }
+      if (req.body.department == "") {
+        req.body.department = req.user.profile.department;
+      }
+      if (req.body.position == "") {
+        req.body.position = req.user.profile.position;
+      }
+
+      User.findById(id, function(err, user) {
+        console.log("ID: " + id);
+        user.profile.firstName = req.body.firstName;
+        user.profile.lastName = req.body.lastName;
+        user.profile.dob = req.body.dob;
+        user.profile.department = req.body.department;
+        user.profile.position = req.body.position;
+        user.save();
+      });
+        
+        if(didChange == true || didChange2 == true) {
+          Report.find({}, function(err, report) {
+            report.forEach(function (rep) {
+              
+               if(String(rep.author[0]) == String(id)) {
+                console.log("IF HIT");
+                rep.authors[0] = req.body.firstName + " " + req.body.lastName;
+                rep.save(function(err) {
+                  if (!err) {
+                    console.log("Success");
+                  }
+                  else {
+                    console.log(err);
+                  }
+                });
+                console.log(rep);
+               }
+               tracker = tracker+1;
+               if(tracker == report.length){
+                console.log(tracker);
+                console.log("finish");
+                res.json(req.body);
+               }
+            });
+              });
+               
+        }
+        else {
+        console.log("Hit");
+        res.end();
+      }
+};
+**/

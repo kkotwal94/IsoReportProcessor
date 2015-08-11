@@ -138,6 +138,10 @@ module.exports = function(app, passport) {
   app.post('/removeJoinDoc', function(req, res) {
     report.removeJoinDoc(req, res);
   });
+
+  app.post('/join', function(req, res) {
+    report.join(req, res);
+  });
   // Retrieves all topics on any endpoint for demonstration purposes
   // If you were indeed doing this in production, you should instead only
   // query the Topics on a page that has topics
@@ -155,7 +159,6 @@ module.exports = function(app, passport) {
     res.contentType = "text/html; charset=utf8";
     res.end(html);
   });
-
 /*
   app.get('*', function (req, res) { // This wildcard method handles all requests
 
