@@ -15,6 +15,11 @@ constructor(props) {
 componentDidMount() {
 ReportsActions.getMyReports();
 ReportsStore.listen(this._onChange);
+CKEDITOR.replace( 'ckedits', {
+  allowedContent : true,      
+  pasteFromWordRemoveFontStyles : false,
+  pasteFromWordRemoveStyles : false
+  });
 	}
 
 componentWillUnmount() {
@@ -29,6 +34,8 @@ ReportsStore.unlisten(this._onChange);
   }
 
 _onCreateReport = () => {
+  for ( var instance in CKEDITOR.instances )
+        CKEDITOR.instances[instance].updateElement();
   const title = React.findDOMNode(this.refs.title).value;
   const date = React.findDOMNode(this.refs.date).value;
   const body = React.findDOMNode(this.refs.body).value;
@@ -106,7 +113,7 @@ render() {
           renderedResult = (<fieldset className = "fieldSet2">
           <input type = "text" placeholder = "Give the document a title" ref = "title"/>
           <input type = "text" placeholder = "Enter date here.." ref = "date"/>
-          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter Body Here"></textarea>
+          <textarea className = "ckeditor" name = "ckedits" id = "ckedit" ref = "body" defaultValue = "Enter Body Here"></textarea>
           <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Report</button>
           </fieldset>);
    }

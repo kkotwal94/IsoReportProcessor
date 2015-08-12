@@ -16,6 +16,7 @@ class ReportsActions {
   }
 
   joinComplete() {
+    this.actions.getGlobalReports();
     this.dispatch();
   }
   

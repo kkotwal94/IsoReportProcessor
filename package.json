@@ -2,7 +2,7 @@
   "name": "reportprocessor",
   "version": "1.0.0",
   "description": "Processing reports with isomorphic react",
-  "main": "node_modules/alloy-editor/alloy-editor-core.js",
+  "main": "./bower_components/alloyeditor/dist/alloy-editor/alloy-editor-core.js",
   "scripts": {
     "start": "node server/server.js",
     "build": "webpack --progress",

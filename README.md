@@ -6,9 +6,10 @@ Isomorphic Report processor
 * Set up API for post and get request for merging documents(didn't test yet however via POSTMAN)
 * Added actions/stores for merging reports
 * Added in more convenient routing panels
+* JoinTable, to merge documents (add, remove, delete)
+* Merging items in that table
 
 #ToDO:
-* Join Forms
 * Grid view of employees
 * Grid view of Reports
 * Create a report template
@@ -20,7 +21,7 @@ Isomorphic Report processor
 * Spamming routes in chrome(~50 times) freezes up data fetching on chrome
 * Alias on webpack can't find Alloy-editor
 * Navbar doesn't know which route we are on therefore animation doesn't change marker :/
-* Refresh on nested route can't load 'window.href' (should use react router to pull route)
+* Reloading css on refresh at nested route, and local data
 
 #About:
 

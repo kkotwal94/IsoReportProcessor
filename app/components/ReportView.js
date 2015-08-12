@@ -125,14 +125,14 @@ render() {
         <ul>
         {
         reports.map((report => 
-        <div className = "AEmp">
+        <div className = "AEmp2">
         <div className = "searchTable">
           <h1>{report.title}</h1>
           <h1>{"Author: " + report.authors}</h1>
           <Link to = "editreports" params ={{id: report._id}}><div className = "EditButton redgay">Edit</div></Link>
         </div>
         <div id = "editable">
-        {report.body}
+        <div dangerouslySetInnerHTML={{__html: report.body}} />
         </div>
         </div>
         

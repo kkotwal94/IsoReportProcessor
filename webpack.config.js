@@ -72,21 +72,25 @@ module.exports = [
             "&includePaths[]=" + (path.resolve(__dirname, "./bower_components")) +
             "&includePaths[]=" + (path.resolve(__dirname, "./node_modules")) +
             '&includePaths[]=' + (path.resolve(__dirname, './node_modules/alloy-editor/assets')))
-        }
+        } 
       ])
     },
     resolve: {
+      root: [path.join(__dirname, "bower_components")],
       extensions: ['', '.react.js', '.js', '.jsx', '.scss', '.css'],
       modulesDirectories: [
-        "app", "node_modules"
+        "app", "node_modules", "bower_components"
       ],
       alias: {
-      alloyeditor : '../../node_modules/alloyeditor/alloy-editor-core.js'
+      alloyeditor : '../../bower_components/alloyeditor/dist/alloy-editor/alloy-editor-core'
       }
     },
     plugins: [
         // extract inline css from modules into separate files
-        new ExtractTextPlugin("styles/main.css")
+        new ExtractTextPlugin("styles/main.css"),
+         new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+        )
     ]
   }, {
     // The configuration for the server-side rendering

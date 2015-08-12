@@ -82,6 +82,7 @@ _onRemoveAll = () => {
 
 _onJoin = () => {
   if(confirm("Are you sure you want to create this merged document?")) {
+    //setTimeout(function() {ReportsActions.removeAllJoinDoc();}, 50000);
     ReportsActions.join();
   }
 }

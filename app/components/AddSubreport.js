@@ -25,6 +25,11 @@ componentDidMount() {
   UserActions.buttonAction();
   ReportsStore.listen(this._onChanges);
   UserStore.listen(this._onUserChanges);
+  CKEDITOR.replace( 'ckeditor', {
+  allowedContent : true,      
+  pasteFromWordRemoveFontStyles : false,
+  pasteFromWordRemoveStyles : false
+  });
 	}
 
 componentWillUnmount() {
@@ -61,6 +66,8 @@ _change = () => {
 }
 
 _onCreateReport = () => {
+  for ( var instance in CKEDITOR.instances )
+        CKEDITOR.instances[instance].updateElement();
   let state = this.state.link; 
   console.log(this.state.selectedId);
   state = state.split('/');
@@ -146,7 +153,7 @@ render() {
       renderedResult = ( <fieldset className = "fieldSet2">
           <input type = "text" placeholder = "Sub Report Title" ref = "title"/>
           <input type = "text" placeholder = "Sub Report Data" ref = "date"/>
-          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter subreport here"></textarea>
+          <textarea className = "ckeditor" name = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter subreport here"></textarea>
           <Dropdown list = {myEmployees} selected={initial.email} />
           <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Subreport</button>
           </fieldset>);
