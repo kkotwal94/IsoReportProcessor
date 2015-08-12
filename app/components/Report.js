@@ -74,6 +74,12 @@ _onRemove = () => {
 }
 }
 
+_onRemoveAll = () => {
+  if(confirm("Are you sure you want to clear your join/merge table?")) {
+    ReportsActions.removeAllJoinDoc();
+  }
+}
+
 _onJoin = () => {
   if(confirm("Are you sure you want to create this merged document?")) {
     ReportsActions.join();
@@ -205,7 +211,10 @@ render() {
          <button className = "btn btn-lg btn-danger" onClick={this._onRemove}>Remove item</button>
          </div>
          <div className = "joinings2">
-         <button className ="btn btn-lg btn-danger" onClick = {this._onJoin}>Create joined document</button>
+         <button className = "btn btn-lg btn-danger" onClick={this._onRemoveAll}>Remove all</button>
+         </div>
+         <div className = "joinings2">
+         <button className ="btn btn-lg btn-danger" onClick = {this._onJoin}>Merge documents</button>
          </div>
         </div>
         </div>

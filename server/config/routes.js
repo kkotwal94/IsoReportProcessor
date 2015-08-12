@@ -138,7 +138,11 @@ module.exports = function(app, passport) {
   app.post('/removeJoinDoc', function(req, res) {
     report.removeJoinDoc(req, res);
   });
-
+  
+  app.post('/removeallJoinDoc', function(req, res) {
+    report.removeallJoinDoc(req, res);
+  });
+  
   app.post('/join', function(req, res) {
     report.join(req, res);
   });

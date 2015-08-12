@@ -101,7 +101,7 @@ const utils = {
     return $.ajax({
       url: '/join',
       type: 'POST',
-      contentType: 'application/json',
+      contentType: 'application/json'
     });
   },
 
@@ -120,6 +120,14 @@ const utils = {
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify(data)
+  });
+},
+
+removeallJoinDoc: () => {
+  return $.ajax({
+    url: '/removeallJoinDoc',
+    type: 'POST',
+    contentType: 'application/json'
   });
 }
 

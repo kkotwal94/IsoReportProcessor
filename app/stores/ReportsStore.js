@@ -69,8 +69,23 @@ constructor() {
         handleRemoveJoinDoc: ReportsActions.REMOVE_JOIN_DOC,
         handleRemoveJoinDocComplete: ReportsActions.REMOVE_JOIN_DOC_COMPLETE,
         handleJoin: ReportsActions.JOIN,
-        handleJoinComplete: ReportsActions.JOIN_COMPLETE
+        handleJoinComplete: ReportsActions.JOIN_COMPLETE,
+        handleRemoveAllJoinDoc: ReportsActions.REMOVE_ALL_JOIN_DOC,
+        handleRemoveAllJoinDocComplete: ReportsActions.REMOVE_ALL_JOIN_DOC_COMPLETE
     });
+  }
+
+  handleRemoveAllJoinDoc() {
+    this.emitChange();
+  }
+
+  handleRemoveAllJoinDocComplete() {
+    for(let i = 0; i < this.globalreports.length; i++){
+      this.globalreports[i].isListed = "fa fa-plus";
+    }
+    this.userProfile.joinList = [];
+    this.selected = {title: "Add a item from the table"};
+    this.emitChange();
   }
   handleJoin() {
     this.emitChange();

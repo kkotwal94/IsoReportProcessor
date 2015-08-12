@@ -43,37 +43,42 @@ exports.join = function(req, res){
      newDoc.authors.set(0, authorName);
      newDoc.date = myDate;
      newDoc.owner = req.user;
+     newDoc.title = title;
      //console.log(newDoc);
-     //newDoc.save();
+     newDoc.save();
      arr.forEach(function (rep) {
-      //console.log(rep);
-      Report.findById(rep).deepPopulate('subreport.subreport.subreport.subreport.subreport.subreport').execAsync()
-      .then(function(doc) {
-        //console.log(doc);
-        dupe.push(doc);
-        treeCycle(doc, dupe);
-        console.log(dupe);
-      }).catch(function(err) {
-        throw err;
-      });
-      tracker = tracker + 1;
-      
-      if(tracker == arr.length) {
-        var counter = 0;
-        var masterbody;
-        for(var x = 0; x < dupe.length; x++) {
-           masterbody = masterbody + dupe[x].body;
-           counter = counter + 1;
-        }
-        if(counter==dupe.length) {
-          newDoc.body = masterbody;
-          //newDoc.save();
-          res.json(newDoc);
-        }
-      }
-     });
-      
-  });
+      console.log(rep);
+                  Report.findById(rep).deepPopulate('subreport.subreport.subreport.subreport.subreport.subreport').execAsync()
+                .then(function(doc) {
+                    //console.log(doc);
+                    dupe.push(doc);
+                    treeCycle(doc, dupe);
+                    //console.log(dupe);
+
+                    tracker = tracker + 1;
+
+                    if (tracker == arr.length) {
+                        //console.log(dupe); //returns [];
+                        var counter = 0;
+                        var masterbody ="";
+                        for (var x = 0; x < dupe.length; x++) {
+                            masterbody = masterbody + " " + dupe[x].body;
+                            counter = counter + 1;
+                        }
+                        if (counter == dupe.length) {
+                            newDoc.body = masterbody;
+                            console.log(newDoc.body);
+                            newDoc.save();
+                            res.json(newDoc);
+                        }
+                    }
+
+                }).catch(function(err) {
+                    throw err;
+                });
+        });
+
+    });
 };
 
 /*exports.allMyReports2 = function(req, res) {
@@ -423,6 +428,15 @@ exports.finalView = function(req, res) {
         }
      }
    });
+ };
+
+ exports.removeallJoinDoc = function(req, res){
+  var id = req.user._id;
+  User.findById(id, function(err, user) {
+     user.forms_container.joinList = [];
+     user.save();
+     res.end();
+  });
  };
 /**
  var depth = user.forms_container.joinList.length + 1;

@@ -19,6 +19,21 @@ class ReportsActions {
     this.dispatch();
   }
   
+  removeAllJoinDoc() {
+    this.dispatch();
+    ReportsWebAPIUtils.removeallJoinDoc()
+    .then((response, textStatus) => {
+      if(textStatus === 'success') {
+        this.actions.removeAllJoinDocComplete();
+      }
+    }, () => {
+   });
+  }
+
+  removeAllJoinDocComplete() {
+    this.dispatch();
+  }
+
   removeJoinDoc(data){
     this.dispatch();
     ReportsWebAPIUtils.removeJoinDoc(data)
