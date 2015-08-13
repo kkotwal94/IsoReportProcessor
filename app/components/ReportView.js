@@ -3,6 +3,7 @@ import {Link,State, Route} from 'react-router';
 import Router from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
+//require("jspdf");
 let finalData = [];
 export default class ReportView extends React.Component {
 
@@ -22,6 +23,8 @@ componentDidMount() {
  //this._fullView(this.state.singleReport);
   ReportsActions.getSoloReport(state);
   ReportsStore.listen(this._onChanges);
+  //CKEDITOR.instances['ckedit'].destroy();
+  //CKEDITOR.remove(CKEDITOR.instances['ckedit']);
 	}
 
 componentWillUnmount() {
@@ -55,6 +58,32 @@ _onDelete = () => {
     id : id
   });
   setTimeout(function() {window.location.href = '/reportsall';}, 1);
+  }
+}
+
+_saveDoc = () => {
+  let total = "";
+  for(let i = 0; i < this.state.singleReport.length; i++) {
+    total = total + "<br>" + this.state.singleReport[i].body;
+  }
+  let pd = document.getElementById("searchTable").innerHTML;
+  console.log(pd);
+  if(confirm("Do you want to download and save this document as a pdf?")) {
+   let doc = new jsPDF('p', 'pt', 'letter'), source = total, 
+   specialElementHandlers = {
+  // element with id of "bypass" - jQuery style selector
+  "#bypassme": function(element, renderer){
+    // true = "handled elsewhere, bypass text extraction"
+    return true
+  }
+},
+   margins = {
+    top: 10,
+    bottom: 15,
+    left: 40,
+    width: 522
+  };
+   doc.fromHTML(source, margins.left, margins.top, {'width' : margins.width, 'elementHandlers': specialElementHandlers}, function(dispose) { doc.save('Test.pdf')}, margins);
   }
 }
 render() {
@@ -101,12 +130,10 @@ render() {
         <div className ="toMyEmployees4">
         <div className="containers1">
   <div className="spacer">
-   <Link to="dashboard">
-    <a className="wide blue">
+    <a className="wide blue" onClick = {this._saveDoc}>
     <i className="fa fa-print"></i>
-      <h2>Print this report</h2>
+      <h2>Save/Print this report</h2>
     </a>
-    </Link>
     </div>
     </div>
         </div>
@@ -126,7 +153,7 @@ render() {
         {
         reports.map((report => 
         <div className = "AEmp2">
-        <div className = "searchTable">
+        <div className = "searchTable" id = "searchTable">
           <h1>{report.title}</h1>
           <h1>{"Author: " + report.authors}</h1>
           <Link to = "editreports" params ={{id: report._id}}><div className = "EditButton redgay">Edit</div></Link>

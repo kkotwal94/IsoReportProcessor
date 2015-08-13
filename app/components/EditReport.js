@@ -3,6 +3,7 @@ import {Link,State, Route} from 'react-router';
 import Router from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
+import $ from 'jquery';
 //require('alloyeditor');
 //require('../../node_modules/alloy-editor/ckeditor');
 //require('../../bower_components/alloyeditor/dist/alloy-editor/alloy-editor-no-react');
@@ -22,7 +23,9 @@ componentDidMount() {
   state = state[state.length-2];
   ReportsActions.getSoloReport(state);
   ReportsStore.listen(this._onChanges);
-  CKEDITOR.replace( 'ckedit', {
+  //let editor = CKEDITOR.instances['ckedit'];
+  //if(editor) {editor.destroy(true); }
+ CKEDITOR.replace( 'ckedit', {
   allowedContent : true,      
   pasteFromWordRemoveFontStyles : false,
   pasteFromWordRemoveStyles : false
@@ -39,7 +42,11 @@ _onChanges = () => {
       duplicate: ReportsStore.getState().singleReport,
       editReport: ReportsStore.getState().editReport
     });
-
+  CKEDITOR.instances['ckedit'].setData(this.state.editReport.body , {
+    callback: function() {
+        this.checkDirty(); // true
+    } 
+  });
 }
 
 _onCreateReport = () => {
@@ -73,17 +80,30 @@ render() {
   }
   
   let state = this.state.link;
+  if(CKEDITOR.instances['ckedit'] == undefined) {
+    console.log('not defined');
+  }
+  else {
+    console.log(CKEDITOR.instances['ckedit'].getData());
+    console.log(CKEDITOR.instances);
+   /*CKEDITOR.instances['ckedit'].setData(ckbody , {
+    callback: function() {
+        this.checkDirty(); // true
+    } 
+  });*/
+ }
+  
   state = state.split('/');
   state = state[state.length-2];
   return(
     <div>
     <main>
-    <h1>Hello im trying to edit</h1>
+    <h1>{"Editing " + editReport.title} </h1>
     <fieldset className = "fieldSet2">
           <input type = "text" placeholder = {editReport.title} ref = "title"/>
           <input type = "text" placeholder = {editReport.date} ref = "date"/>
           <textarea className = "ckeditor" id = "ckedit" ref = "body" name = "ckedit" defaultValue = {editReport.body}>{editReport.body}</textarea>
-          <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Edit Report</button>
+          <Link to= "singlereports" params ={{id: state}}><button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Edit Report</button></Link>
           </fieldset>
           <div className ="toMyEmployees2">
         <div className="containers1">

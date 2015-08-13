@@ -11,8 +11,9 @@ var Report = mongoose.model('Report');
 var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
 var Router = require('react-router');
+var React = require('react');
 //var routes = require('../../app/routes');
-//var React = require('react');
+//require("babel-core").transform("code", options);
 
 module.exports = function(app, passport) {
   // user routes
@@ -163,6 +164,7 @@ module.exports = function(app, passport) {
     res.contentType = "text/html; charset=utf8";
     res.end(html);
   });
+
 /*
   app.get('*', function (req, res) { // This wildcard method handles all requests
 
