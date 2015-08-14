@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import ReportsActions from 'actions/ReportsActions';
 import ReportsStore from 'stores/ReportsStore';
 
-var treecycle = x => {return x * x;};
 export default class NewReport extends React.Component {
 constructor(props) {
   super(props);
@@ -20,6 +19,8 @@ CKEDITOR.replace( 'ckedits', {
   pasteFromWordRemoveFontStyles : false,
   pasteFromWordRemoveStyles : false
   });
+console.log(CKEDITOR.instances);
+console.log("called");
 	}
 
 componentWillUnmount() {
@@ -33,7 +34,7 @@ ReportsStore.unlisten(this._onChange);
     });
   }
 
-_onCreateReport = () => {
+_onCreateReport = (event) => {
   for ( var instance in CKEDITOR.instances )
         CKEDITOR.instances[instance].updateElement();
   const title = React.findDOMNode(this.refs.title).value;
@@ -44,18 +45,29 @@ _onCreateReport = () => {
         date: date,
         body: body
     });
+  
   ReportsActions.getGlobalReports();
-  return false;
 }
 
 _change = () => {
   this.setState({
     isWaiting : "blah"
   });
+var editor = CKEDITOR.instances['ckedits'];
+if (editor) { editor.destroy(true); }
+CKEDITOR.on('instanceDestroyed', function(evt){
+CKEDITOR.replaceAll('ckedits');
+});
+//CKEDITOR.replaceAll();
+  /*CKEDITOR.replace( 'ckedits', {
+  allowedContent : true,      
+  pasteFromWordRemoveFontStyles : false,
+  pasteFromWordRemoveStyles : false
+  });*/
 }
 
 render() {
-  console.log(treecycle(2));
+  //console.log(treecycle(2));
   let reports = this.state.reports;
   let route = reports[0];
 
@@ -65,10 +77,10 @@ render() {
   else{
     route = route._id;
   }
-  console.log(route);
-  console.log(reports);
+  //console.log(route);
+  //console.log(reports);
   let renderedResult;
-  console.log(this.state.isWaiting);
+  //console.log(this.state.isWaiting);
   if(this.state.isWaiting == true) {
     renderedResult = (<h1 className = "fieldSet2">Currently creating Document.....</h1>);
   }
@@ -113,7 +125,7 @@ render() {
           renderedResult = (<fieldset className = "fieldSet2">
           <input type = "text" placeholder = "Give the document a title" ref = "title"/>
           <input type = "text" placeholder = "Enter date here.." ref = "date"/>
-          <textarea className = "ckeditor" name = "ckedits" id = "ckedit" ref = "body" defaultValue = "Enter Body Here"></textarea>
+          <textarea className = "ckedits" name = "ckedits" id = "ckedits" ref = "body" defaultValue = "Enter Body Here"></textarea>
           <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Report</button>
           </fieldset>);
    }

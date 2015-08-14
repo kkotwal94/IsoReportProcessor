@@ -14,6 +14,7 @@ const utils = {
     return $.ajax({
       url: '/allReports',
       type: 'GET',
+      crossDomain: true,
       cache:false
     });
   },
@@ -22,6 +23,7 @@ const utils = {
     return $.ajax({
       url: '/myreports',
       type: 'GET',
+      crossDomain: true,
       cache:false
     });
   },
@@ -30,6 +32,7 @@ const utils = {
     return $.ajax({
       url: '/report/' + id,
       type: 'GET',
+      crossDomain: true,
       cache:false
     });
   },
@@ -38,6 +41,7 @@ const utils = {
     return $.ajax({
       url: '/finalView/' + id,
       type: 'GET' ,
+      crossDomain: true,
       cache:false
     });
   },

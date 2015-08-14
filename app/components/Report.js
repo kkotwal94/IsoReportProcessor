@@ -69,7 +69,7 @@ _onRemove = () => {
   if(confirm("Are you sure you want to delete this from the join/merge table?")) {
   ReportsActions.removeJoinDoc({id:this.state.selected});
   this.setState({
-  selected : {title: "Select a item"}
+  selected : {title: "Select a item or add one from the table"}
   });
 }
 }
@@ -178,10 +178,10 @@ render() {
     <div className ="toMyEmployees3">
         <div className="containers1">
   <div className="spacer">
-   <Link to="templatereport">
+   <Link to="assignReport">
     <a className="wide redgay">
-    <i className="fa fa-file-text"></i>
-      <h2>Create a template</h2>
+    <i className="fa fa-level-down"></i>
+      <h2>Assign a Report</h2>
     </a>
     </Link>
     </div>

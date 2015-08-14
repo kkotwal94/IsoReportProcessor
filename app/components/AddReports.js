@@ -14,10 +14,10 @@ render() {
       <h2>Create a completely new Report</h2>
     </a>
     </Link>
-    <Link to="templatereport">
+    <Link to="assignReport">
     <a className="wide redgay">
-    <i className="fa fa-file-text"></i>
-      <h2>Create a report based of a template</h2>
+    <i className="fa fa-level-down"></i>
+      <h2>Assign Report to a employee</h2>
     </a>
     </Link>
     <Link to="dashboard">
@@ -28,16 +28,7 @@ render() {
     </Link>
     </div>
     </div>
-    <div className="containers">
-  <div className="spacer">
-   <Link to="assignReport">
-    <a className="wide redgay">
-    <i className="fa fa-level-down"></i>
-      <h2>Assign a report to a employee</h2>
-    </a>
-    </Link>
-    </div>
-    </div>
+    
     </div>
         </main>
       </div>

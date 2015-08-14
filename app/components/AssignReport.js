@@ -20,6 +20,11 @@ componentDidMount() {
   ReportsActions.getMyReports();
   ReportsStore.listen(this._onChanges);
   UserStore.listen(this._onUserChanges);
+  CKEDITOR.replace( 'ckediter', {
+  allowedContent : true,      
+  pasteFromWordRemoveFontStyles : false,
+  pasteFromWordRemoveStyles : false
+  });
 	}
 
 componentWillUnmount() {
@@ -57,6 +62,8 @@ _change = () => {
 }
 
 _onCreateReport = () => {
+  for ( var instance in CKEDITOR.instances )
+        CKEDITOR.instances[instance].updateElement();
   const title = React.findDOMNode(this.refs.title).value;
   const date = React.findDOMNode(this.refs.date).value;
   const body = React.findDOMNode(this.refs.body).value;
@@ -111,7 +118,7 @@ render() {
 
     <div className="containers1">
   <div className="spacer">
-   <a className="wide lime" onClick = {this._change}>
+   <a className="wide lime" onClick = {this._change} href ="/user">
     <i className="fa fa-file-o"></i>
       <h2>Create another report</h2>
     </a>
@@ -124,9 +131,9 @@ render() {
       renderedResult = ( <fieldset className = "fieldSet2">
           <input type = "text" placeholder = "Report Title" ref = "title"/>
           <input type = "text" placeholder = "Report Date" ref = "date"/>
-          <textarea className = "ckeditor" id = "ckedit" ref = "body" defaultValue = "Enter subreport here"></textarea>
+          <textarea className = "ckeditor" id = "ckediter" ref = "body" defaultValue = "Enter subreport here"></textarea>
           <Dropdown list = {myEmployees} selected={initial.email} />
-          <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Subreport</button>
+          <button type="submit" rows = "5" cols = "5" className ="superButton" onClick={this._onCreateReport}>Add Assigned Report</button>
           </fieldset>);
     }
   }

@@ -23,7 +23,7 @@ module.exports = function (app, passport) {
   app.use(bodyParser.urlencoded({extended: true})); //same with utf-8
   app.use(methodOverride());
   app.use(express.static(path.join(__dirname, '../..', 'public')));
-
+  
   // I am adding this here so that the Heroku deploy will work
   // Indicates the app is behind a front-facing proxy,
   // and to use the X-Forwarded-* headers to determine the connection and the IP address of the client.
