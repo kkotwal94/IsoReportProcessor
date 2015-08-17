@@ -53,11 +53,6 @@ _change = () => {
   this.setState({
     isWaiting : "blah"
   });
-var editor = CKEDITOR.instances['ckedits'];
-if (editor) { editor.destroy(true); }
-CKEDITOR.on('instanceDestroyed', function(evt){
-CKEDITOR.replaceAll('ckedits');
-});
 //CKEDITOR.replaceAll();
   /*CKEDITOR.replace( 'ckedits', {
   allowedContent : true,      
@@ -112,7 +107,7 @@ render() {
 
     <div className="containers1">
   <div className="spacer">
-   <a className="wide lime" onClick = {this._change}>
+   <a className="wide lime" onClick = {this._change} href = "/newreport">
     <i className="fa fa-file-o"></i>
       <h2>Create another report</h2>
     </a>
