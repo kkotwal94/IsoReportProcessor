@@ -201,21 +201,30 @@ exports.edit = function(req, res) {
   Report.findById(id, function(err, form) {
     if(err) {
       res.redirect('/404NotFound');
+
     }
     else {
-    if (req.body.body == "") {
+      if(!err) {
+      console.log(form);
+    if (req.body.body == "" && form != null) {
       req.body.body = form.body;
     }
-    if (req.body.title == "") {
+    if (req.body.title == "" && form != null) {
       req.body.title = form.title;
     }
-
+  if(form != null) {
     form.body = req.body.body;
     form.title = req.body.title;
     form.save();
+    res.json(req.body);
   }
+  else {
+    console.log('Hit');
+    res.redirect('/404NotFound');
+  }
+}
+}
   });
-  res.json(req.body);
 }
 exports.addSubReport = function(req,res) {
         
@@ -233,9 +242,11 @@ exports.addSubReport = function(req,res) {
             res.redirect('/404NotFound');
           }
           else {
+            if (report != null) {
             report.subreport.push(subform);
             subform.parentReport = report;
             report.save();
+            }
           }
         });
         User.findById(req.body.id, function (err, user) {
@@ -346,8 +357,10 @@ exports.remove = function(req, res) {
   Report.findByIdAndRemove(id, function(err, data) {
     if(err) {console.log('Error on delete'); res.redirect('/404NotFound');}
     else {
+      if(data != null) {
     res.status(200).send('Removed Successfully');
   }
+}
   res.end();
   });
 };
