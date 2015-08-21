@@ -27,8 +27,9 @@ export default class Login extends React.Component {
   }
 
   _onLoginSubmit = () => {
-    const email = React.findDOMNode(this.refs.email).value;
+    let email = React.findDOMNode(this.refs.email).value;
     const password = React.findDOMNode(this.refs.password).value;
+    email = email.toLowerCase();
     UserActions.manuallogin({
       email: email,
       password: password
