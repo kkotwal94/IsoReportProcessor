@@ -67,7 +67,8 @@ render() {
   //console.log(treecycle(2));
   let reports = this.state.reports;
   let route = reports[0];
-
+  console.log(reports);
+  console.log(route);
   if (route == undefined) {
     route = 123;
   }

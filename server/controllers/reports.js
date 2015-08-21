@@ -112,7 +112,8 @@ var id = req.user._id;
                 
                 User.findById(person.author, function (err, user) {
                     if (!err) {
-                        person.authors[0] = user.profile.firstName + " " + user.profile.lastName;
+                        var newAuthor = user.profile.firstName + " " + user.profile.lastName;
+                        person.authors.set(0, newAuthor);
                         person.save();
                         totalproc = totalproc + 1;
       
@@ -185,7 +186,8 @@ exports.add = function(req, res) {
   var form = new Report(req.body);
   form.owner = req.user;
   form.author.push(req.user);
-  form.authors[0] = req.user.profile.firstName + " " + req.user.profile.lastName;
+  var newAuthor = req.user.profile.firstName + " " + req.user.profile.lastName;
+  form.authors.set(0, newAuthor);
   form.date = myDate;
   form.save();
   req.user.forms_created.push(form);
@@ -239,7 +241,8 @@ exports.addSubReport = function(req,res) {
         User.findById(req.body.id, function (err, user) {
             user.forms_created.push(subform);
             subform.owner = req.user;
-            subform.authors[0] = user.profile.firstName + " " + user.profile.lastName;
+            var newauthor = user.profile.firstName + " " + user.profile.lastName;
+            subform.authors.set(0, newauthor);
             subform.author = user;
             subform.save();
         });
@@ -259,7 +262,8 @@ exports.assignToEmployee = function(req, res){
   req.user.save();
   User.findById(req.body.id, function(err, user) {
     form.author = user;
-    form.authors[0] = user.profile.firstName + " " + user.profile.lastName;
+    var newauthor = user.profile.firstName + " " + user.profile.lastName;
+    form.authors.set(0, newauthor);
     form.save();
   });
   form.save();
@@ -273,8 +277,8 @@ var id = req.body._id;
         var array = [];
         Report.findById(id, function (err, form) {
             User.findById(form.author, function (err, author) {
-                
-                form.author[0] = author.local.firstName + " " + author.local.lastName;
+                 authorname = author.local.firstName + " " + author.local.lastName;
+                form.author.set(0, authorname);
                 
                 array.push(form);
                 console.log(array);
