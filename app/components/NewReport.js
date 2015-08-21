@@ -14,11 +14,13 @@ constructor(props) {
 componentDidMount() {
 ReportsActions.getMyReports();
 ReportsStore.listen(this._onChange);
+setTimeout(function() {
 CKEDITOR.replace( 'ckedits', {
   allowedContent : true,      
   pasteFromWordRemoveFontStyles : false,
   pasteFromWordRemoveStyles : false
   });
+}, 1);
 console.log(CKEDITOR.instances);
 console.log("called");
 	}
@@ -50,15 +52,15 @@ _onCreateReport = (event) => {
 }
 
 _change = () => {
+  CKEDITOR.replace( 'ckedits', {
+  allowedContent : true,      
+  pasteFromWordRemoveFontStyles : false,
+  pasteFromWordRemoveStyles : false
+  });
   this.setState({
     isWaiting : "blah"
   });
 //CKEDITOR.replaceAll();
-  /*CKEDITOR.replace( 'ckedits', {
-  allowedContent : true,      
-  pasteFromWordRemoveFontStyles : false,
-  pasteFromWordRemoveStyles : false
-  });*/
 }
 
 render() {

@@ -113,10 +113,10 @@ render() {
     <div className ="toMyEmployees3">
         <div className="containers1">
   <div className="spacer">
-   <Link to="templatereport">
+  <Link to="assignReport">
     <a className="wide redgay">
-    <i className="fa fa-file-text"></i>
-      <h2>Create a template</h2>
+    <i className="fa fa-level-down"></i>
+      <h2>Assign a Report</h2>
     </a>
     </Link>
     </div>

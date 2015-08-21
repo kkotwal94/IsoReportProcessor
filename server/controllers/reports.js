@@ -53,7 +53,7 @@ exports.join = function(req, res){
                     //console.log(doc);
                     dupe.push(doc);
                     treeCycle(doc, dupe);
-                    //console.log(dupe);
+                    console.log(dupe);
 
                     tracker = tracker + 1;
 

@@ -33,11 +33,7 @@ export default class NavMenu extends React.Component {
       Menu
       <span></span>
     </a>
-    <a className="cd-logo">
-    </a>
-    <a>
-    {userProf.email}
-    </a>
+    
   </header>
   <nav className="cd-3d-nav-container">
     <ul className="cd-3d-nav">
@@ -69,3 +65,12 @@ export default class NavMenu extends React.Component {
   }
 
 }
+
+/**
+back button
+<a className="cd-logo">
+    </a>
+    <a>
+    {userProf.email}
+    </a>
+**/

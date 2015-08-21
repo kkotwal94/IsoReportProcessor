@@ -56,6 +56,13 @@ _onUserChanges = () => {
 }
 
 _change = () => {
+  var editor = CKEDITOR.instances['ckediter'];
+    if (editor) { editor.destroy(true); }
+    CKEDITOR.replace( 'ckediter', {
+  allowedContent : true,      
+  pasteFromWordRemoveFontStyles : false,
+  pasteFromWordRemoveStyles : false
+  });
   this.setState({
     isWaiting : "blah"
   });
